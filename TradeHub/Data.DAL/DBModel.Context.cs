@@ -28,11 +28,11 @@ namespace Data.DAL
         public virtual DbSet<Community> Communities { get; set; }
         public virtual DbSet<CommunityAnnouncement> CommunityAnnouncements { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Offert> Offerts { get; set; }
         public virtual DbSet<ToolPicture> ToolPictures { get; set; }
         public virtual DbSet<Tool> Tools { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Notification> Notifications { get; set; }
     }
 }

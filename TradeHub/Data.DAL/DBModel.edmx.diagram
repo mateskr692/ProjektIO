@@ -4,10 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="050afe08c7364fd49e7764a7369d03f2" Name="Diagram1">
+      <Diagram DiagramId="f336e48b016242d497d8f77cc873d3f4" Name="Diagram1">
         <EntityTypeShape EntityType="TradehubModel.Community" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TradehubModel.CommunityAnnouncement" Width="1.5" PointX="8.25" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TradehubModel.Message" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradehubModel.Notification" Width="1.5" PointX="5.25" PointY="15.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TradehubModel.Offert" Width="1.5" PointX="8.25" PointY="16.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TradehubModel.ToolPicture" Width="1.5" PointX="10.5" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TradehubModel.Tool" Width="1.5" PointX="8.25" PointY="8.625" IsExpanded="true" />
@@ -17,6 +18,7 @@
         <AssociationConnector Association="TradehubModel.FK_CommunityAnnouncements_Users" ManuallyRouted="false" />
         <AssociationConnector Association="TradehubModel.FK_Messages_Users_Receiver" ManuallyRouted="false" />
         <AssociationConnector Association="TradehubModel.FK_Messages_Users_Sender" ManuallyRouted="false" />
+        <AssociationConnector Association="TradehubModel.FK_Notifications_Users" ManuallyRouted="false" />
         <AssociationConnector Association="TradehubModel.FK_Offerts_Tools_Receiver" ManuallyRouted="false" />
         <AssociationConnector Association="TradehubModel.FK_Offerts_Tools_Sender" ManuallyRouted="false" />
         <AssociationConnector Association="TradehubModel.FK_Offerts_Users_Receiver" ManuallyRouted="false" />
@@ -31,8 +33,6 @@
         <AssociationConnector Association="TradehubModel.CommunityBannedUsers" ManuallyRouted="false" />
         <AssociationConnector Association="TradehubModel.CommunityHiddenTools" ManuallyRouted="false" />
         <AssociationConnector Association="TradehubModel.CommunityUsers" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TradehubModel.Notification" Width="1.5" PointX="5.25" PointY="16.125" />
-        <AssociationConnector Association="TradehubModel.FK_Notifications_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

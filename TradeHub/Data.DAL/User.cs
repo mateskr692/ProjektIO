@@ -20,15 +20,16 @@ namespace Data.DAL
             this.CommunityAnnouncements = new HashSet<CommunityAnnouncement>();
             this.Messages = new HashSet<Message>();
             this.Messages1 = new HashSet<Message>();
+            this.Notifications = new HashSet<Notification>();
             this.Offerts = new HashSet<Offert>();
             this.Offerts1 = new HashSet<Offert>();
             this.Tools = new HashSet<Tool>();
             this.Transactions = new HashSet<Transaction>();
+            this.Transactions1 = new HashSet<Transaction>();
             this.Users1 = new HashSet<User>();
             this.Users = new HashSet<User>();
             this.Communities = new HashSet<Community>();
             this.Communities1 = new HashSet<Community>();
-            this.Notifications = new HashSet<Notification>();
         }
     
         public long Id { get; set; }
@@ -51,6 +52,8 @@ namespace Data.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notifications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Offert> Offerts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Offert> Offerts1 { get; set; }
@@ -59,6 +62,8 @@ namespace Data.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
@@ -66,7 +71,5 @@ namespace Data.DAL
         public virtual ICollection<Community> Communities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Community> Communities1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

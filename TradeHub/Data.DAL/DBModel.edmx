@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TradehubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TradehubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BlockedUsers">
           <Key>
             <PropertyRef Name="SenderId" />
@@ -63,7 +63,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Content" Type="nvarchar" MaxLength="2000" />
-          <Property Name="SendOn" Type="datetime" Nullable="false" />
+          <Property Name="SendDate" Type="datetime" Nullable="false" />
           <Property Name="SenderId" Type="bigint" />
           <Property Name="ReceiverId" Type="bigint" />
         </EntityType>
@@ -535,7 +535,8 @@
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TradehubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -571,11 +572,21 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="SendOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SendDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SenderId" Type="Int64" />
           <Property Name="ReceiverId" Type="Int64" />
           <NavigationProperty Name="User" Relationship="Self.FK_Messages_Users_Receiver" FromRole="Messages" ToRole="Users" />
           <NavigationProperty Name="User1" Relationship="Self.FK_Messages_Users_Sender" FromRole="Messages" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Notifications_Users" FromRole="Notifications" ToRole="Users" />
         </EntityType>
         <EntityType Name="Offert">
           <Key>
@@ -665,15 +676,16 @@
           <NavigationProperty Name="CommunityAnnouncements" Relationship="Self.FK_CommunityAnnouncements_Users" FromRole="Users" ToRole="CommunityAnnouncements" />
           <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_Users_Receiver" FromRole="Users" ToRole="Messages" />
           <NavigationProperty Name="Messages1" Relationship="Self.FK_Messages_Users_Sender" FromRole="Users" ToRole="Messages" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notifications_Users" FromRole="Users" ToRole="Notifications" />
           <NavigationProperty Name="Offerts" Relationship="Self.FK_Offerts_Users_Receiver" FromRole="Users" ToRole="Offerts" />
           <NavigationProperty Name="Offerts1" Relationship="Self.FK_Offerts_Users_Sender" FromRole="Users" ToRole="Offerts" />
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Users" FromRole="Users" ToRole="Tools" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Users_Borrower" FromRole="Users" ToRole="Transactions" />
+          <NavigationProperty Name="Transactions1" Relationship="Self.FK_Transactions_Users_Lender" FromRole="Users" ToRole="Transactions" />
           <NavigationProperty Name="Users1" Relationship="Self.BlockedUsers" FromRole="Users" ToRole="Users1" />
           <NavigationProperty Name="Users" Relationship="Self.BlockedUsers" FromRole="Users1" ToRole="Users" />
           <NavigationProperty Name="Communities" Relationship="Self.CommunityBannedUsers" FromRole="Users" ToRole="Communities" />
           <NavigationProperty Name="Communities1" Relationship="Self.CommunityUsers" FromRole="Users" ToRole="Communities" />
-          <NavigationProperty Name="Notifications" Relationship="TradehubModel.FK_Notifications_Users" FromRole="User" ToRole="Notification" />
         </EntityType>
         <Association Name="FK_CommunityAnnouncements_Communities">
           <End Role="Communities" Type="Self.Community" Multiplicity="1" />
@@ -720,6 +732,20 @@
             </Principal>
             <Dependent Role="Messages">
               <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Notifications" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -867,6 +893,7 @@
           <EntitySet Name="Communities" EntityType="Self.Community" />
           <EntitySet Name="CommunityAnnouncements" EntityType="Self.CommunityAnnouncement" />
           <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
           <EntitySet Name="Offerts" EntityType="Self.Offert" />
           <EntitySet Name="ToolPictures" EntityType="Self.ToolPicture" />
           <EntitySet Name="Tools" EntityType="Self.Tool" />
@@ -887,6 +914,10 @@
           <AssociationSet Name="FK_Messages_Users_Sender" Association="Self.FK_Messages_Users_Sender">
             <End Role="Users" EntitySet="Users" />
             <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Users" Association="Self.FK_Notifications_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notifications" EntitySet="Notifications" />
           </AssociationSet>
           <AssociationSet Name="FK_Offerts_Tools_Receiver" Association="Self.FK_Offerts_Tools_Receiver">
             <End Role="Tools" EntitySet="Tools" />
@@ -944,36 +975,7 @@
             <End Role="Communities" EntitySet="Communities" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="Notifications" EntityType="TradehubModel.Notification" />
-          <AssociationSet Name="FK_Notifications_Users" Association="TradehubModel.FK_Notifications_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Notification" EntitySet="Notifications" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Notification">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="Int32" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="TradehubModel.FK_Notifications_Users" FromRole="Notification" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_Notifications_Users">
-          <End Type="TradehubModel.User" Role="User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="TradehubModel.Notification" Role="Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1007,9 +1009,19 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="SendOn" ColumnName="SendOn" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
                 <ScalarProperty Name="SenderId" ColumnName="SenderId" />
                 <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="TradehubModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1120,16 +1132,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Notifications">
-            <EntityTypeMapping TypeName="TradehubModel.Notification">
-              <MappingFragment StoreEntitySet="Notifications">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

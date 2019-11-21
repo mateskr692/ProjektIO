@@ -3,7 +3,7 @@
 	 [Id]					BIGINT			NOT NULL	IDENTITY (1,1)
 	,[Title]				NVARCHAR(100)	NOT NULL
 	,[Content]				NVARCHAR(2000)	NULL
-	,[SendOn]				DATETIME		NOT NULL
+	,[SendDate]				DATETIME		NOT NULL
 
 	,[SenderId]				BIGINT			NULL
 	,[ReceiverId]			BIGINT			NULL

@@ -17,7 +17,7 @@ namespace Data.DAL
         public long Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public System.DateTime SendOn { get; set; }
+        public System.DateTime SendDate { get; set; }
         public Nullable<long> SenderId { get; set; }
         public Nullable<long> ReceiverId { get; set; }
     
