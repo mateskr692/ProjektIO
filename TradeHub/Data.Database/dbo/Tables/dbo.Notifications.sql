@@ -4,9 +4,9 @@
 	,[Type]			INT				NOT NULL
 	,[Content]		NVARCHAR(2000)	NULL
 
-	,[UsedId]		BIGINT			NOT NULL
+	,[UserId]		BIGINT			NOT NULL
 
 
 	,CONSTRAINT [PK_Notifications]			PRIMARY KEY		([Id])
-	,CONSTRAINT [FK_Notifications_Users]	FOREIGN KEY		([UsedId])		REFERENCES	[dbo].[Users]([Id])		ON DELETE CASCADE
+	,CONSTRAINT [FK_Notifications_Users]	FOREIGN KEY		([UserId])		REFERENCES	[dbo].[Users]([Id])		ON DELETE CASCADE
 )
