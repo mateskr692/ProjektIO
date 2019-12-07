@@ -74,5 +74,6 @@
     <Build Include="dbo\Tables\dbo.CommunityUsers.sql" />
     <Build Include="dbo\Tables\dbo.CommunityBannedUsers.sql" />
     <Build Include="dbo\Tables\dbo.CommunityHiddenTools.sql" />
+    <Build Include="dbo\Tables\dbo.Requests.sql" />
   </ItemGroup>
 </Project>

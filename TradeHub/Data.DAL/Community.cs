@@ -18,6 +18,7 @@ namespace Data.DAL
         public Community()
         {
             this.CommunityAnnouncements = new HashSet<CommunityAnnouncement>();
+            this.Requests = new HashSet<Request>();
             this.Users = new HashSet<User>();
             this.Tools = new HashSet<Tool>();
             this.Users1 = new HashSet<User>();
@@ -30,6 +31,8 @@ namespace Data.DAL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CommunityAnnouncement> CommunityAnnouncements { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -23,6 +23,7 @@ namespace Data.DAL
             this.Notifications = new HashSet<Notification>();
             this.Offerts = new HashSet<Offert>();
             this.Offerts1 = new HashSet<Offert>();
+            this.Requests = new HashSet<Request>();
             this.Tools = new HashSet<Tool>();
             this.Transactions = new HashSet<Transaction>();
             this.Transactions1 = new HashSet<Transaction>();
@@ -57,6 +58,8 @@ namespace Data.DAL
         public virtual ICollection<Offert> Offerts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Offert> Offerts1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tool> Tools { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

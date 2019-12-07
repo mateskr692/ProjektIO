@@ -43,13 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\MessageSorting.cs" />
-    <Compile Include="Enums\SortingOrder.cs" />
-    <Compile Include="Enums\ToolSorting.cs" />
-    <Compile Include="Enums\UserSorting.cs" />
+    <Compile Include="Enums\NotificationType.cs" />
+    <Compile Include="Enums\RequestType.cs" />
+    <Compile Include="Enums\ValidationStatus.cs" />
+    <Compile Include="Enums\VisibilityType.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
-    <Compile Include="Filters\ISortable.cs" />
-    <Compile Include="Filters\MessageFilters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

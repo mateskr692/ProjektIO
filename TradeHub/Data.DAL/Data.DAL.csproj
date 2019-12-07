@@ -92,6 +92,13 @@
     <Compile Include="Relationships\Tool.cs" />
     <Compile Include="Relationships\Transaction.cs" />
     <Compile Include="Relationships\User.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\CommunityRepository.cs" />
+    <Compile Include="Repositories\MessageRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Request.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tool.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -101,6 +108,7 @@
     <Compile Include="Transaction.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="User.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -118,6 +126,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Filters\Common.Filters.csproj">
+      <Project>{4E62587A-EEC1-49D6-9BB3-E9E0746CA944}</Project>
+      <Name>Common.Filters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{DD9C6783-3BF4-4CC1-A099-D59EA3368AB2}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="DbModel.Context.tt">

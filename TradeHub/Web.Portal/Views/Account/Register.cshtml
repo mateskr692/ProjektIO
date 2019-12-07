@@ -1,0 +1,66 @@
+﻿@model UserRegisterViewModel
+
+@using ( Html.BeginForm( "Register", "User" ) )
+{
+    <h3>Required</h3>
+    <div>
+        @Html.LabelFor( m => m.Email )
+        @Html.TextBoxFor( m => m.Email )
+        @Html.ValidationMessageFor( m => m.Email )
+    </div>
+    <div>
+        @Html.LabelFor( m => m.Login )
+        @Html.TextBoxFor( m => m.Login )
+        @Html.ValidationMessageFor( m => m.Login )
+    </div>
+    <div>
+        @Html.LabelFor( m => m.Password )
+        @Html.PasswordFor( m => m.Password )
+        @Html.ValidationMessageFor( m => m.Password )
+    </div>
+
+    <h3>Optional</h3>
+    <br />
+
+    <h4>Name</h4>
+    <div>
+        @Html.LabelFor( m => m.FirstName )
+        @Html.TextBoxFor( m => m.FirstName )
+    </div>
+    <div>
+        @Html.LabelFor( m => m.LastName )
+        @Html.TextBoxFor( m => m.LastName )
+    </div>
+    <div>
+        @Html.LabelFor( m => m.NameVisibility )
+        @Html.EnumDropDownListFor( m => m.NameVisibility )
+    </div>
+
+    <h4>Adress</h4>
+    <div>
+        @Html.LabelFor( m => m.Adress )
+        @Html.TextBoxFor( m => m.Adress )
+    </div>
+    <div>
+        @Html.LabelFor( m => m.AdressVisibility )
+        @Html.EnumDropDownListFor( m => m.AdressVisibility )
+    </div>
+
+    <h4>Contact</h4>
+    <div>
+        @Html.LabelFor( m => m.Contact )
+        @Html.TextBoxFor( m => m.Contact )
+    </div>
+    <div>
+        @Html.LabelFor( m => m.ContactVisibility )
+        @Html.EnumDropDownListFor( m => m.ContactVisibility )
+    </div>
+
+    <div>
+        <button type="submit">Register</button>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render( "~/bundles/jqueryval" )
+}

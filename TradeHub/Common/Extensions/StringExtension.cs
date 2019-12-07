@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Extensions
 {
+    //dodawanie wlasnych metod do istniejacych klas
     public static class StringExtension
     {
         /// <summary>
@@ -15,6 +16,8 @@ namespace Common.Extensions
         /// <returns></returns>
         public static bool Like( this string ob, string value )
         {
+            //przy filtorwaniu np spolecznosci chcemy ignorowac wielkosc znakow wiec trzeba robic .ToLower().Contains( .ToLower())
+            //zrobmy metode ktora robi to za nas
             return ob.ToUpper().Contains( value.ToUpper() );
         }
     }

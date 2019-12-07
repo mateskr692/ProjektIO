@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TradehubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="tradehubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BlockedUsers">
           <Key>
             <PropertyRef Name="SenderId" />
@@ -88,6 +88,15 @@
           <Property Name="ReceiverId" Type="bigint" />
           <Property Name="SenderToolId" Type="bigint" />
           <Property Name="ReceiverToolId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Requests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="CommunityId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="ToolPictures">
           <Key>
@@ -352,6 +361,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Requests_Communities">
+          <End Role="Communities" Type="Self.Communities" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="CommunityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ToolPictures_Tools">
           <End Role="Tools" Type="Self.Tools" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -428,7 +465,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TradehubModelStoreContainer">
+        <EntityContainer Name="tradehubModelStoreContainer">
           <EntitySet Name="BlockedUsers" EntityType="Self.BlockedUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Communities" EntityType="Self.Communities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommunityAnnouncements" EntityType="Self.CommunityAnnouncements" Schema="dbo" store:Type="Tables" />
@@ -438,6 +475,7 @@
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Offerts" EntityType="Self.Offerts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToolPictures" EntityType="Self.ToolPictures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tools" EntityType="Self.Tools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
@@ -510,6 +548,14 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Offerts" EntitySet="Offerts" />
           </AssociationSet>
+          <AssociationSet Name="FK_Requests_Communities" Association="Self.FK_Requests_Communities">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_Users" Association="Self.FK_Requests_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
           <AssociationSet Name="FK_ToolPictures_Tools" Association="Self.FK_ToolPictures_Tools">
             <End Role="Tools" EntitySet="Tools" />
             <End Role="ToolPictures" EntitySet="ToolPictures" />
@@ -539,7 +585,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="TradehubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="tradehubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Community">
           <Key>
             <PropertyRef Name="Id" />
@@ -549,6 +595,7 @@
           <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CommunityAnnouncements" Relationship="Self.FK_CommunityAnnouncements_Communities" FromRole="Communities" ToRole="CommunityAnnouncements" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Communities" FromRole="Communities" ToRole="Requests" />
           <NavigationProperty Name="Users" Relationship="Self.CommunityBannedUsers" FromRole="Communities" ToRole="Users" />
           <NavigationProperty Name="Tools" Relationship="Self.CommunityHiddenTools" FromRole="Communities" ToRole="Tools" />
           <NavigationProperty Name="Users1" Relationship="Self.CommunityUsers" FromRole="Communities" ToRole="Users" />
@@ -604,6 +651,17 @@
           <NavigationProperty Name="Tool1" Relationship="Self.FK_Offerts_Tools_Sender" FromRole="Offerts" ToRole="Tools" />
           <NavigationProperty Name="User" Relationship="Self.FK_Offerts_Users_Receiver" FromRole="Offerts" ToRole="Users" />
           <NavigationProperty Name="User1" Relationship="Self.FK_Offerts_Users_Sender" FromRole="Offerts" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="CommunityId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Community" Relationship="Self.FK_Requests_Communities" FromRole="Requests" ToRole="Communities" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Requests_Users" FromRole="Requests" ToRole="Users" />
         </EntityType>
         <EntityType Name="ToolPicture">
           <Key>
@@ -679,6 +737,7 @@
           <NavigationProperty Name="Notifications" Relationship="Self.FK_Notifications_Users" FromRole="Users" ToRole="Notifications" />
           <NavigationProperty Name="Offerts" Relationship="Self.FK_Offerts_Users_Receiver" FromRole="Users" ToRole="Offerts" />
           <NavigationProperty Name="Offerts1" Relationship="Self.FK_Offerts_Users_Sender" FromRole="Users" ToRole="Offerts" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Users" FromRole="Users" ToRole="Requests" />
           <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Users" FromRole="Users" ToRole="Tools" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Users_Borrower" FromRole="Users" ToRole="Transactions" />
           <NavigationProperty Name="Transactions1" Relationship="Self.FK_Transactions_Users_Lender" FromRole="Users" ToRole="Transactions" />
@@ -695,6 +754,20 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CommunityAnnouncements">
+              <PropertyRef Name="CommunityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_Communities">
+          <End Role="Communities" Type="Self.Community" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
               <PropertyRef Name="CommunityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -797,6 +870,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Requests_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ToolPictures_Tools">
           <End Role="Tools" Type="Self.Tool" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -895,6 +982,7 @@
           <EntitySet Name="Messages" EntityType="Self.Message" />
           <EntitySet Name="Notifications" EntityType="Self.Notification" />
           <EntitySet Name="Offerts" EntityType="Self.Offert" />
+          <EntitySet Name="Requests" EntityType="Self.Request" />
           <EntitySet Name="ToolPictures" EntityType="Self.ToolPicture" />
           <EntitySet Name="Tools" EntityType="Self.Tool" />
           <EntitySet Name="Transactions" EntityType="Self.Transaction" />
@@ -902,6 +990,10 @@
           <AssociationSet Name="FK_CommunityAnnouncements_Communities" Association="Self.FK_CommunityAnnouncements_Communities">
             <End Role="Communities" EntitySet="Communities" />
             <End Role="CommunityAnnouncements" EntitySet="CommunityAnnouncements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_Communities" Association="Self.FK_Requests_Communities">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
           <AssociationSet Name="FK_CommunityAnnouncements_Users" Association="Self.FK_CommunityAnnouncements_Users">
             <End Role="Users" EntitySet="Users" />
@@ -934,6 +1026,10 @@
           <AssociationSet Name="FK_Offerts_Users_Sender" Association="Self.FK_Offerts_Users_Sender">
             <End Role="Users" EntitySet="Users" />
             <End Role="Offerts" EntitySet="Offerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_Users" Association="Self.FK_Requests_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
           <AssociationSet Name="FK_ToolPictures_Tools" Association="Self.FK_ToolPictures_Tools">
             <End Role="Tools" EntitySet="Tools" />
@@ -981,9 +1077,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TradehubModelStoreContainer" CdmEntityContainer="tradehubEntities">
+        <EntityContainerMapping StorageEntityContainer="tradehubModelStoreContainer" CdmEntityContainer="tradehubEntities">
           <EntitySetMapping Name="Communities">
-            <EntityTypeMapping TypeName="TradehubModel.Community">
+            <EntityTypeMapping TypeName="tradehubModel.Community">
               <MappingFragment StoreEntitySet="Communities">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -993,7 +1089,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CommunityAnnouncements">
-            <EntityTypeMapping TypeName="TradehubModel.CommunityAnnouncement">
+            <EntityTypeMapping TypeName="tradehubModel.CommunityAnnouncement">
               <MappingFragment StoreEntitySet="CommunityAnnouncements">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -1004,7 +1100,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Messages">
-            <EntityTypeMapping TypeName="TradehubModel.Message">
+            <EntityTypeMapping TypeName="tradehubModel.Message">
               <MappingFragment StoreEntitySet="Messages">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -1016,7 +1112,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Notifications">
-            <EntityTypeMapping TypeName="TradehubModel.Notification">
+            <EntityTypeMapping TypeName="tradehubModel.Notification">
               <MappingFragment StoreEntitySet="Notifications">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
@@ -1026,7 +1122,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Offerts">
-            <EntityTypeMapping TypeName="TradehubModel.Offert">
+            <EntityTypeMapping TypeName="tradehubModel.Offert">
               <MappingFragment StoreEntitySet="Offerts">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProposedReturn" ColumnName="ProposedReturn" />
@@ -1039,8 +1135,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="tradehubModel.Request">
+              <MappingFragment StoreEntitySet="Requests">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CommunityId" ColumnName="CommunityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ToolPictures">
-            <EntityTypeMapping TypeName="TradehubModel.ToolPicture">
+            <EntityTypeMapping TypeName="tradehubModel.ToolPicture">
               <MappingFragment StoreEntitySet="ToolPictures">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PictureData" ColumnName="PictureData" />
@@ -1049,7 +1155,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tools">
-            <EntityTypeMapping TypeName="TradehubModel.Tool">
+            <EntityTypeMapping TypeName="tradehubModel.Tool">
               <MappingFragment StoreEntitySet="Tools">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1062,7 +1168,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transactions">
-            <EntityTypeMapping TypeName="TradehubModel.Transaction">
+            <EntityTypeMapping TypeName="tradehubModel.Transaction">
               <MappingFragment StoreEntitySet="Transactions">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IsFinished" ColumnName="IsFinished" />
@@ -1083,7 +1189,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="TradehubModel.User">
+            <EntityTypeMapping TypeName="tradehubModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
@@ -1100,7 +1206,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="BlockedUsers" TypeName="TradehubModel.BlockedUsers" StoreEntitySet="BlockedUsers">
+          <AssociationSetMapping Name="BlockedUsers" TypeName="tradehubModel.BlockedUsers" StoreEntitySet="BlockedUsers">
             <EndProperty Name="Users">
               <ScalarProperty Name="Id" ColumnName="ReceiverId" />
             </EndProperty>
@@ -1108,7 +1214,7 @@
               <ScalarProperty Name="Id" ColumnName="SenderId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="CommunityBannedUsers" TypeName="TradehubModel.CommunityBannedUsers" StoreEntitySet="CommunityBannedUsers">
+          <AssociationSetMapping Name="CommunityBannedUsers" TypeName="tradehubModel.CommunityBannedUsers" StoreEntitySet="CommunityBannedUsers">
             <EndProperty Name="Communities">
               <ScalarProperty Name="Id" ColumnName="CommunityId" />
             </EndProperty>
@@ -1116,7 +1222,7 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="CommunityHiddenTools" TypeName="TradehubModel.CommunityHiddenTools" StoreEntitySet="CommunityHiddenTools">
+          <AssociationSetMapping Name="CommunityHiddenTools" TypeName="tradehubModel.CommunityHiddenTools" StoreEntitySet="CommunityHiddenTools">
             <EndProperty Name="Communities">
               <ScalarProperty Name="Id" ColumnName="CommunityId" />
             </EndProperty>
@@ -1124,7 +1230,7 @@
               <ScalarProperty Name="Id" ColumnName="ToolId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="CommunityUsers" TypeName="TradehubModel.CommunityUsers" StoreEntitySet="CommunityUsers">
+          <AssociationSetMapping Name="CommunityUsers" TypeName="tradehubModel.CommunityUsers" StoreEntitySet="CommunityUsers">
             <EndProperty Name="Communities">
               <ScalarProperty Name="Id" ColumnName="CommunityId" />
             </EndProperty>

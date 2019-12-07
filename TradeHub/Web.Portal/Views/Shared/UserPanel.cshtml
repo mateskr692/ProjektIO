@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "UserPanel";
+}
+
+@* wyswietlane na gorze z nazwa urzytkownika, likiem do jego profilu itp *@
+<div>
+    <h2>UserPanel</h2>
+    @if ( CurrentUser.Identity.IsAuthenticated )
+    {
+        @: Witaj @CurrentUser.Name, twoje ID = @CurrentUser.Id
+        @Html.ActionLink("Wyloguj", "Logout", "Account", new { returnUrl = Request.Url.AbsolutePath }, new { } )   
+    }
+    else
+    {
+        @: Zaloguj sie jak chcysz powitanie
+    }
+
+</div>
+
