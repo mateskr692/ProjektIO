@@ -1,0 +1,59 @@
+﻿@model UserViewModel
+
+<div>
+    <div>
+        @Html.NameFor( m => m.Login )
+        @Model.Login
+    </div>
+
+    <div>
+        @Html.NameFor( m => m.FirstName )
+        @if ( Model.NameVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty(Model.FirstName) )
+        {
+            @: Private
+        }
+        else
+        {
+            @Model.FirstName
+        }
+    </div>
+
+    <div>
+        @Html.NameFor( m => m.LastName )
+        @if ( Model.NameVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty( Model.LastName ) )
+        {
+            @: Private
+        }
+        else
+        {
+            @Model.LastName
+        }
+    </div>
+
+    <div>
+        @Html.NameFor( m => m.Contact )
+        @if ( Model.ContactVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty( Model.Contact ) )
+        {
+            @: Private
+        }
+        else
+        {
+            @Model.Contact
+        }
+    </div>
+
+    <div>
+        @Html.NameFor( m => m.Address )
+        @if ( Model.AdressVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty( Model.Address ) )
+        {
+            @: Private
+        }
+        else
+        {
+            @Model.Address
+        }
+    </div>
+
+
+</div>
+

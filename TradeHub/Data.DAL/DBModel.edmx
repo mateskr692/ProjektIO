@@ -1,0 +1,1264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="tradehubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BlockedUsers">
+          <Key>
+            <PropertyRef Name="SenderId" />
+            <PropertyRef Name="ReceiverId" />
+          </Key>
+          <Property Name="SenderId" Type="bigint" Nullable="false" />
+          <Property Name="ReceiverId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Communities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommunityAnnouncements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="CommunityId" Type="bigint" Nullable="false" />
+          <Property Name="CreatorId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommunityBannedUsers">
+          <Key>
+            <PropertyRef Name="CommunityId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="CommunityId" Type="bigint" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommunityHiddenTools">
+          <Key>
+            <PropertyRef Name="CommunityId" />
+            <PropertyRef Name="ToolId" />
+          </Key>
+          <Property Name="CommunityId" Type="bigint" Nullable="false" />
+          <Property Name="ToolId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommunityUsers">
+          <Key>
+            <PropertyRef Name="CommunityId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="CommunityId" Type="bigint" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="2000" />
+          <Property Name="SendDate" Type="datetime" Nullable="false" />
+          <Property Name="SenderId" Type="bigint" />
+          <Property Name="ReceiverId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="2000" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Offerts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProposedReturn" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="SenderId" Type="bigint" />
+          <Property Name="ReceiverId" Type="bigint" />
+          <Property Name="SenderToolId" Type="bigint" />
+          <Property Name="ReceiverToolId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Requests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="CommunityId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ToolPictures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PictureData" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ToolId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tools">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Quality" Type="bit" Nullable="false" />
+          <Property Name="Availability" Type="bit" Nullable="false" />
+          <Property Name="Visibility" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsFinished" Type="bit" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="FinishDate" Type="datetime" Nullable="false" />
+          <Property Name="StartLocation" Type="nvarchar" MaxLength="200" />
+          <Property Name="FinishLocation" Type="nvarchar" MaxLength="200" />
+          <Property Name="ToolState" Type="int" Nullable="false" />
+          <Property Name="LenderComment" Type="nvarchar" MaxLength="2000" />
+          <Property Name="LenderOpinion" Type="int" Nullable="false" />
+          <Property Name="BorrowerComment" Type="nvarchar" MaxLength="2000" />
+          <Property Name="BorrowerOpinion" Type="int" Nullable="false" />
+          <Property Name="LenderId" Type="bigint" />
+          <Property Name="BorowerId" Type="bigint" />
+          <Property Name="LenderToolId" Type="bigint" />
+          <Property Name="BorowerToolId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Password" Type="binary" MaxLength="32" Nullable="false" />
+          <Property Name="Salt" Type="binary" MaxLength="4" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="NameVisibility" Type="int" Nullable="false" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="200" />
+          <Property Name="ContactVisibility" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="AdressVisibility" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BlockedUsers_Users_Receiver">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="BlockedUsers" Type="Self.BlockedUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BlockedUsers">
+              <PropertyRef Name="ReceiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BlockedUsers_Users_Sender">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="BlockedUsers" Type="Self.BlockedUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BlockedUsers">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunityAnnouncements_Communities">
+          <End Role="Communities" Type="Self.Communities" Multiplicity="1" />
+          <End Role="CommunityAnnouncements" Type="Self.CommunityAnnouncements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommunityAnnouncements">
+              <PropertyRef Name="CommunityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunityAnnouncements_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="CommunityAnnouncements" Type="Self.CommunityAnnouncements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommunityAnnouncements">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunityBannedUsers_Communities">
+          <End Role="Communities" Type="Self.Communities" Multiplicity="1" />
+          <End Role="CommunityBannedUsers" Type="Self.CommunityBannedUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommunityBannedUsers">
+              <PropertyRef Name="CommunityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunityBannedUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="CommunityBannedUsers" Type="Self.CommunityBannedUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommunityBannedUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunityHiddenTools_Communities">
+          <End Role="Communities" Type="Self.Communities" Multiplicity="1" />
+          <End Role="CommunityHiddenTools" Type="Self.CommunityHiddenTools" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommunityHiddenTools">
+              <PropertyRef Name="CommunityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunityHiddenTools_Tools">
+          <End Role="Tools" Type="Self.Tools" Multiplicity="1" />
+          <End Role="CommunityHiddenTools" Type="Self.CommunityHiddenTools" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommunityHiddenTools">
+              <PropertyRef Name="ToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunityUsers_Communities">
+          <End Role="Communities" Type="Self.Communities" Multiplicity="1" />
+          <End Role="CommunityUsers" Type="Self.CommunityUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommunityUsers">
+              <PropertyRef Name="CommunityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunityUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="CommunityUsers" Type="Self.CommunityUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommunityUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Users_Receiver">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ReceiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Users_Sender">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offerts_Tools_Receiver">
+          <End Role="Tools" Type="Self.Tools" Multiplicity="0..1" />
+          <End Role="Offerts" Type="Self.Offerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offerts">
+              <PropertyRef Name="ReceiverToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offerts_Tools_Sender">
+          <End Role="Tools" Type="Self.Tools" Multiplicity="0..1" />
+          <End Role="Offerts" Type="Self.Offerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offerts">
+              <PropertyRef Name="SenderToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offerts_Users_Receiver">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Offerts" Type="Self.Offerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offerts">
+              <PropertyRef Name="ReceiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offerts_Users_Sender">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Offerts" Type="Self.Offerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offerts">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_Communities">
+          <End Role="Communities" Type="Self.Communities" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="CommunityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolPictures_Tools">
+          <End Role="Tools" Type="Self.Tools" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ToolPictures" Type="Self.ToolPictures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolPictures">
+              <PropertyRef Name="ToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tools_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tools" Type="Self.Tools" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tools">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Tools_Borrower">
+          <End Role="Tools" Type="Self.Tools" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="BorowerToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Tools_Lender">
+          <End Role="Tools" Type="Self.Tools" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="LenderToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Users_Borrower">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="BorowerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Users_Lender">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="LenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="tradehubModelStoreContainer">
+          <EntitySet Name="BlockedUsers" EntityType="Self.BlockedUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Communities" EntityType="Self.Communities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommunityAnnouncements" EntityType="Self.CommunityAnnouncements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommunityBannedUsers" EntityType="Self.CommunityBannedUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommunityHiddenTools" EntityType="Self.CommunityHiddenTools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommunityUsers" EntityType="Self.CommunityUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Offerts" EntityType="Self.Offerts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToolPictures" EntityType="Self.ToolPictures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tools" EntityType="Self.Tools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BlockedUsers_Users_Receiver" Association="Self.FK_BlockedUsers_Users_Receiver">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlockedUsers" EntitySet="BlockedUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlockedUsers_Users_Sender" Association="Self.FK_BlockedUsers_Users_Sender">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlockedUsers" EntitySet="BlockedUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunityAnnouncements_Communities" Association="Self.FK_CommunityAnnouncements_Communities">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="CommunityAnnouncements" EntitySet="CommunityAnnouncements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunityAnnouncements_Users" Association="Self.FK_CommunityAnnouncements_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CommunityAnnouncements" EntitySet="CommunityAnnouncements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunityBannedUsers_Communities" Association="Self.FK_CommunityBannedUsers_Communities">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="CommunityBannedUsers" EntitySet="CommunityBannedUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunityBannedUsers_Users" Association="Self.FK_CommunityBannedUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CommunityBannedUsers" EntitySet="CommunityBannedUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunityHiddenTools_Communities" Association="Self.FK_CommunityHiddenTools_Communities">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="CommunityHiddenTools" EntitySet="CommunityHiddenTools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunityHiddenTools_Tools" Association="Self.FK_CommunityHiddenTools_Tools">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="CommunityHiddenTools" EntitySet="CommunityHiddenTools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunityUsers_Communities" Association="Self.FK_CommunityUsers_Communities">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="CommunityUsers" EntitySet="CommunityUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunityUsers_Users" Association="Self.FK_CommunityUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CommunityUsers" EntitySet="CommunityUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Users_Receiver" Association="Self.FK_Messages_Users_Receiver">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Users_Sender" Association="Self.FK_Messages_Users_Sender">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Users" Association="Self.FK_Notifications_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offerts_Tools_Receiver" Association="Self.FK_Offerts_Tools_Receiver">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="Offerts" EntitySet="Offerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offerts_Tools_Sender" Association="Self.FK_Offerts_Tools_Sender">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="Offerts" EntitySet="Offerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offerts_Users_Receiver" Association="Self.FK_Offerts_Users_Receiver">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Offerts" EntitySet="Offerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offerts_Users_Sender" Association="Self.FK_Offerts_Users_Sender">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Offerts" EntitySet="Offerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_Communities" Association="Self.FK_Requests_Communities">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_Users" Association="Self.FK_Requests_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolPictures_Tools" Association="Self.FK_ToolPictures_Tools">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="ToolPictures" EntitySet="ToolPictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tools_Users" Association="Self.FK_Tools_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tools" EntitySet="Tools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Tools_Borrower" Association="Self.FK_Transactions_Tools_Borrower">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Tools_Lender" Association="Self.FK_Transactions_Tools_Lender">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Users_Borrower" Association="Self.FK_Transactions_Users_Borrower">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Users_Lender" Association="Self.FK_Transactions_Users_Lender">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="tradehubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Community">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CommunityAnnouncements" Relationship="Self.FK_CommunityAnnouncements_Communities" FromRole="Communities" ToRole="CommunityAnnouncements" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Communities" FromRole="Communities" ToRole="Requests" />
+          <NavigationProperty Name="Users" Relationship="Self.CommunityBannedUsers" FromRole="Communities" ToRole="Users" />
+          <NavigationProperty Name="Tools" Relationship="Self.CommunityHiddenTools" FromRole="Communities" ToRole="Tools" />
+          <NavigationProperty Name="Users1" Relationship="Self.CommunityUsers" FromRole="Communities" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="CommunityAnnouncement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="CommunityId" Type="Int64" Nullable="false" />
+          <Property Name="CreatorId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Community" Relationship="Self.FK_CommunityAnnouncements_Communities" FromRole="CommunityAnnouncements" ToRole="Communities" />
+          <NavigationProperty Name="User" Relationship="Self.FK_CommunityAnnouncements_Users" FromRole="CommunityAnnouncements" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="SendDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SenderId" Type="Int64" />
+          <Property Name="ReceiverId" Type="Int64" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Messages_Users_Receiver" FromRole="Messages" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Messages_Users_Sender" FromRole="Messages" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Notifications_Users" FromRole="Notifications" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Offert">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProposedReturn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="SenderId" Type="Int64" />
+          <Property Name="ReceiverId" Type="Int64" />
+          <Property Name="SenderToolId" Type="Int64" />
+          <Property Name="ReceiverToolId" Type="Int64" />
+          <NavigationProperty Name="Tool" Relationship="Self.FK_Offerts_Tools_Receiver" FromRole="Offerts" ToRole="Tools" />
+          <NavigationProperty Name="Tool1" Relationship="Self.FK_Offerts_Tools_Sender" FromRole="Offerts" ToRole="Tools" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Offerts_Users_Receiver" FromRole="Offerts" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Offerts_Users_Sender" FromRole="Offerts" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="CommunityId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Community" Relationship="Self.FK_Requests_Communities" FromRole="Requests" ToRole="Communities" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Requests_Users" FromRole="Requests" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ToolPicture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PictureData" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ToolId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Tool" Relationship="Self.FK_ToolPictures_Tools" FromRole="ToolPictures" ToRole="Tools" />
+        </EntityType>
+        <EntityType Name="Tool">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Quality" Type="Boolean" Nullable="false" />
+          <Property Name="Availability" Type="Boolean" Nullable="false" />
+          <Property Name="Visibility" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Offerts" Relationship="Self.FK_Offerts_Tools_Receiver" FromRole="Tools" ToRole="Offerts" />
+          <NavigationProperty Name="Offerts1" Relationship="Self.FK_Offerts_Tools_Sender" FromRole="Tools" ToRole="Offerts" />
+          <NavigationProperty Name="ToolPictures" Relationship="Self.FK_ToolPictures_Tools" FromRole="Tools" ToRole="ToolPictures" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Tools_Users" FromRole="Tools" ToRole="Users" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Tools_Borrower" FromRole="Tools" ToRole="Transactions" />
+          <NavigationProperty Name="Transactions1" Relationship="Self.FK_Transactions_Tools_Lender" FromRole="Tools" ToRole="Transactions" />
+          <NavigationProperty Name="Communities" Relationship="Self.CommunityHiddenTools" FromRole="Tools" ToRole="Communities" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsFinished" Type="Boolean" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FinishDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartLocation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FinishLocation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ToolState" Type="Int32" Nullable="false" />
+          <Property Name="LenderComment" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="LenderOpinion" Type="Int32" Nullable="false" />
+          <Property Name="BorrowerComment" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="BorrowerOpinion" Type="Int32" Nullable="false" />
+          <Property Name="LenderId" Type="Int64" />
+          <Property Name="BorowerId" Type="Int64" />
+          <Property Name="LenderToolId" Type="Int64" />
+          <Property Name="BorowerToolId" Type="Int64" />
+          <NavigationProperty Name="Tool" Relationship="Self.FK_Transactions_Tools_Borrower" FromRole="Transactions" ToRole="Tools" />
+          <NavigationProperty Name="Tool1" Relationship="Self.FK_Transactions_Tools_Lender" FromRole="Transactions" ToRole="Tools" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Transactions_Users_Borrower" FromRole="Transactions" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Transactions_Users_Lender" FromRole="Transactions" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="Binary" MaxLength="32" FixedLength="true" Nullable="false" />
+          <Property Name="Salt" Type="Binary" MaxLength="4" FixedLength="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameVisibility" Type="Int32" Nullable="false" />
+          <Property Name="Contact" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ContactVisibility" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AdressVisibility" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CommunityAnnouncements" Relationship="Self.FK_CommunityAnnouncements_Users" FromRole="Users" ToRole="CommunityAnnouncements" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_Users_Receiver" FromRole="Users" ToRole="Messages" />
+          <NavigationProperty Name="Messages1" Relationship="Self.FK_Messages_Users_Sender" FromRole="Users" ToRole="Messages" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notifications_Users" FromRole="Users" ToRole="Notifications" />
+          <NavigationProperty Name="Offerts" Relationship="Self.FK_Offerts_Users_Receiver" FromRole="Users" ToRole="Offerts" />
+          <NavigationProperty Name="Offerts1" Relationship="Self.FK_Offerts_Users_Sender" FromRole="Users" ToRole="Offerts" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Users" FromRole="Users" ToRole="Requests" />
+          <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Users" FromRole="Users" ToRole="Tools" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Users_Borrower" FromRole="Users" ToRole="Transactions" />
+          <NavigationProperty Name="Transactions1" Relationship="Self.FK_Transactions_Users_Lender" FromRole="Users" ToRole="Transactions" />
+          <NavigationProperty Name="Users1" Relationship="Self.BlockedUsers" FromRole="Users" ToRole="Users1" />
+          <NavigationProperty Name="Users" Relationship="Self.BlockedUsers" FromRole="Users1" ToRole="Users" />
+          <NavigationProperty Name="Communities" Relationship="Self.CommunityBannedUsers" FromRole="Users" ToRole="Communities" />
+          <NavigationProperty Name="Communities1" Relationship="Self.CommunityUsers" FromRole="Users" ToRole="Communities" />
+        </EntityType>
+        <Association Name="FK_CommunityAnnouncements_Communities">
+          <End Role="Communities" Type="Self.Community" Multiplicity="1" />
+          <End Role="CommunityAnnouncements" Type="Self.CommunityAnnouncement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommunityAnnouncements">
+              <PropertyRef Name="CommunityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_Communities">
+          <End Role="Communities" Type="Self.Community" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="CommunityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommunityAnnouncements_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="CommunityAnnouncements" Type="Self.CommunityAnnouncement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommunityAnnouncements">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Users_Receiver">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ReceiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Users_Sender">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Notifications" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offerts_Tools_Receiver">
+          <End Role="Tools" Type="Self.Tool" Multiplicity="0..1" />
+          <End Role="Offerts" Type="Self.Offert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offerts">
+              <PropertyRef Name="ReceiverToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offerts_Tools_Sender">
+          <End Role="Tools" Type="Self.Tool" Multiplicity="0..1" />
+          <End Role="Offerts" Type="Self.Offert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offerts">
+              <PropertyRef Name="SenderToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offerts_Users_Receiver">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Offerts" Type="Self.Offert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offerts">
+              <PropertyRef Name="ReceiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offerts_Users_Sender">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Offerts" Type="Self.Offert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offerts">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolPictures_Tools">
+          <End Role="Tools" Type="Self.Tool" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ToolPictures" Type="Self.ToolPicture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolPictures">
+              <PropertyRef Name="ToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tools_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tools" Type="Self.Tool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tools">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Tools_Borrower">
+          <End Role="Tools" Type="Self.Tool" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="BorowerToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Tools_Lender">
+          <End Role="Tools" Type="Self.Tool" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="LenderToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Users_Borrower">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="BorowerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Users_Lender">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="LenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BlockedUsers">
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <End Role="Users1" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <Association Name="CommunityBannedUsers">
+          <End Role="Communities" Type="Self.Community" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <Association Name="CommunityHiddenTools">
+          <End Role="Communities" Type="Self.Community" Multiplicity="*" />
+          <End Role="Tools" Type="Self.Tool" Multiplicity="*" />
+        </Association>
+        <Association Name="CommunityUsers">
+          <End Role="Communities" Type="Self.Community" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="tradehubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Communities" EntityType="Self.Community" />
+          <EntitySet Name="CommunityAnnouncements" EntityType="Self.CommunityAnnouncement" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="Offerts" EntityType="Self.Offert" />
+          <EntitySet Name="Requests" EntityType="Self.Request" />
+          <EntitySet Name="ToolPictures" EntityType="Self.ToolPicture" />
+          <EntitySet Name="Tools" EntityType="Self.Tool" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_CommunityAnnouncements_Communities" Association="Self.FK_CommunityAnnouncements_Communities">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="CommunityAnnouncements" EntitySet="CommunityAnnouncements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_Communities" Association="Self.FK_Requests_Communities">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommunityAnnouncements_Users" Association="Self.FK_CommunityAnnouncements_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CommunityAnnouncements" EntitySet="CommunityAnnouncements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Users_Receiver" Association="Self.FK_Messages_Users_Receiver">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Users_Sender" Association="Self.FK_Messages_Users_Sender">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Users" Association="Self.FK_Notifications_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offerts_Tools_Receiver" Association="Self.FK_Offerts_Tools_Receiver">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="Offerts" EntitySet="Offerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offerts_Tools_Sender" Association="Self.FK_Offerts_Tools_Sender">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="Offerts" EntitySet="Offerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offerts_Users_Receiver" Association="Self.FK_Offerts_Users_Receiver">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Offerts" EntitySet="Offerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offerts_Users_Sender" Association="Self.FK_Offerts_Users_Sender">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Offerts" EntitySet="Offerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_Users" Association="Self.FK_Requests_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolPictures_Tools" Association="Self.FK_ToolPictures_Tools">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="ToolPictures" EntitySet="ToolPictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tools_Users" Association="Self.FK_Tools_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tools" EntitySet="Tools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Tools_Borrower" Association="Self.FK_Transactions_Tools_Borrower">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Tools_Lender" Association="Self.FK_Transactions_Tools_Lender">
+            <End Role="Tools" EntitySet="Tools" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Users_Borrower" Association="Self.FK_Transactions_Users_Borrower">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Users_Lender" Association="Self.FK_Transactions_Users_Lender">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="BlockedUsers" Association="Self.BlockedUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="CommunityBannedUsers" Association="Self.CommunityBannedUsers">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="CommunityHiddenTools" Association="Self.CommunityHiddenTools">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="Tools" EntitySet="Tools" />
+          </AssociationSet>
+          <AssociationSet Name="CommunityUsers" Association="Self.CommunityUsers">
+            <End Role="Communities" EntitySet="Communities" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="tradehubModelStoreContainer" CdmEntityContainer="tradehubEntities">
+          <EntitySetMapping Name="Communities">
+            <EntityTypeMapping TypeName="tradehubModel.Community">
+              <MappingFragment StoreEntitySet="Communities">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommunityAnnouncements">
+            <EntityTypeMapping TypeName="tradehubModel.CommunityAnnouncement">
+              <MappingFragment StoreEntitySet="CommunityAnnouncements">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CommunityId" ColumnName="CommunityId" />
+                <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="tradehubModel.Message">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+                <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="tradehubModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Offerts">
+            <EntityTypeMapping TypeName="tradehubModel.Offert">
+              <MappingFragment StoreEntitySet="Offerts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProposedReturn" ColumnName="ProposedReturn" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+                <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
+                <ScalarProperty Name="SenderToolId" ColumnName="SenderToolId" />
+                <ScalarProperty Name="ReceiverToolId" ColumnName="ReceiverToolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="tradehubModel.Request">
+              <MappingFragment StoreEntitySet="Requests">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CommunityId" ColumnName="CommunityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToolPictures">
+            <EntityTypeMapping TypeName="tradehubModel.ToolPicture">
+              <MappingFragment StoreEntitySet="ToolPictures">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PictureData" ColumnName="PictureData" />
+                <ScalarProperty Name="ToolId" ColumnName="ToolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tools">
+            <EntityTypeMapping TypeName="tradehubModel.Tool">
+              <MappingFragment StoreEntitySet="Tools">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quality" ColumnName="Quality" />
+                <ScalarProperty Name="Availability" ColumnName="Availability" />
+                <ScalarProperty Name="Visibility" ColumnName="Visibility" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="tradehubModel.Transaction">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsFinished" ColumnName="IsFinished" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+                <ScalarProperty Name="StartLocation" ColumnName="StartLocation" />
+                <ScalarProperty Name="FinishLocation" ColumnName="FinishLocation" />
+                <ScalarProperty Name="ToolState" ColumnName="ToolState" />
+                <ScalarProperty Name="LenderComment" ColumnName="LenderComment" />
+                <ScalarProperty Name="LenderOpinion" ColumnName="LenderOpinion" />
+                <ScalarProperty Name="BorrowerComment" ColumnName="BorrowerComment" />
+                <ScalarProperty Name="BorrowerOpinion" ColumnName="BorrowerOpinion" />
+                <ScalarProperty Name="LenderId" ColumnName="LenderId" />
+                <ScalarProperty Name="BorowerId" ColumnName="BorowerId" />
+                <ScalarProperty Name="LenderToolId" ColumnName="LenderToolId" />
+                <ScalarProperty Name="BorowerToolId" ColumnName="BorowerToolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="tradehubModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="NameVisibility" ColumnName="NameVisibility" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="ContactVisibility" ColumnName="ContactVisibility" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="AdressVisibility" ColumnName="AdressVisibility" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BlockedUsers" TypeName="tradehubModel.BlockedUsers" StoreEntitySet="BlockedUsers">
+            <EndProperty Name="Users">
+              <ScalarProperty Name="Id" ColumnName="ReceiverId" />
+            </EndProperty>
+            <EndProperty Name="Users1">
+              <ScalarProperty Name="Id" ColumnName="SenderId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CommunityBannedUsers" TypeName="tradehubModel.CommunityBannedUsers" StoreEntitySet="CommunityBannedUsers">
+            <EndProperty Name="Communities">
+              <ScalarProperty Name="Id" ColumnName="CommunityId" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CommunityHiddenTools" TypeName="tradehubModel.CommunityHiddenTools" StoreEntitySet="CommunityHiddenTools">
+            <EndProperty Name="Communities">
+              <ScalarProperty Name="Id" ColumnName="CommunityId" />
+            </EndProperty>
+            <EndProperty Name="Tools">
+              <ScalarProperty Name="Id" ColumnName="ToolId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CommunityUsers" TypeName="tradehubModel.CommunityUsers" StoreEntitySet="CommunityUsers">
+            <EndProperty Name="Communities">
+              <ScalarProperty Name="Id" ColumnName="CommunityId" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
