@@ -11,11 +11,11 @@ namespace Web.Portal.Models
     {
         //obowiazkowe pola do rejestracji
         [Required]
-        [StringLength(5)]
+        //[StringLength(5)]
         public string Login { get; set; }
 
         [Required]
-        [StringLength(8)]
+        //[StringLength(8)]
         public string Password { get; set; }
 
         [Required]

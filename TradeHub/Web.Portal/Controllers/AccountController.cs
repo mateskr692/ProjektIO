@@ -55,12 +55,12 @@ namespace Web.Portal.Controllers
 
         #region Logowanie
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
             if ( this.User.Identity.IsAuthenticated )
             {
                 //TODO: (MS) powrot na wczesniejsza strone / pokazanie modala
-                return this.View( "/" );
+                return this.Redirect( returnUrl ?? "/" );
             }
 
             return this.View();

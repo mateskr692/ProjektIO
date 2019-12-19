@@ -16,8 +16,11 @@ namespace Buisness.Core.Mappers
             //           source  destination
             cfg.CreateMap<User, UserModel>();
             cfg.CreateMap<User, UserInfoModel>();
-            cfg.CreateMap<UserRegisterModel, User>();
-
+            cfg.CreateMap<UserRegisterModel, User>()
+                //.ForMember( m => m.NameVisibility, opt => opt.MapFrom( u => (int)u.NameVisibility ) )
+                //.ForMember( m => m.ContactVisibility, opt => opt.MapFrom( u => (int)u.ContactVisibility ) )
+                //.ForMember( m => m.AdressVisibility, opt => opt.MapFrom( u => (int)u.AdressVisibility ) );
+                .ForMember( m => m.Password, opt => opt.Ignore() );
         } ).CreateMapper();
     }
 }

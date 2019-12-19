@@ -7,6 +7,8 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+    @*@Styles.Render( "~/bundles/FoundationStyles" )*@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,11 +23,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav"></ul>
-                @Html.Partial("UserPanel")
+                @Html.Partial( "UserPanel" )
             </div>
         </div>
     </div>
-    @Html.Partial("Menu")
+    @Html.Partial( "Menu" )
 
     <div class="container body-content">
         @RenderBody()
@@ -36,6 +38,7 @@
     </div>
 
     @Scripts.Render( "~/bundles/jquery" )
+    @Scripts.Render( "~/bundles/FoundationScripts" )
     @RenderSection( "scripts", required: false )
 </body>
 </html>
