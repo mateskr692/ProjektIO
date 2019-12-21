@@ -38,15 +38,15 @@ namespace Data.DAL
                 //Filtering
                 if ( !string.IsNullOrEmpty( filters.Name ) )
                 {
-                    communities = communities.Where( it => it.Name.Like( filters.Name ) );
+                    communities = communities.Where( it => it.Name.ToUpper().Contains( filters.Name.ToUpper() ) );
                 }
                 if ( !string.IsNullOrEmpty( filters.Location ) )
                 {
-                    communities = communities.Where( it => it.Location.Like( filters.Location ) );
+                    communities = communities.Where( it => it.Location.ToUpper().Contains( filters.Location.ToUpper() ) );
                 }
                 if ( !string.IsNullOrEmpty( filters.Description ) )
                 {
-                    communities = communities.Where( it => it.Description.Like( filters.Description ) );
+                    communities = communities.Where( it => it.Description.ToUpper().Contains( filters.Description.ToUpper() ) );
                 }
             }
 
@@ -68,15 +68,15 @@ namespace Data.DAL
                 //Filtering
                 if ( !string.IsNullOrEmpty( filters.Name ) )
                 {
-                    communities = communities.Where( it => it.Name.Like( filters.Name ) );
+                    communities = communities.Where( it => it.Name.ToUpper().Contains( filters.Name.ToUpper() ) );
                 }
                 if ( !string.IsNullOrEmpty( filters.Location ) )
                 {
-                    communities = communities.Where( it => it.Location.Like( filters.Location ) );
+                    communities = communities.Where( it => it.Location.ToUpper().Contains( filters.Location.ToUpper() ) );
                 }
                 if ( !string.IsNullOrEmpty( filters.Description ) )
                 {
-                    communities = communities.Where( it => it.Description.Like( filters.Description ) );
+                    communities = communities.Where( it => it.Description.ToUpper().Contains( filters.Description.ToUpper() ) );
                 }
 
                 //Sorting
