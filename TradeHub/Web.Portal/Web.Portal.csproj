@@ -189,11 +189,13 @@
     <Compile Include="Code\UsersMapper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommunitiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Communities\CommunityViewModel.cs" />
     <Compile Include="Models\Users\UserIndexViewModel.cs" />
     <Compile Include="Models\Users\UserInfoViewModel.cs" />
     <Compile Include="Models\Users\UserLoginViewModel.cs" />
@@ -219,6 +221,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\View.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Communities\PagedCommunities.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buisness.Contracts.Models
 {
-    class CommunityInfoModel
+    public class CommunityInfoModel
     {
     }
 }
