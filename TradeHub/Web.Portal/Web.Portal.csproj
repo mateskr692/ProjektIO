@@ -186,15 +186,18 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Code\AppUser.cs" />
     <Compile Include="Code\AppViewPage.cs" />
+    <Compile Include="Code\CommunitiesMapper.cs" />
     <Compile Include="Code\UsersMapper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CommunitiesController.cs" />
+    <Compile Include="Controllers\CommunityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Communities\CommunityIndexViewModel.cs" />
+    <Compile Include="Models\Communities\CommunityInfoViewModel.cs" />
     <Compile Include="Models\Communities\CommunityViewModel.cs" />
     <Compile Include="Models\Users\UserIndexViewModel.cs" />
     <Compile Include="Models\Users\UserInfoViewModel.cs" />
@@ -221,7 +224,8 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\View.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Communities\PagedCommunities.cshtml" />
+    <Content Include="Views\Community\Index.cshtml" />
+    <Content Include="Views\Community\ViewById.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

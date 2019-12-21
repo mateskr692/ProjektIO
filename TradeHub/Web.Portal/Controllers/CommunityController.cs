@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Buisness.Core.Mappers;
+using Web.Portal.Code;
 using Buisness.Core.Services;
 using Common.Enums;
+using Common.Filters;
 using Web.Portal.Models;
 
 namespace Web.Portal.Controllers
 {
-    public class CommunitiesController : Controller
+    public class CommunityController : BaseController
     {
         private CommunityService CommunityService = new CommunityService();
 
         // GET: Communities
-        public ActionResult Index()
+        public ActionResult Index(CommunityFilters filters)
         {
-            return this.View();
+            var response = this.CommunityService.GetPaged(filters);
+            return this.View(CommunitiesMapper.Default.Map<CommunityIndexViewModel>(response.Data));
         }
 
         [HttpGet]
@@ -37,5 +39,17 @@ namespace Web.Portal.Controllers
             return this.View(CommunitiesMapper.Default.Map<CommunityViewModel>(response.Data));
         }
 
+        [HttpGet]
+        public ActionResult View(CommunityFilters filters)
+        {
+            var response = this.CommunityService.GetPaged(filters);
+
+            if (response.Status == ValidationStatus.Failed)
+            {
+                return this.Redirect(this.Url.Action());
+            }
+
+            return this.View(CommunitiesMapper.Default.Map<CommunityViewModel>(response.Data));
+        }
     }
 }

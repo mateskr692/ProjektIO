@@ -19,6 +19,16 @@ namespace Buisness.Core.Services
         //CRUDowe operacje: 
         //Add                    (Create)
 
+        //public WResult<CommunityModel> AddCommunity()
+        //{
+        //    using (var uow = new UnitOfWork())
+        //    {
+
+        //        CommunityModel model = new CommunityModel();
+        //        uow.Communities.Add(model);
+        //    }
+        //}
+
         //GetPaged               (Read)
         public WResult<CommunityIndexModel> GetPaged(CommunityFilters filters)
         {
