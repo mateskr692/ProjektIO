@@ -1,0 +1,30 @@
+﻿@model CommunityViewModel
+
+@using (Html.BeginForm("Create", "Community", FormMethod.Post, new { }))
+{
+    <h3>Required</h3>
+    <div>
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+        <!--@@Html.ValidationMessageFor(m => m.Name) -->
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Location)
+        @Html.TextBoxFor(m => m.Location)
+        <!--@@Html.ValidationMessageFor(m => m.Location)-->
+    </div>
+
+
+        <h3>Optional</h3>
+        <br />
+        <div>
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description)
+        </div>
+
+
+        <div>
+            <button type="submit">Add community</button>
+        </div>
+    }
+

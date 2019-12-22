@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Buisness.Contracts.Models
+namespace Web.Portal.Models
 {
-    public class CommunityModel
+    public class CommunityViewModel
     {
         public long Id { get; set; }
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
-
         public string Location { get; set; }
+
+        public string Description { get; set; }
     }
 }

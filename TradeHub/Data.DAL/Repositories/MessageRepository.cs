@@ -40,11 +40,11 @@ namespace Data.DAL
                 //Filtering
                 if ( !string.IsNullOrEmpty( filters.Title ) )
                 {
-                    messages = messages.Where( it => it.Title.Like( filters.Title ) );
+                    messages = messages.Where( it => it.Title.ToUpper().Contains( filters.Title.ToUpper() ) );
                 }
                 if ( !string.IsNullOrEmpty( filters.SenderName ) )
                 {
-                    messages = messages.Where( it => it.Sender.Login.Like( filters.SenderName ) );
+                    messages = messages.Where( it => it.Sender.Login.ToUpper().Contains( filters.SenderName.ToUpper() ) );
                 }
                 if ( filters.SendDate.HasValue )
                 {
@@ -70,11 +70,11 @@ namespace Data.DAL
                 //Filtering
                 if ( !string.IsNullOrEmpty( filters.Title ) )
                 {
-                    messages = messages.Where( it => it.Title.Like( filters.Title ) );
+                    messages = messages.Where( it => it.Title.ToUpper().Contains( filters.Title.ToUpper() ) );
                 }
                 if ( !string.IsNullOrEmpty( filters.SenderName ) )
                 {
-                    messages = messages.Where( it => it.Sender.Login.Like( filters.SenderName ) );
+                    messages = messages.Where( it => it.Sender.Login.ToUpper().Contains( filters.SenderName.ToUpper() ) );
                 }
                 if ( filters.SendDate.HasValue )
                 {
