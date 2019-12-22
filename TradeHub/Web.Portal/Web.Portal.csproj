@@ -186,6 +186,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Code\AppUser.cs" />
     <Compile Include="Code\AppViewPage.cs" />
+    <Compile Include="Code\ToolsMapper.cs" />
     <Compile Include="Code\UsersMapper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -194,10 +195,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Tools\ToolIndexViewModel.cs" />
+    <Compile Include="Models\Tools\ToolInfoViewModel.cs" />
     <Compile Include="Models\Users\UserIndexViewModel.cs" />
     <Compile Include="Models\Users\UserInfoViewModel.cs" />
     <Compile Include="Models\Users\UserLoginViewModel.cs" />
     <Compile Include="Models\Users\UserRegisterViewModel.cs" />
+    <Compile Include="Models\Tools\ToolViewModel.cs" />
     <Compile Include="Models\Users\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -219,6 +223,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\View.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Tool\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

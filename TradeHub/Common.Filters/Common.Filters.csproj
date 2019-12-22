@@ -47,6 +47,7 @@
     <Compile Include="Filters\Interfaces\IFiltrable.cs" />
     <Compile Include="Filters\Interfaces\IPageable.cs" />
     <Compile Include="Filters\Interfaces\ISortable.cs" />
+    <Compile Include="Filters\ToolFilters.cs" />
     <Compile Include="Filters\MessageFilters.cs" />
     <Compile Include="Filters\UserFilters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

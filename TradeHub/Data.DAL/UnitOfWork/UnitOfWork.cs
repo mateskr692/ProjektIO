@@ -11,6 +11,7 @@ namespace Data.DAL
         public MessageRepository Messages { get; }
         public CommunityRepository Communities { get; }
         public UserRepository Users { get; }
+        public ToolRepository Tools { get; }
 
 
         public UnitOfWork()
@@ -20,6 +21,7 @@ namespace Data.DAL
             this.Messages = new MessageRepository( this.Context );
             this.Communities = new CommunityRepository( this.Context );
             this.Users = new UserRepository( this.Context );
+            this.Tools = new ToolRepository( this.Context );
         }
 
         public int Complete()
