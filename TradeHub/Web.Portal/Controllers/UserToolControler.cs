@@ -21,7 +21,7 @@ namespace Web.Portal.Controllers
         //both Get when going first time and POST when submitting filters
         public ActionResult Index(ToolFilters filters)
         {
-            var response = this.ToolService.GetPaged( filters );
+            var response = this.ToolService.GetUserTools( filters, this.CurrentUser.Id);
             return this.View( ToolsMapper.Default.Map<ToolIndexViewModel>( response.Data ) );
         }
 
@@ -33,15 +33,17 @@ namespace Web.Portal.Controllers
 
 
         [HttpPost]
-        public ActionResult Create(ToolViewModel toolModel, string returnUrl)
+        public ActionResult Create(ToolViewModel toolModel, long userId, string returnUrl)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(toolModel);
             }
 
+            toolModel.UserId = this.CurrentUser.Id;
+
             var response = this.ToolService.
-                AddTool(ToolsMapper.Default.Map<ToolModel>(toolModel));
+                AddUserTool(ToolsMapper.Default.Map<ToolModel>(toolModel), userId);
 
             if (response.Status == ValidationStatus.Failed)
             {

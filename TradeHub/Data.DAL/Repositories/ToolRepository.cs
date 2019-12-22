@@ -40,7 +40,7 @@ namespace Data.DAL
                 //Filtering
                 if ( !string.IsNullOrEmpty( filters.Name ) )
                 {
-                    tools = tools.Where( it => it.Name.Like( filters.Name ) );
+                    tools = tools.Where( it => it.Name.ToUpper().Contains( filters.Name.ToUpper() ) );
                 }
                 if ( filters.Quality == false)
                 {
@@ -74,7 +74,7 @@ namespace Data.DAL
                 //Filtering
                 if (!string.IsNullOrEmpty(filters.Name))
                 {
-                    tools = tools.Where(it => it.Name.Like(filters.Name));
+                    tools = tools.Where(it => it.Name.ToUpper().Contains(filters.Name.ToUpper()));
                 }
                 if (filters.Quality == false)
                 {
@@ -113,6 +113,66 @@ namespace Data.DAL
             //Paginations
             return tools.Skip( filters.PageSize * ( filters.PageNumber - 1 ) )
                            .Take( filters.PageSize )
+                           .AsEnumerable();
+        }
+
+        public IEnumerable<Tool> GetUserPage(ToolFilters filters, long userId)
+        {
+            IQueryable<Tool> tools = this.dbSet;
+
+            //tools = tools.Where(it => it.Id == userId);
+
+            
+
+            if (filters != null)
+            {
+           
+                /*
+                //Filtering
+
+                if (!string.IsNullOrEmpty(filters.Name))
+                {
+                    tools = tools.Where(it => it.Name.ToUpper().Contains(filters.Name.ToUpper()));
+                }
+                if (filters.Quality == false)
+                {
+                    tools = tools.Where(it => it.Quality != filters.Quality);
+                }
+                if (filters.Quality == false)
+                {
+                    tools = tools.Where(it => it.Quality != filters.Quality);
+                }
+                if (filters.Visibility != 0)
+                {
+                    tools = tools.Where(it => it.Visibility > filters.Visibility);
+                }
+                */
+                
+
+                //Sorting
+                switch (filters.SortingColumn)
+                {
+                    case ToolSorting.Name:
+                        tools = filters.Order == SortingOrder.Ascending ? tools.OrderBy(it => it.Name) : tools.OrderByDescending(it => it.Name);
+                        break;
+
+                    case ToolSorting.Quality:
+                        tools = filters.Order == SortingOrder.Ascending ? tools.OrderBy(it => it.Quality) : tools.OrderByDescending(it => it.Quality);
+                        break;
+
+                    case ToolSorting.Visibility:
+                        tools = filters.Order == SortingOrder.Ascending ? tools.OrderBy(it => it.Visibility) : tools.OrderByDescending(it => it.Visibility);
+                        break;
+
+                    case ToolSorting.Availability:
+                        tools = filters.Order == SortingOrder.Ascending ? tools.OrderBy(it => it.Availability) : tools.OrderByDescending(it => it.Availability);
+                        break;
+                }
+            }
+
+            //Paginations
+            return tools.Skip(filters.PageSize * (filters.PageNumber - 1))
+                           .Take(filters.PageSize)
                            .AsEnumerable();
         }
     }

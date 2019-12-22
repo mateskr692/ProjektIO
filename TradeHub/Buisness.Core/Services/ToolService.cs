@@ -18,12 +18,12 @@ namespace Buisness.Core.Services
 
         private static readonly string ToolNotExistsMessage = "Tool with given Id does not exist";
 
-        //Get paged
-        public WResult<ToolIndexModel> GetPaged(ToolFilters filters)
+        //Get user tools
+        public WResult<ToolIndexModel> GetUserTools(ToolFilters filters, long userId)
         {
             using (var uow = new UnitOfWork())
             {
-                var tools = uow.Tools.GetPage(filters);
+                var tools = uow.Tools.GetUserPage(filters, userId);
 
                 var toolPage = new ToolIndexModel()
                 {
@@ -36,13 +36,15 @@ namespace Buisness.Core.Services
             }
         }
 
-        public WResult AddTool(ToolModel toolModel)
+        //AddUserTool
+        public WResult AddUserTool(ToolModel toolModel, long userId)
         {
 
             using (var uow = new UnitOfWork())
             {
 
                 var newTool = ToolsMapper.Default.Map<Tool>(toolModel);
+                newTool.UserId = userId;
                 uow.Tools.Add(newTool);
                 uow.Complete();
             }
