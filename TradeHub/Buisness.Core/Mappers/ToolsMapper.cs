@@ -15,7 +15,10 @@ namespace Buisness.Core.Mappers
         {
  
             cfg.CreateMap<Tool, ToolModel>();
+            cfg.CreateMap<ToolModel, Tool>();
+
             cfg.CreateMap<Tool, ToolInfoModel>();
+            cfg.CreateMap<ToolInfoModel, Tool>();
 
         } ).CreateMapper();
     }
