@@ -128,6 +128,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Buisness.Contracts\Buisness.Contracts.csproj">
+      <Project>{6B21AAC7-38F1-43E2-BF02-D4192364C109}</Project>
+      <Name>Buisness.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common.Filters\Common.Filters.csproj">
       <Project>{4E62587A-EEC1-49D6-9BB3-E9E0746CA944}</Project>
       <Name>Common.Filters</Name>

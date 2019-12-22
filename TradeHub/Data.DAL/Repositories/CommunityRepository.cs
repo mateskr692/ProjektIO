@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Extensions;
 using Common.Filters;
+using Buisness.Contracts;
+using Common.Enums;
 
 namespace Data.DAL
 {
@@ -96,6 +98,24 @@ namespace Data.DAL
             return communities.Skip( filters.PageSize * ( filters.PageNumber - 1 ) )
                               .Take( filters.PageSize )
                               .AsEnumerable();
-        }   
+        }
+
+       
+        public WResult AddUserToCommunity(long CommunityId, long UserId)
+        {
+            // TODO
+            return new WResult(ValidationStatus.Failed);
+        }
+
+        public WResult RemoveUserFromCommunity(long CommunityId, long UserId)
+        {
+            // TODO
+            return new WResult(ValidationStatus.Failed);
+        }
+
+        //public WResult<bool> IsUserInCommunity(long CommunityId, long UserId)
+        //{
+            // TODO
+        //}
     }
 }
