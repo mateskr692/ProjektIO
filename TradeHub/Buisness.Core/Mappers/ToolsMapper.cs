@@ -13,14 +13,10 @@ namespace Buisness.Core.Mappers
     {
         internal static IMapper Default = new MapperConfiguration( cfg =>
         {
-            //           source  destination
+ 
             cfg.CreateMap<Tool, ToolModel>();
             cfg.CreateMap<Tool, ToolInfoModel>();
-            //cfg.CreateMap<UserRegisterModel, User>()
-                //.ForMember( m => m.NameVisibility, opt => opt.MapFrom( u => (int)u.NameVisibility ) )
-                //.ForMember( m => m.ContactVisibility, opt => opt.MapFrom( u => (int)u.ContactVisibility ) )
-                //.ForMember( m => m.AdressVisibility, opt => opt.MapFrom( u => (int)u.AdressVisibility ) );
-                //.ForMember( m => m.Password, opt => opt.Ignore() );
+
         } ).CreateMapper();
     }
 }

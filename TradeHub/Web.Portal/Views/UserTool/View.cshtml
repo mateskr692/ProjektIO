@@ -1,0 +1,26 @@
+﻿@model ToolViewModel
+
+<div>
+    <div>
+        @Html.NameFor(m => m.Name)
+        @Model.Name
+    </div>
+
+    //<div>
+    //    @Html.NameFor(m => m.Description)
+    //    @Model.Description
+    //</div>
+
+    <div>
+        @Html.NameFor(m => m.Description)
+        @if (!string.IsNullOrEmpty(Model.Description))
+        {
+            @Model.Description
+        }
+    </div>
+
+
+</div>
+
+
+

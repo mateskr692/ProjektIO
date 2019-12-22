@@ -36,7 +36,7 @@ namespace Buisness.Core.Services
             }
         }
 
-        public WResult Add(ToolModel toolModel)
+        public WResult AddTool(ToolModel toolModel)
         {
 
             using (var uow = new UnitOfWork())
@@ -83,6 +83,20 @@ namespace Buisness.Core.Services
             }
         }
 
+        public WResult<ToolModel> GetById(long id)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                var tool = uow.Tools.GetById(id);
+                if (tool == null)
+                {
+                    return new WResult<ToolModel>(ValidationStatus.Failed, ToolNotExistsMessage);
+                }
 
+                var toolModel = ToolsMapper.Default.Map<ToolModel>(tool);
+                uow.Complete();
+                return new WResult<ToolModel>(ValidationStatus.Succeded, errors: null, toolModel);
+            }
+        }
     }
 }

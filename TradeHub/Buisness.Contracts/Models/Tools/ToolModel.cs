@@ -14,7 +14,7 @@ namespace Buisness.Contracts.Models
         public string Description { get; set; }
         public bool Quality { get; set; }
         public bool Avaibility { get; set; }
-        public int Visibility { get; set; }
+        public VisibilityType Visibility { get; set; }
         public long UserId { get; set; }
 
     }

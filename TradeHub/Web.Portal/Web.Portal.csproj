@@ -191,6 +191,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserToolControler.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -223,7 +224,9 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\View.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Tool\Index.cshtml" />
+    <Content Include="Views\UserTool\Index.cshtml" />
+    <Content Include="Views\UserTool\Create.cshtml" />
+    <Content Include="Views\UserTool\View.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

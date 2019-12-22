@@ -10,6 +10,7 @@
     {
         @: Witaj @CurrentUser.Name, twoje ID = @CurrentUser.Id
         @Html.ActionLink("Wyloguj", "Logout", "Account", new { returnUrl = Request.Url.AbsolutePath }, new { })
+        @Html.ActionLink("Skladzik", "Index", "UserTool", new { returnUrl = Request.Url.AbsolutePath }, new { })
     }
     else
     {

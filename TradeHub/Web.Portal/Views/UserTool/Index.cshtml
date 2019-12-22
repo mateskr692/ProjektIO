@@ -1,0 +1,44 @@
+﻿@model ToolIndexViewModel
+
+@using (Html.BeginForm("Create", "UserTool", FormMethod.Get, new { }))
+{
+    <div>
+        <button type="submit">Stworz</button>
+    </div>
+}
+
+@using (Html.BeginForm("Index", "UserTool", FormMethod.Get, new { }))
+{
+    <div>
+        <div>
+            @Html.LabelFor(m => m.Filters.Name)
+            @Html.TextBoxFor(m => m.Filters.Name)
+        </div>
+
+        <button type="submit">Filtruj</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th width="100px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tool in Model.Tools)
+
+            {
+                <tr>
+                    <td>@tool.Name</td>
+                    <td>
+                        <a href="@Url.Action("View", new { Id = tool.Id })">Pokaz narzędzie</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
