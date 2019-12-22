@@ -1,5 +1,12 @@
 ﻿@model CommunityIndexViewModel
 
+@using (Html.BeginForm("Create", "Community", FormMethod.Get, new { }))
+{
+    <div>
+        <button type="submit">Stworz</button>
+    </div>
+}
+
 @using (Html.BeginForm("Index", "Community", FormMethod.Get, new { }))
 {
     <div>
@@ -15,24 +22,25 @@
 
         <button type="submit">Filtruj</button>
     </div>
-}
 
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th width="100px"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var community in Model.Communities)
-        {
+    <table>
+        <thead>
             <tr>
-                <td>@community.Name</td>
-                <td>
-                    <a href="@Url.Action("View", new { Id = community.Id } )">Pokaz spolecznosc</a>
-                </td>
+                <th>Name</th>
+                <th width="100px"></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var community in Model.Communities)
+            {
+                <tr>
+                    <td>@community.Name</td>
+                    <td>@community.Location</td>
+                    <td>
+                        <a href="@Url.Action("View", new { Id = community.Id })">Pokaz spolecznosc</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

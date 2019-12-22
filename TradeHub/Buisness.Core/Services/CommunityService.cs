@@ -18,16 +18,17 @@ namespace Buisness.Core.Services
 
         //CRUDowe operacje: 
         //Add                    (Create)
+        public WResult AddCommunity(CommunityModel communityModel)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                var newCommunity = CommunitiesMapper.Default.Map<Community>(communityModel);
+                uow.Communities.Add(newCommunity);
 
-        //public WResult<CommunityModel> AddCommunity()
-        //{
-        //    using (var uow = new UnitOfWork())
-        //    {
-
-        //        CommunityModel model = new CommunityModel();
-        //        uow.Communities.Add(model);
-        //    }
-        //}
+                uow.Complete();
+                return new WResult(ValidationStatus.Succeded);
+            }
+        }
 
         //GetPaged               (Read)
         public WResult<CommunityIndexModel> GetPaged(CommunityFilters filters)

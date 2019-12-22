@@ -12,6 +12,7 @@ namespace Web.Portal.Code
             cfg.CreateMap<CommunityInfoModel, CommunityInfoViewModel>();
             cfg.CreateMap<CommunityIndexModel, CommunityIndexViewModel>();
 
+            cfg.CreateMap<CommunityViewModel, CommunityModel>();
         }).CreateMapper();
     }
 }

@@ -225,7 +225,8 @@
     <Content Include="Views\User\View.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Community\Index.cshtml" />
-    <Content Include="Views\Community\ViewById.cshtml" />
+    <Content Include="Views\Community\View.cshtml" />
+    <Content Include="Views\Community\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

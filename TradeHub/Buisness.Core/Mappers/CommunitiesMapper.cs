@@ -14,6 +14,7 @@ namespace Buisness.Core.Mappers
         // pewnie nie powinno byc public, ale w CommunitiesControllerze się pluło, że jest inaccessible
         public static IMapper Default = new MapperConfiguration(cfg =>
         {
+            cfg.CreateMap<CommunityModel, Community>();
             cfg.CreateMap<Community, CommunityModel>();
             cfg.CreateMap<Community, CommunityInfoModel>();
         }).CreateMapper();

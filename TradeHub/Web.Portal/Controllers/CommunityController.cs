@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Web.Portal.Code;
 using Buisness.Core.Services;
+using Buisness.Contracts.Models;
 using Common.Enums;
 using Common.Filters;
 using Web.Portal.Models;
@@ -22,12 +23,42 @@ namespace Web.Portal.Controllers
             return this.View(CommunitiesMapper.Default.Map<CommunityIndexViewModel>(response.Data));
         }
 
+
         [HttpGet]
-        public ActionResult ViewById(long? Id)
+        public ActionResult Create()
+        {
+            return this.View("Create");
+        }
+
+
+        [HttpPost]
+        public ActionResult Create(CommunityViewModel communityModel, string returnUrl)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(communityModel);
+            }
+
+            var response = this.CommunityService.
+                AddCommunity(CommunitiesMapper.Default.Map<CommunityModel>(communityModel));
+
+            if (response.Status == ValidationStatus.Failed)
+            {
+                foreach (var err in response.Errors)
+                    this.ModelState.AddModelError("", err);
+
+                return this.View(communityModel);
+            }
+            return this.RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public ActionResult View(long? Id)
         {
             if (Id == null)
             {
-                this.RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
             var response = this.CommunityService.GetById(Id.Value);
@@ -38,18 +69,6 @@ namespace Web.Portal.Controllers
 
             return this.View(CommunitiesMapper.Default.Map<CommunityViewModel>(response.Data));
         }
-
-        [HttpGet]
-        public ActionResult View(CommunityFilters filters)
-        {
-            var response = this.CommunityService.GetPaged(filters);
-
-            if (response.Status == ValidationStatus.Failed)
-            {
-                return this.Redirect(this.Url.Action());
-            }
-
-            return this.View(CommunitiesMapper.Default.Map<CommunityViewModel>(response.Data));
-        }
+  
     }
 }
