@@ -25,7 +25,7 @@ namespace Web.Portal.Controllers
             if ( this.User.Identity.IsAuthenticated )
             {
                 //TODO: (MS) powrot na wczesniejsza strone / pokazanie modala
-                return this.View( "/" );
+                return this.Redirect( "/" );
             }
 
             //Strona do rejestracji

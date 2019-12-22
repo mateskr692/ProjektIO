@@ -40,7 +40,7 @@ namespace Web.Portal.Controllers
                 //narazie tylko powrot do przegladania, trzeba by dodac jakiegos modala z info ze cos poszlo nie tak
                 return this.Redirect( this.Url.Action() );
             }
-
+            
             return this.View( UsersMapper.Default.Map<UserViewModel>( response.Data ) );
         }
 
