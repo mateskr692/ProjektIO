@@ -156,6 +156,8 @@
     <Content Include="fonts\foundation-icons.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\banner.jpg" />
+    <Content Include="images\icon.png" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

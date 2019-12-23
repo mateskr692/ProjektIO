@@ -1,30 +1,11 @@
-﻿
-@{
-    ViewBag.Title = "Menu";
-}
-
-@* Wyswietlane z boku razem z przyciskami nawigacyjnymi *@
-
-<div>
-    <h2>Menu</h2>
-    <div>
-        @Html.ActionLink("Rejestracja", "Register", "Account")
-    </div>
-
-    <div>
-        @Html.ActionLink("Logowanie", "Login", "Account")
-    </div>
-
-    <div>
-        @Html.ActionLink("Zmiana Hasla", "Login", "Account")
-    </div>
-
-    <div>
-        @Html.ActionLink("zakazana strona", "Index", "User")
-    </div>
-
-    <div>
-        @Html.ActionLink("zakazana strona społeczności", "Index", "Community")
-    </div>
-</div>
-
+﻿<ul class="list-unstyled ml-0">
+    <li>
+        <a href="@Url.Action("Index", "User")" class="button bg-dark radius" style="border-radius: 10px; width: 100%; height: 50px; padding: 0px;"><label class="text-white h-100 align-items-center d-flex justify-content-center">Forbidden user</label></a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "Community")" class="button bg-dark radius" style="border-radius: 10px; width: 100%; height: 50px; padding: 0px;"><label class="text-white h-100 align-items-center d-flex justify-content-center">Forbidden community</label></a>
+    </li>
+    <li>
+        <a href="@Url.Action("Login", "Account")" class="button bg-dark radius" style="border-radius: 10px; width: 100%; height: 50px; padding: 0px;"><label class="text-white h-100 align-items-center d-flex justify-content-center">Change password</label></a>
+    </li>
+</ul>

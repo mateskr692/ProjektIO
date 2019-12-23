@@ -1,20 +1,30 @@
-﻿
-@{
-    ViewBag.Title = "UserPanel";
-}
+﻿        <!-- Left Nav Section -->
+        <section class="left">
+            <ul style="padding-left: 1%; width: 100px; margin-left: 0; height: 18%; position: absolute;" class="border border-dark border-right-0 border-bottom-0 border-top-0 pt-5 list-unstyled">
+                <li>
+                    <a href="@Url.Action("Index", "Home")" class="text-black-50" style="font-size: 20px;">Home</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("About", "Home")" class="text-black-50" style="font-size: 20px;">About</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Home")" class="text-black-50" style="font-size: 20px;">Contact</a>
+                </li>
+            </ul>
+        </section>
+        <!-- Right Nav Section -->
+        <section class="right">
+            @if (CurrentUser.Identity.IsAuthenticated)
+            {
+                <a href="@Url.Action("Index","User")" class="button bg-dark radius" style="border-radius: 0px 0px 10px 10px; float: right;">@CurrentUser.Name</a>
+            }
+            else
+            {
+                <a href="@Url.Action("Login","Account")" class="button bg-dark radius" style="border-radius: 0px 0px 10px 10px; float: right;">Log in / Register</a>
+            }
 
-@* wyswietlane na gorze z nazwa urzytkownika, likiem do jego profilu itp *@
-<div>
-    <h2>UserPanel</h2>
-    @if ( CurrentUser.Identity.IsAuthenticated )
-    {
-        @: Witaj @CurrentUser.Name, twoje ID = @CurrentUser.Id
-        @Html.ActionLink("Wyloguj", "Logout", "Account", new { returnUrl = Request.Url.AbsolutePath }, new { } )   
-    }
-    else
-    {
-        @: Zaloguj sie jak chcysz powitanie
-    }
-
-</div>
-
+            <div class="row" style="align-items: center; margin-top: 8%; float: right; justify-content: flex-end;">
+                <img src="../images/icon.png" width="10%" height="10%" style="margin-right: 2%;" />
+                <h1 style="font-size: 300%;">TradeHub</h1>
+            </div>
+        </section>
