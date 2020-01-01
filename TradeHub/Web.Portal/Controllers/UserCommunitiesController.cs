@@ -1,13 +1,18 @@
-﻿using System;
+﻿using Buisness.Core.Services;
+using Web.Portal.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Common.Enums;
+using Buisness.Core.Mappers;
 
 namespace Web.Portal.Controllers
 {
-    public class UserCommunitiesController : Controller
+    public class UserCommunitiesController : BaseController
     {
+        private CommunityService CommunityService = new CommunityService();
 
         // GET: UserCommunities
         public ActionResult Index()
@@ -21,28 +26,39 @@ namespace Web.Portal.Controllers
             return this.View();
         }
 
-        public ActionResult Join(long? CommunityId)
+        [HttpPost]
+        public ActionResult Join(long CommunityId)
         {
-            if (CommunityId == null)
-            {
-                this.RedirectToAction("Index");
-            }
+            var response = this.CommunityService.AddUserToCommunity(CommunityId, this.CurrentUser.Id);
 
-            // CommunityRepository.AddUserToCommunity(CommunityId, UserId)
+            if (response.Status == ValidationStatus.Failed)
+            {
+                /* TODO: this scenario can be done better
+                 foreach (var err in response.Errors)
+                    this.ModelState.AddModelError("", err);
+                 */
+                return this.View("Error");
+            }
 
             return this.View();
         }
 
-        public ActionResult Leave(long? CommunityId)
+        [HttpPost]
+        public ActionResult Leave(long CommunityId)
         {
-            if (CommunityId == null)
-            {
-                this.RedirectToAction("Index");
-            }
+            var response = this.CommunityService.RemoveUserFromCommunity(CommunityId, this.CurrentUser.Id);
 
-            // CommunityRepository.RemoveUserFromCommunity(CommunityId, UserId)
+            if (response.Status == ValidationStatus.Failed)
+            {
+                /* TODO: this scenario can be done better
+                 foreach (var err in response.Errors)
+                    this.ModelState.AddModelError("", err);
+                 */
+                return this.View("Error");
+            }
 
             return this.View();
         }
+
     }
 }

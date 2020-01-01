@@ -31,7 +31,7 @@ namespace Web.Portal.Controllers
         {
             if(Id == null)
             {
-                this.RedirectToAction( "Index" );
+                return this.RedirectToAction( "Index" );
             }
 
             var response = this.UserService.GetById( Id.Value );

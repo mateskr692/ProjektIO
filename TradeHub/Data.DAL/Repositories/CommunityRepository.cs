@@ -100,22 +100,16 @@ namespace Data.DAL
                               .AsEnumerable();
         }
 
-       
-        public WResult AddUserToCommunity(long CommunityId, long UserId)
-        {
-            // TODO
-            return new WResult(ValidationStatus.Failed);
-        }
 
-        public WResult RemoveUserFromCommunity(long CommunityId, long UserId)
+        public bool IsUserInCommunity(long CommunityId, long UserId)
         {
-            // TODO
-            return new WResult(ValidationStatus.Failed);
-        }
+            var Community = this.dbSet.SingleOrDefault(it => it.Id == CommunityId);
+            if (Community == null) { return false; }
+            
+            var CommunityUser = Community.CommunityUsers.SingleOrDefault(it => it.Id == UserId);
+            if (CommunityUser == null) { return false; }
 
-        //public WResult<bool> IsUserInCommunity(long CommunityId, long UserId)
-        //{
-            // TODO
-        //}
+            return true;
+        }
     }
 }

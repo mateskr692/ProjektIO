@@ -14,17 +14,14 @@
         <!--@@Html.ValidationMessageFor(m => m.Location)-->
     </div>
 
+    <h3>Optional</h3>
+    <br />
+    <div>
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description)
+    </div>
 
-        <h3>Optional</h3>
-        <br />
-        <div>
-            @Html.LabelFor(m => m.Description)
-            @Html.TextBoxFor(m => m.Description)
-        </div>
-
-
-        <div>
-            <button type="submit">Add community</button>
-        </div>
-    }
-
+    <div>
+        <button type="submit">Add community</button>
+    </div>
+ }

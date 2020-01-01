@@ -19,11 +19,17 @@
         }
     </div>
 
-    <div>
-        @Html.ActionLink("Join", "Join", "UserCommunities", new { Model.Id }, new { } )
+    @using (Html.BeginForm("Join", "UserCommunities", FormMethod.Post))
+    {
+        <input type="hidden" name="CommunityId" value="@Model.Id">
+        <button type="submit">Join</button>
+    }
 
-        @Html.ActionLink("Leave", "Leave", "UserCommunities", new { Model.Id }, new { } )
-    </div>
+    @using (Html.BeginForm("Leave", "UserCommunities", FormMethod.Post))
+    {
+        <input type="hidden" name="CommunityId" value="@Model.Id">
+        <button type="submit">Leave</button>
+    }
 
 </div>
 

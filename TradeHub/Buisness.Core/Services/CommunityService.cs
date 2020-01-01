@@ -15,6 +15,9 @@ namespace Buisness.Core.Services
     public class CommunityService
     {
         private static readonly string CommunityNotExistsMessage = "Such community does not exist";
+        private static readonly string UserNotExistsMessage = "Such user does not exist";
+        private static readonly string alreadyMemberMessage = "You have already joined this community";
+        private static readonly string notYetMemberMessage = "You have not joined this community yet";
 
         //CRUDowe operacje: 
         //Add                    (Create)
@@ -72,6 +75,63 @@ namespace Buisness.Core.Services
 
         //Delete                 (Delete)
 
+        public WResult AddUserToCommunity(long CommunityId, long UserId)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                var community = uow.Communities.GetById(CommunityId);
+                var user = uow.Users.GetById(UserId);
+
+                if (community == null)
+                {
+                    return new WResult<CommunityModel>(ValidationStatus.Failed, CommunityNotExistsMessage);
+                }
+
+                if (user == null)
+                {
+                    return new WResult<CommunityModel>(ValidationStatus.Failed, UserNotExistsMessage);
+                }
+                
+                if (uow.Communities.IsUserInCommunity(CommunityId, UserId))
+                {
+                    return new WResult<CommunityModel>(ValidationStatus.Failed, alreadyMemberMessage);
+                }
+
+                community.CommunityUsers.Add(user);
+
+                uow.Complete();
+                return new WResult(ValidationStatus.Succeded);
+            }
+        }
+
+        public WResult RemoveUserFromCommunity(long CommunityId, long UserId)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                var community = uow.Communities.GetById(CommunityId);
+                var user = uow.Users.GetById(UserId);
+
+                if (community == null)
+                {
+                    return new WResult<CommunityModel>(ValidationStatus.Failed, CommunityNotExistsMessage);
+                }
+
+                if (user == null)
+                {
+                    return new WResult<CommunityModel>(ValidationStatus.Failed, UserNotExistsMessage);
+                }
+
+                if (!uow.Communities.IsUserInCommunity(CommunityId, UserId))
+                {
+                    return new WResult<CommunityModel>(ValidationStatus.Failed, notYetMemberMessage);
+                }
+
+                community.CommunityUsers.Remove(user);
+
+                uow.Complete();
+                return new WResult(ValidationStatus.Succeded);
+            }
+        }
 
     }
 }
