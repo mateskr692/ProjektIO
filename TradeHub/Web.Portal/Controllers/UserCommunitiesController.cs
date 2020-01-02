@@ -6,7 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Common.Enums;
-using Buisness.Core.Mappers;
+using Web.Portal.Code;
+using Common.Filters;
 
 namespace Web.Portal.Controllers
 {
@@ -23,7 +24,15 @@ namespace Web.Portal.Controllers
         [HttpGet]
         public ActionResult ViewMyCommunities()
         {
-            return this.View();
+            var response = this.CommunityService.GetUserCommunities(this.CurrentUser.Id);
+
+            if (response.Status == ValidationStatus.Failed)
+            {
+                return this.Redirect(this.Url.Action());
+            }
+
+            return this.View(CommunitiesMapper.Default.Map<CommunityIndexViewModel>(response.Data));
+            //return this.View();
         }
 
         [HttpPost]

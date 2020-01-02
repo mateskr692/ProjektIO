@@ -232,6 +232,7 @@
     <Content Include="Views\UserCommunities\Leave.cshtml" />
     <Content Include="Views\UserCommunities\Join.cshtml" />
     <Content Include="Views\UserCommunities\Error.cshtml" />
+    <Content Include="Views\UserCommunities\ViewMyCommunities.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

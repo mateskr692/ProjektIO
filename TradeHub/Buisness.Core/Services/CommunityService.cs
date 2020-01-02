@@ -68,6 +68,27 @@ namespace Buisness.Core.Services
             }
         }
 
+        //GetUserCommunities
+        public WResult<CommunityIndexModel> GetUserCommunities(long UserId)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                var user = uow.Users.GetById(UserId);
+                if (user == null)
+                {
+                    return new WResult<CommunityIndexModel>(ValidationStatus.Failed, UserNotExistsMessage);
+                }
+
+                var userCommunities = user.MemberCommunities.ToArray();
+                var communityIndexModel = new CommunityIndexModel();
+
+                communityIndexModel.Communities = CommunitiesMapper.Default.Map<List<CommunityInfoModel>>(userCommunities);
+
+                uow.Complete();
+                return new WResult<CommunityIndexModel>(ValidationStatus.Succeded, errors: null, communityIndexModel);
+            }
+        }
+
         //GetDictionary
         //GetFilteredDictionary
 
