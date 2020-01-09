@@ -22,9 +22,10 @@ namespace Buisness.Core.Services
 
             using ( var uow = new UnitOfWork() )
             {
-                if ( uow.Users.GetByLogin( registerModel.Login ) != null )
+                //check if user can be created
+                if ( !uow.Users.IsUnique( registerModel.Login, registerModel.Email ) )
                 {
-                    return new WResult( ValidationStatus.Failed, "User with this Login already exsits" );
+                    return new WResult( ValidationStatus.Failed, "User with this Login or Email already exsits" );
                 }
 
                 var newUser = UsersMapper.Default.Map<User>( registerModel );
