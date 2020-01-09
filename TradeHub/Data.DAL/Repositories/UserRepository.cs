@@ -92,6 +92,11 @@ namespace Data.DAL
                              .SingleOrDefault();
         }
 
+        public bool IsUnique(string login, string email)
+        {
+            var c = this.dbSet.Where( it => it.Email == email || it.Login == login ).Count();
+            return c == 0;
+        }
         #endregion
 
     }

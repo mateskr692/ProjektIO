@@ -3,7 +3,7 @@
 @using (Html.BeginForm("Create", "Community", FormMethod.Get, new { }))
 {
     <div>
-        <button type="submit">Stworz</button>
+        <button type="submit">Create</button>
     </div>
 }
 
@@ -20,14 +20,14 @@
             @Html.TextBoxFor(m => m.Filters.Location)
         </div>
 
-        <button type="submit">Filtruj</button>
+        <button type="submit">Filter</button>
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>Name</th>
-                <th width="100px"></th>
+                <th width="100px">Name</th>
+                <th width="100px">Location</th>
             </tr>
         </thead>
         <tbody>
@@ -37,7 +37,7 @@
                     <td>@community.Name</td>
                     <td>@community.Location</td>
                     <td>
-                        <a href="@Url.Action("View", new { Id = community.Id })">Pokaz spolecznosc</a>
+                        <a href="@Url.Action("View", new { Id = community.Id })">Show community</a>
                     </td>
                 </tr>
             }

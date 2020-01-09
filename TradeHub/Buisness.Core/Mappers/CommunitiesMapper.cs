@@ -17,6 +17,9 @@ namespace Buisness.Core.Mappers
             cfg.CreateMap<CommunityModel, Community>();
             cfg.CreateMap<Community, CommunityModel>();
             cfg.CreateMap<Community, CommunityInfoModel>();
+
+            cfg.CreateMap<CommunityModel, CommunityIndexModel>();
+            cfg.CreateMap<CommunityModel, CommunityInfoModel>();
         }).CreateMapper();
     }
 }
