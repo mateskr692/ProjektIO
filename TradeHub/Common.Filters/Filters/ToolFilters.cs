@@ -15,15 +15,15 @@ namespace Common.Filters
         //automatyczne po implementacji interfejsu
         public ToolSorting SortingColumn { get; set; }
         public SortingOrder Order { get; set; }
-        public int PageSize { get; set; }
-        public int PageNumber { get; set; }
+        public int PageSize { get; set; } = 10;
+        public int PageNumber { get; set; } = 1;
 
         //wlsane filtry
         //public DateTime? SendDate { get; set; }
         public string Name { get; set; }
-        public bool Quality { get; set; }
-        public int Visibility { get; set; }
-        public string Avaiblity { get; set; }
+        public bool? Quality { get; set; }
+        public int? Visibility { get; set; }
+        public bool? Avaiblity { get; set; }
         //public string SenderName { get; set; }
     }
 }

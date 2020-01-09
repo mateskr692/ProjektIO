@@ -118,36 +118,31 @@ namespace Data.DAL
 
         public IEnumerable<Tool> GetUserPage(ToolFilters filters, long userId)
         {
-            IQueryable<Tool> tools = this.dbSet;
-
-            //tools = tools.Where(it => it.Id == userId);
-
-            
+            var tools = this.dbSet.Where(it => it.UserId == userId);
 
             if (filters != null)
             {
            
-                /*
+                
                 //Filtering
 
                 if (!string.IsNullOrEmpty(filters.Name))
                 {
                     tools = tools.Where(it => it.Name.ToUpper().Contains(filters.Name.ToUpper()));
                 }
-                if (filters.Quality == false)
+                if (filters.Quality != null)
                 {
-                    tools = tools.Where(it => it.Quality != filters.Quality);
+                    tools = tools.Where(it => it.Quality != filters.Quality.Value);
                 }
-                if (filters.Quality == false)
+                if (filters.Visibility != null)
                 {
-                    tools = tools.Where(it => it.Quality != filters.Quality);
+                    tools = tools.Where(it => it.Visibility != filters.Visibility.Value);
                 }
-                if (filters.Visibility != 0)
+                if ( filters.Avaiblity != null )
                 {
-                    tools = tools.Where(it => it.Visibility > filters.Visibility);
+                    tools = tools.Where( it => it.Availability != filters.Avaiblity.Value );
                 }
-                */
-                
+
 
                 //Sorting
                 switch (filters.SortingColumn)
