@@ -53,14 +53,17 @@ namespace Buisness.Core.Services
 
         }
 
-        public WResult Delete(ToolModel toolModel)
+        public WResult Delete(long id)
         {
-
             using (var uow = new UnitOfWork())
             {
+                var toolModel = uow.Tools.GetById( id );
+                if(toolModel == null)
+                {
+                    //todo
+                }
 
-                var newTool = ToolsMapper.Default.Map<Tool>(toolModel);
-                uow.Tools.Remove(newTool);
+                uow.Tools.Remove(toolModel);
                 uow.Complete();
             }
 

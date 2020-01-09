@@ -74,6 +74,12 @@ namespace Web.Portal.Controllers
             return this.View( ToolsMapper.Default.Map<ToolViewModel>( response.Data ) );
         }
 
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+
+            var response = this.ToolService.Delete( id );
+        }
 
     }
 }
