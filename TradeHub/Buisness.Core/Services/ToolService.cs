@@ -71,6 +71,7 @@ namespace Buisness.Core.Services
 
         }
 
+ 
         public WResult Update(ToolModel toolModel)
         {
             using (var uow = new UnitOfWork())
@@ -81,7 +82,7 @@ namespace Buisness.Core.Services
                     return new WResult(ValidationStatus.Failed, ToolNotExistsMessage);
                 }
 
-                UsersMapper.Default.Map(toolModel, tool);
+                ToolsMapper.Default.Map(toolModel, tool);
 
                 uow.Complete();
                 return new WResult(ValidationStatus.Succeded);

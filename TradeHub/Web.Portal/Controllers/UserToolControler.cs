@@ -81,5 +81,13 @@ namespace Web.Portal.Controllers
             return this.RedirectToAction( "Index" );
         }
 
+        [HttpPost]
+        public ActionResult Edit(ToolViewModel toolModel)
+        {
+            toolModel.UserId = this.CurrentUser.Id;
+            var response = this.ToolService.Update(ToolsMapper.Default.Map<ToolModel>(toolModel));
+            return this.RedirectToAction("Index");
+        }
+
     }
 }
