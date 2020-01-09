@@ -77,8 +77,8 @@ namespace Web.Portal.Controllers
         [HttpPost]
         public ActionResult Delete(long id)
         {
-
             var response = this.ToolService.Delete( id );
+            return this.RedirectToAction( "Index" );
         }
 
     }
