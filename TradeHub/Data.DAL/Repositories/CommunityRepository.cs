@@ -111,5 +111,17 @@ namespace Data.DAL
 
             return true;
         }
+
+        public IEnumerable<Tool> GetCommunityTools( ToolFilters filters, long communityId )
+        {
+            var community = this.dbSet.Where( it => it.Id == communityId ).SingleOrDefault();
+
+            return community?.CommunityUsers
+                             .SelectMany( it => it.Tools )
+                             .Where( it => !it.BannedCommunities.Contains( community ) )
+                             .Skip( filters.PageSize * ( filters.PageNumber - 1 ) )
+                             .Take( filters.PageSize )
+                             .AsEnumerable();
+        }
     }
 }

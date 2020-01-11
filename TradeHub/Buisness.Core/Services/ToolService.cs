@@ -104,5 +104,22 @@ namespace Buisness.Core.Services
                 return new WResult<ToolModel>(ValidationStatus.Succeded, errors: null, toolModel);
             }
         }
+
+        public WResult<ToolIndexModel> GetCommunityTools( ToolFilters filters, long communityId )
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var tools = uow.Communities.GetCommunityTools( filters, communityId );
+
+                var toolPage = new ToolIndexModel()
+                {
+                    Tools = ToolsMapper.Default.Map<List<ToolInfoModel>>( tools ),
+                    Filters = filters
+                };
+
+                uow.Complete();
+                return new WResult<ToolIndexModel>( ValidationStatus.Succeded, errors: null, toolPage );
+            }
+        }
     }
 }
