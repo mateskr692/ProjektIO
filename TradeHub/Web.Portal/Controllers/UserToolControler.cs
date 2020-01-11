@@ -33,7 +33,7 @@ namespace Web.Portal.Controllers
 
 
         [HttpPost]
-        public ActionResult Create(ToolViewModel toolModel, long userId, string returnUrl)
+        public ActionResult Create(ToolViewModel toolModel, string returnUrl)
         {
             if (!this.ModelState.IsValid)
             {
@@ -43,7 +43,7 @@ namespace Web.Portal.Controllers
             toolModel.UserId = this.CurrentUser.Id;
 
             var response = this.ToolService.
-                AddUserTool(ToolsMapper.Default.Map<ToolModel>(toolModel), userId);
+                AddUserTool(ToolsMapper.Default.Map<ToolModel>(toolModel), this.CurrentUser.Id);
 
             if (response.Status == ValidationStatus.Failed)
             {
@@ -81,12 +81,43 @@ namespace Web.Portal.Controllers
             return this.RedirectToAction( "Index" );
         }
 
-        [HttpPost]
-        public ActionResult Edit(ToolViewModel toolModel)
+        [HttpGet]
+        public ActionResult Edit( long? id)
         {
+            if ( id == null )
+            {
+                this.RedirectToAction( "Index" );
+            }
+
+            var response = this.ToolService.GetById( id.Value );
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                //narazie tylko powrot do przegladania, trzeba by dodac jakiegos modala z info ze cos poszlo nie tak
+                return this.Redirect( this.Url.Action() );
+            }
+
+            return this.View( ToolsMapper.Default.Map<ToolViewModel>( response.Data ) );
+        }
+
+        [HttpPost]
+        public ActionResult Edit( ToolViewModel toolModel, string returnUrl )
+        {
+            if ( !this.ModelState.IsValid )
+            {
+                return this.View( toolModel );
+            }
+
             toolModel.UserId = this.CurrentUser.Id;
-            var response = this.ToolService.Update(ToolsMapper.Default.Map<ToolModel>(toolModel));
-            return this.RedirectToAction("Index");
+            var response = this.ToolService.Update( ToolsMapper.Default.Map<ToolModel>( toolModel ) );
+            
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                foreach ( var err in response.Errors )
+                    this.ModelState.AddModelError( "", err );
+
+                return this.View( toolModel );
+            }
+            return this.RedirectToAction( "Index" );
         }
 
     }

@@ -227,6 +227,7 @@
     <Content Include="Views\UserTool\Index.cshtml" />
     <Content Include="Views\UserTool\Create.cshtml" />
     <Content Include="Views\UserTool\View.cshtml" />
+    <Content Include="Views\UserTool\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

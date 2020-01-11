@@ -3,7 +3,7 @@
 @using (Html.BeginForm("Create", "UserTool", FormMethod.Get, new { }))
 {
     <div>
-        <button type="submit">Stworz</button>
+        <button type="submit">Add Tool</button>
     </div>
 }
 
@@ -15,7 +15,7 @@
             @Html.TextBoxFor(m => m.Filters.Name)
         </div>
 
-        <button type="submit">Filtruj</button>
+        <button type="submit">Search</button>
     </div>
 
     <table>
@@ -32,7 +32,7 @@
                 <tr>
                     <td>@tool.Name</td>
                     <td>
-                        <a href="@Url.Action("View", new { Id = tool.Id })">Pokaz narzędzie</a>
+                        <a href="@Url.Action("View", new { Id = tool.Id })">View</a>
                     </td>
 
                 </tr>

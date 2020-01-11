@@ -1,6 +1,6 @@
 ﻿@model ToolViewModel
 
-@using (Html.BeginForm("Create", "UserTool", new { userId = CurrentUser.Id }, FormMethod.Post, new { }))
+@using (Html.BeginForm("Create", "UserTool", FormMethod.Post, new { }))
 {
     <h3>Required</h3>
     <div>

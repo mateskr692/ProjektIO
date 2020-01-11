@@ -1,0 +1,35 @@
+﻿@model ToolViewModel
+
+
+@using ( Html.BeginForm( "Edit", "UserTool", FormMethod.Post ) )
+{
+    <input type="hidden" name="id" value="@Model.Id">
+
+    <h3>Required</h3>
+    <div>
+        @Html.LabelFor( m => m.Name )
+        @Html.TextBoxFor( m => m.Name )
+    </div>
+    <div>
+        @Html.LabelFor( m => m.Quality )
+        @Html.CheckBoxFor( m => m.Quality )
+    </div>
+    <div>
+        @Html.LabelFor( m => m.Avaibility )
+        @Html.CheckBoxFor( m => m.Avaibility )
+    </div>
+    <div>
+        @Html.LabelFor( m => m.Visibility )
+        @Html.EnumDropDownListFor( m => m.Visibility )
+
+    </div>
+    <h3>Optional</h3>
+    <br />
+    <div>
+        @Html.LabelFor( m => m.Description )
+        @Html.TextBoxFor( m => m.Description )
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+}
