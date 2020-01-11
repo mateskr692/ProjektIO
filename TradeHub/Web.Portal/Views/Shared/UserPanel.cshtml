@@ -10,7 +10,7 @@
     {
         @: Witaj @CurrentUser.Name, twoje ID = @CurrentUser.Id
         @Html.ActionLink("Wyloguj", "Logout", "Account", new { returnUrl = Request.Url.AbsolutePath }, new { } )   
-        @Html.ActionLink("Your communities", "ViewMyCommunities", "UserCommunities", new { returnUrl = Request.Url.AbsolutePath }, new { } )   
+        @Html.ActionLink("Your communities", "Index", "UserCommunities", new { returnUrl = Request.Url.AbsolutePath }, new { } )   
         @Html.ActionLink("Skladzik", "Index", "UserTool", new { returnUrl = Request.Url.AbsolutePath }, new { })
     }
     else

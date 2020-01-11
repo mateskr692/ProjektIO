@@ -15,14 +15,8 @@ namespace Web.Portal.Controllers
     {
         private CommunityService CommunityService = new CommunityService();
 
-        // GET: UserCommunities
-        public ActionResult Index()
-        {
-            return this.View();
-        }
-
         [HttpGet]
-        public ActionResult ViewMyCommunities()
+        public ActionResult Index()
         {
             var response = this.CommunityService.GetUserCommunities(this.CurrentUser.Id);
 

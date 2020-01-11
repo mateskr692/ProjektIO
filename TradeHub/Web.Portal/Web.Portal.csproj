@@ -237,7 +237,6 @@
     <Content Include="Views\UserCommunities\Leave.cshtml" />
     <Content Include="Views\UserCommunities\Join.cshtml" />
     <Content Include="Views\UserCommunities\Error.cshtml" />
-    <Content Include="Views\UserCommunities\ViewMyCommunities.cshtml" />
     <Content Include="Views\UserTool\Index.cshtml" />
     <Content Include="Views\UserTool\Create.cshtml" />
     <Content Include="Views\UserTool\View.cshtml" />
