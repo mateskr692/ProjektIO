@@ -187,12 +187,14 @@
     <Compile Include="Code\AppUser.cs" />
     <Compile Include="Code\AppViewPage.cs" />
     <Compile Include="Code\CommunitiesMapper.cs" />
+    <Compile Include="Code\ToolsMapper.cs" />
     <Compile Include="Code\UsersMapper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommunityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserCommunitiesController.cs" />
+    <Compile Include="Controllers\UserToolControler.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -200,10 +202,13 @@
     <Compile Include="Models\Communities\CommunityIndexViewModel.cs" />
     <Compile Include="Models\Communities\CommunityInfoViewModel.cs" />
     <Compile Include="Models\Communities\CommunityViewModel.cs" />
+    <Compile Include="Models\Tools\ToolIndexViewModel.cs" />
+    <Compile Include="Models\Tools\ToolInfoViewModel.cs" />
     <Compile Include="Models\Users\UserIndexViewModel.cs" />
     <Compile Include="Models\Users\UserInfoViewModel.cs" />
     <Compile Include="Models\Users\UserLoginViewModel.cs" />
     <Compile Include="Models\Users\UserRegisterViewModel.cs" />
+    <Compile Include="Models\Tools\ToolViewModel.cs" />
     <Compile Include="Models\Users\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -233,6 +238,10 @@
     <Content Include="Views\UserCommunities\Join.cshtml" />
     <Content Include="Views\UserCommunities\Error.cshtml" />
     <Content Include="Views\UserCommunities\ViewMyCommunities.cshtml" />
+    <Content Include="Views\UserTool\Index.cshtml" />
+    <Content Include="Views\UserTool\Create.cshtml" />
+    <Content Include="Views\UserTool\View.cshtml" />
+    <Content Include="Views\UserTool\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
