@@ -38,7 +38,9 @@
                     <td>@community.Name</td>
                     <td>@community.Location</td>
                     <td>
-                        <a href="@Url.Action("View", new { Id = community.Id })">Show community</a>
+                        @Html.RouteLink( linkText: "View",
+                                         routeName: "Community",
+                                         routeValues: new { communityId = community.Id } )
                     </td>
                 </tr>
             }

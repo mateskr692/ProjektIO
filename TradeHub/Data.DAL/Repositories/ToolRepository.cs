@@ -42,17 +42,17 @@ namespace Data.DAL
                 {
                     tools = tools.Where( it => it.Name.ToUpper().Contains( filters.Name.ToUpper() ) );
                 }
-                if ( filters.Quality == false)
+                if ( filters.Quality != null )
                 {
-                    tools = tools.Where( it => it.Quality != filters.Quality );
+                    tools = tools.Where( it => it.Quality != filters.Quality.Value );
                 }
-                if (filters.Quality == false)
+                if ( filters.Visibility != null )
                 {
-                    tools = tools.Where(it => it.Quality != filters.Quality);
+                    tools = tools.Where( it => it.Visibility != filters.Visibility.Value );
                 }
-                if (filters.Visibility != 0)
+                if ( filters.Availability != null )
                 {
-                    tools = tools.Where(it => it.Visibility > filters.Visibility);
+                    tools = tools.Where( it => it.Availability != filters.Availability.Value );
                 }
             }
             
@@ -72,21 +72,21 @@ namespace Data.DAL
             if ( filters != null )
             {
                 //Filtering
-                if (!string.IsNullOrEmpty(filters.Name))
+                if ( !string.IsNullOrEmpty( filters.Name ) )
                 {
-                    tools = tools.Where(it => it.Name.ToUpper().Contains(filters.Name.ToUpper()));
+                    tools = tools.Where( it => it.Name.ToUpper().Contains( filters.Name.ToUpper() ) );
                 }
-                if (filters.Quality == false)
+                if ( filters.Quality != null )
                 {
-                    tools = tools.Where(it => it.Quality != filters.Quality);
+                    tools = tools.Where( it => it.Quality != filters.Quality.Value );
                 }
-                if (filters.Quality == false)
+                if ( filters.Visibility != null )
                 {
-                    tools = tools.Where(it => it.Quality != filters.Quality);
+                    tools = tools.Where( it => it.Visibility != filters.Visibility.Value );
                 }
-                if (filters.Visibility != 0)
+                if ( filters.Availability != null )
                 {
-                    tools = tools.Where(it => it.Visibility > filters.Visibility);
+                    tools = tools.Where( it => it.Availability != filters.Availability.Value );
                 }
 
                 //Sorting
@@ -138,9 +138,9 @@ namespace Data.DAL
                 {
                     tools = tools.Where(it => it.Visibility != filters.Visibility.Value);
                 }
-                if ( filters.Avaiblity != null )
+                if ( filters.Availability != null )
                 {
-                    tools = tools.Where( it => it.Availability != filters.Avaiblity.Value );
+                    tools = tools.Where( it => it.Availability != filters.Availability.Value );
                 }
 
 

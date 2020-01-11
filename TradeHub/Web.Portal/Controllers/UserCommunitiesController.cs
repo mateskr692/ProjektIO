@@ -15,6 +15,14 @@ namespace Web.Portal.Controllers
     {
         private CommunityService CommunityService = new CommunityService();
 
+        //TODO: move the Index Action into the UserController using RESTfull API ( User/1/Communities )
+        //      move the Join and Leave Actions into the CommunityControler using RESTfull API ( Community/4/Join )
+        //      ask user for confirmation before leaving the community (Are you sure you want to leave the "xxx": yes, no )
+        //      eventually replace Join action with RequestToJoin, which one of the users in community will have to accept
+            
+        //TODO: Delete this controller after removing all actions
+    
+
         [HttpGet]
         public ActionResult Index()
         {

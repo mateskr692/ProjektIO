@@ -31,9 +31,20 @@
         <button type="submit">Leave</button>
     }
 
-    <div>
-        @Html.ActionLink("Browse Community Tools", "Index", "CommunityTool", new { communityId = Model.Id }, new { })
-    </div>
+    
+    @using ( Html.BeginRouteForm( routeName: "CommunityTools", 
+                                  routeValues: new { communityId = Model.Id }, 
+                                  method: FormMethod.Get ) )
+    {
+        <button type="submit">Browse Community Tools</button>
+    }
+  
+    <!-- Mostly gonna be using BeginRouteForm, leaving just in case -->
+    @*<div>
+            @Html.RouteLink( linkText: "Browse Community Tools",
+                routeName: "CommunityTools",
+                routeValues: new { communityId = Model.Id } )
+    </div>*@
 
 </div>
 

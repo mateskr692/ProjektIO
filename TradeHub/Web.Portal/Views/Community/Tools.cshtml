@@ -1,9 +1,11 @@
 ﻿@model ToolIndexViewModel
 
 <h1>Tools belonging to:</h1>
-<h2>@ViewData[ "CommunityName"]</h2>
+<h2>@ViewData[ "CommunityName" ]</h2>
 
-@using ( Html.BeginForm( "Index", "CommunityTool", FormMethod.Get, new { } ) )
+@using ( Html.BeginRouteForm( routeName: "CommunityTools",
+                                 routeValues: new { communityId = ViewData[ "Id" ] },
+                                 method: FormMethod.Get ) )
 {
     <div>
         <div>
@@ -28,8 +30,8 @@
                 <tr>
                     <td>@tool.Name</td>
                     <td>
+
                         <!--Todo:  viewing tool and reservation-->
-                        <a href="@Url.Action("View", new { Id = tool.Id })">View</a>
                     </td>
 
                 </tr>

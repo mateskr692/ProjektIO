@@ -115,13 +115,56 @@ namespace Data.DAL
         public IEnumerable<Tool> GetCommunityTools( ToolFilters filters, long communityId )
         {
             var community = this.dbSet.Where( it => it.Id == communityId ).SingleOrDefault();
+            if ( community == null )
+                return null;
 
-            return community?.CommunityUsers
-                             .SelectMany( it => it.Tools )
-                             .Where( it => !it.BannedCommunities.Contains( community ) )
-                             .Skip( filters.PageSize * ( filters.PageNumber - 1 ) )
-                             .Take( filters.PageSize )
-                             .AsEnumerable();
+            var tools = community?.CommunityUsers
+                                  .SelectMany( it => it.Tools )
+                                  .Where( it => !it.BannedCommunities.Contains( community ) );
+
+            if ( filters != null )
+            {
+                //Filtering
+                if ( !string.IsNullOrEmpty( filters.Name ) )
+                {
+                    tools = tools.Where( it => it.Name.ToUpper().Contains( filters.Name.ToUpper() ) );
+                }
+                if ( filters.Quality != null )
+                {
+                    tools = tools.Where( it => it.Quality == filters.Quality.Value );
+                }
+                if ( filters.Availability != null )
+                {
+                    tools = tools.Where( it => it.Availability == filters.Availability.Value );
+                }
+                if ( filters.Visibility != null )
+                {
+                    tools = tools.Where( it => it.Visibility == filters.Visibility.Value );
+                }
+
+                //Sorting
+                switch ( filters.SortingColumn )
+                {
+                    case ToolSorting.Name:
+                        tools = filters.Order == SortingOrder.Ascending ? tools.OrderBy( it => it.Name ) : tools.OrderByDescending( it => it.Name );
+                        break;
+
+                    case ToolSorting.Quality:
+                        tools = filters.Order == SortingOrder.Ascending ? tools.OrderBy( it => it.Quality ) : tools.OrderByDescending( it => it.Quality );
+                        break;
+
+                    case ToolSorting.Visibility:
+                        tools = filters.Order == SortingOrder.Ascending ? tools.OrderBy( it => it.Visibility ) : tools.OrderByDescending( it => it.Visibility );
+                        break;
+
+                    case ToolSorting.Availability:
+                        tools = filters.Order == SortingOrder.Ascending ? tools.OrderBy( it => it.Availability ) : tools.OrderByDescending( it => it.Availability );
+                        break;
+                }
+            }
+            return tools.Skip( filters.PageSize * ( filters.PageNumber - 1 ) )
+                        .Take( filters.PageSize )
+                        .AsEnumerable();
         }
     }
 }

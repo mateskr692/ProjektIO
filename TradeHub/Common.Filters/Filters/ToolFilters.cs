@@ -23,7 +23,7 @@ namespace Common.Filters
         public string Name { get; set; }
         public bool? Quality { get; set; }
         public int? Visibility { get; set; }
-        public bool? Avaiblity { get; set; }
+        public bool? Availability { get; set; }
         //public string SenderName { get; set; }
     }
 }
