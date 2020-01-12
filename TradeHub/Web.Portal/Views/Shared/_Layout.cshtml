@@ -1,26 +1,22 @@
 ﻿<!DOCTYPE html>
 <html lang="en" style="font-family: Anaheim;">
 <head>
+    <link rel="stylesheet" href="~/Content/Site.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <title>TradeHub</title>
-    <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css">
 </head>
 <body>
-    <nav data-topbar style="height: 22%; background-color: #e4b881a6; padding-left: 3%; padding-right:6%; ">
+    <nav data-topbar>
         @Html.Partial("UserPanel")
     </nav>
-    <div class="button-bar flex-column d-flex" style="float: left; margin-left: 3%; top: 26%; position: absolute; width: 8%;">
+    <div class="button-bar flex-column d-flex">
         @Html.Partial("Menu")
     </div>
-    <div style="position: relative; margin-top: -4%; margin-left: 14%; min-height: 80%; width: 80%;">
+    <div class="content-area">
         @RenderBody()
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
