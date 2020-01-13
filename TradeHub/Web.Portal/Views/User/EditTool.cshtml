@@ -1,7 +1,8 @@
 ﻿@model ToolViewModel
 
 
-@using ( Html.BeginForm( "Edit", "UserTool", FormMethod.Post ) )
+@using ( Html.BeginRouteForm( routeName: "DoEditUserTool",
+                             method: FormMethod.Post ) )
 {
     <input type="hidden" name="id" value="@Model.Id">
 
@@ -12,12 +13,9 @@
     </div>
     <div>
         @Html.LabelFor( m => m.Quality )
-        @Html.CheckBoxFor( m => m.Quality )
+        @Html.EnumDropDownListFor( m => m.Quality )
     </div>
-    <div>
-        @Html.LabelFor( m => m.Avaibility )
-        @Html.CheckBoxFor( m => m.Avaibility )
-    </div>
+
     <div>
         @Html.LabelFor( m => m.Visibility )
         @Html.EnumDropDownListFor( m => m.Visibility )

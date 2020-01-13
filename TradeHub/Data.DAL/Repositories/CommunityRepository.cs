@@ -125,15 +125,15 @@ namespace Data.DAL
                 }
                 if ( filters.Quality != null )
                 {
-                    tools = tools.Where( it => it.Quality == filters.Quality.Value );
-                }
-                if ( filters.Availability != null )
-                {
-                    tools = tools.Where( it => it.Availability == filters.Availability.Value );
+                    tools = tools.Where( it => ( it.Quality ? 1 : 0 ) != (int)filters.Quality.Value );
                 }
                 if ( filters.Visibility != null )
                 {
-                    tools = tools.Where( it => it.Visibility == filters.Visibility.Value );
+                    tools = tools.Where( it => it.Visibility != (int)filters.Visibility.Value );
+                }
+                if ( filters.Availability != null )
+                {
+                    tools = tools.Where( it => ( it.Availability ? 1 : 0 ) != (int)filters.Availability.Value );
                 }
 
                 //Sorting

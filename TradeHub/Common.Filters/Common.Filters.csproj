@@ -57,5 +57,11 @@
     <Compile Include="Sorting Enums\ToolSorting.cs" />
     <Compile Include="Sorting Enums\UserSorting.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{DD9C6783-3BF4-4CC1-A099-D59EA3368AB2}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

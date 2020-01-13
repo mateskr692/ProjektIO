@@ -13,9 +13,13 @@ namespace Buisness.Core.Mappers
     {
         internal static IMapper Default = new MapperConfiguration( cfg =>
         {
- 
-            cfg.CreateMap<Tool, ToolModel>();
-            cfg.CreateMap<ToolModel, Tool>();
+
+            cfg.CreateMap<Tool, ToolModel>()
+                .ForMember( m => m.Quality, opt => opt.MapFrom( t => t.Quality ? 1 : 0 ) )
+                .ForMember( m => m.Availability, opt => opt.MapFrom( t => t.Availability ? 1 : 0 ) );
+            cfg.CreateMap<ToolModel, Tool>()
+                .ForMember( m => m.Quality, opt => opt.MapFrom( t => t.Quality != 0 ? 1 : 0 ) )
+                .ForMember( m => m.Availability, opt => opt.MapFrom( t => t.Availability != 0 ? 1 : 0 ) );
 
             cfg.CreateMap<Tool, ToolInfoModel>();
             cfg.CreateMap<ToolInfoModel, Tool>();

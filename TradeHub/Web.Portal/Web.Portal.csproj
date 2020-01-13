@@ -233,17 +233,16 @@
     <Content Include="Views\Community\Index.cshtml" />
     <Content Include="Views\Community\View.cshtml" />
     <Content Include="Views\Community\Create.cshtml" />
-    <Content Include="Views\UserCommunities\Index.cshtml" />
-    <Content Include="Views\UserCommunities\Leave.cshtml" />
-    <Content Include="Views\UserCommunities\Join.cshtml" />
-    <Content Include="Views\UserCommunities\Error.cshtml" />
-    <Content Include="Views\UserTool\Index.cshtml" />
-    <Content Include="Views\UserTool\Create.cshtml" />
-    <Content Include="Views\UserTool\View.cshtml" />
-    <Content Include="Views\UserTool\Edit.cshtml" />
     <Content Include="Views\Community\Tools.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Community\Users.cshtml" />
+    <Content Include="Views\User\Cummunities.cshtml" />
+    <Content Include="Views\Community\Join.cshtml" />
+    <Content Include="Views\Community\Leave.cshtml" />
+    <Content Include="Views\User\Tool.cshtml" />
+    <Content Include="Views\User\CreateTool.cshtml" />
+    <Content Include="Views\User\ViewTool.cshtml" />
+    <Content Include="Views\User\EditTool.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

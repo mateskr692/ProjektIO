@@ -1,7 +1,9 @@
 ﻿@model UserIndexViewModel
 
-@* Filters *@
-@* w pole 'new { }' mozna wkladac wlasne atrybuty htmlowe dla formy (wiekszosc elementow ma przeciozana metode o tą wersje) *@
+<h2>Users</h2>
+
+<br />
+
 @using ( Html.BeginForm( "Index", "User", FormMethod.Get, new { } ) )
 {
     <div>
@@ -14,11 +16,13 @@
     </div>
 }
 
+<br />
+
 <table>
     <thead>
         <tr>
             <th>Login</th>
-            <th width="100px"></th>
+            <th width="200px"></th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +31,9 @@
             <tr>
                 <td>@user.Login</td>
                 <td>
-                    <a href="@Url.Action("View", new { Id = user.Id } )">Pokaz profil</a>
+                    @Html.RouteLink( linkText: "View User Profile",
+                                                   routeName: "User",
+                                                   routeValues: new { userId = user.Id } )
                 </td>
             </tr>
         }

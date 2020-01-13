@@ -1,0 +1,53 @@
+﻿@model ToolIndexViewModel
+
+@using ( Html.BeginRouteForm( routeName: "AddUserTool",
+                             method: FormMethod.Get ) )
+{
+    <div>
+        <button type="submit">Add Tool</button>
+    </div>
+}
+
+<br />
+
+@using ( Html.BeginRouteForm( routeName: "UserTools",
+                             method: FormMethod.Post ) )
+{
+    <div>
+        <div>
+            @Html.LabelFor( m => m.Filters.Name )
+            @Html.TextBoxFor( m => m.Filters.Name )
+        </div>
+
+        <button type="submit">Search</button>
+    </div>
+
+    <br />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th width="100px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ( var tool in Model.Tools )
+
+            {
+                <tr>
+                    <td>@tool.Name</td>
+                    <td>
+                        @Html.RouteLink( linkText: "View Tool",
+                                         routeName: "UserTool",
+                                         routeValues: new { toolId = tool.Id } )
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+

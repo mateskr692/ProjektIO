@@ -1,19 +1,11 @@
 ﻿@model CommunityIndexViewModel
 
-<h2>Communities</h2>
+<h2>Your communities</h2>
 
 <br />
 
-@using (Html.BeginForm("Create", "Community", FormMethod.Get, new { }))
-{
-    <div>
-        <button type="submit">Create</button>
-    </div>
-}
-
-<br />
-
-@using ( Html.BeginForm( "Index", "Community", FormMethod.Get, new { } ) )
+@using ( Html.BeginRouteForm( routeName: "UserCommunities",
+                              method: FormMethod.Get ) )
 {
     <div>
         <div>
@@ -38,19 +30,21 @@
         <tr>
             <th width="100px">Name</th>
             <th width="100px">Location</th>
+            <th width="500px">Description</th>
             <th width="100px"></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var community in Model.Communities)
+        @foreach ( var community in Model.Communities )
         {
             <tr>
                 <td>@community.Name</td>
                 <td>@community.Location</td>
+                <td>@community.Description</td>
                 <td>
-                    @Html.RouteLink( linkText: "View",
-                                        routeName: "Community",
-                                        routeValues: new { communityId = community.Id } )
+                    @Html.RouteLink( linkText: "View Community",
+                                               routeName: "Community",
+                                               routeValues: new { communityId = community.Id } )
                 </td>
             </tr>
         }

@@ -134,5 +134,41 @@ namespace Web.Portal.Controllers
             return this.View( UsersMapper.Default.Map<UserIndexViewModel>( response.Data ) );
         }
 
+        [HttpPost]
+        [Route( template: "Community/{communityId}/Join", Name = "JoinCommunity" )]
+        public ActionResult Join( long CommunityId )
+        {
+            var response = this.CommunityService.AddUserToCommunity( CommunityId, this.CurrentUser.Id );
+
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                /* TODO: this scenario can be done better
+                 foreach (var err in response.Errors)
+                    this.ModelState.AddModelError("", err);
+                 */
+                return this.View( "Error" );
+            }
+
+            return this.View();
+        }
+
+        [HttpPost]
+        [Route( template: "Community/{communityId}/Leave", Name = "LeaveCommunity" )]
+        public ActionResult Leave( long CommunityId )
+        {
+            var response = this.CommunityService.RemoveUserFromCommunity( CommunityId, this.CurrentUser.Id );
+
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                /* TODO: this scenario can be done better
+                 foreach (var err in response.Errors)
+                    this.ModelState.AddModelError("", err);
+                 */
+                return this.View( "Error" );
+            }
+
+            return this.View();
+        }
+
     }
 }

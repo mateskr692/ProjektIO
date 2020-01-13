@@ -3,6 +3,8 @@
 <h1>Users belonging to:</h1>
 <h2>@ViewData[ "CommunityName" ]</h2>
 
+<br />
+
 @using ( Html.BeginRouteForm( routeName: "CommunityUsers",
                               routeValues: new { communityId = ViewData[ "Id" ] },
                               method: FormMethod.Get ) )
@@ -17,11 +19,13 @@
     </div>
 }
 
+<br />
+
 <table>
     <thead>
         <tr>
             <th>Login</th>
-            <th width="100px"></th>
+            <th width="200px"></th>
         </tr>
     </thead>
     <tbody>
@@ -30,7 +34,9 @@
             <tr>
                 <td>@user.Login</td>
                 <td>
-                    <a href="@Url.Action("View", new { Id = user.Id } )">Pokaz profil</a>
+                    @Html.RouteLink( linkText: "Show User Profile",
+                                         routeName: "User",
+                                         routeValues: new { userId = user.Id } )
                 </td>
             </tr>
         }

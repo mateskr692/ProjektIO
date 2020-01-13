@@ -19,6 +19,8 @@
         }
     </div>
 
+    <br />
+
     @using ( Html.BeginForm( "Join", "UserCommunities", FormMethod.Post ) )
     {
         <input type="hidden" name="CommunityId" value="@Model.Id">
@@ -31,6 +33,7 @@
         <button type="submit">Leave</button>
     }
 
+    <br />
 
     @using ( Html.BeginRouteForm( routeName: "CommunityTools",
                                   routeValues: new { communityId = Model.Id },

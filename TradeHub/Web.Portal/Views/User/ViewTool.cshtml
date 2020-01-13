@@ -1,0 +1,49 @@
+﻿@model ToolViewModel
+
+<div>
+    <div>
+        @Html.NameFor( m => m.Name )
+        @Model.Name
+    </div>
+
+    <div>
+        @Html.NameFor( m => m.Description )
+        @if ( !string.IsNullOrEmpty( Model.Description ) )
+        {
+            @Model.Description
+        }
+    </div>
+
+    <div>
+        @Html.NameFor( m => m.Quality )
+        @Model.Quality
+    </div>
+
+    <div>
+        @Html.NameFor( m => m.Avaibility )
+        @Model.Avaibility
+    </div>
+
+    <div>
+        @Html.NameFor( m => m.Visibility )
+        @Model.Visibility
+    </div>
+
+    <div>
+        @using ( Html.BeginForm( "Delete", "UserTool", FormMethod.Post ) )
+        {
+            <input type="hidden" name="id" value="@Model.Id">
+            <button type="submit">Delete</button>
+        }
+    </div>
+
+    <div_>
+        @Html.RouteLink( linkText: "Edit Tool",
+                         routeName: "EditUserTool",
+                         routeValues: new { toolId = Model.Id } )
+    </div_>
+
+</div>
+
+
+

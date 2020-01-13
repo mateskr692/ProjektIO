@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Enums;
 
 namespace Common.Filters
 {
@@ -21,9 +22,9 @@ namespace Common.Filters
         //wlsane filtry
         //public DateTime? SendDate { get; set; }
         public string Name { get; set; }
-        public bool? Quality { get; set; }
-        public int? Visibility { get; set; }
-        public bool? Availability { get; set; }
+        public QualityType? Quality { get; set; }
+        public VisibilityType? Visibility { get; set; }
+        public AvailabilityType? Availability { get; set; }
         //public string SenderName { get; set; }
     }
 }

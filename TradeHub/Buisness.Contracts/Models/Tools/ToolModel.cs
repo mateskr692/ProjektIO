@@ -12,9 +12,9 @@ namespace Buisness.Contracts.Models
         public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public bool Quality { get; set; }
-        public bool Avaibility { get; set; }
-        public VisibilityType Visibility { get; set; }
+        public QualityType Quality { get; set; } = QualityType.Regular;
+        public AvailabilityType Availability { get; set; } = AvailabilityType.Available;
+        public VisibilityType Visibility { get; set; } = VisibilityType.Public;
         public long UserId { get; set; }
 
     }

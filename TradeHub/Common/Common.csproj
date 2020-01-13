@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AvailabilityType.cs" />
     <Compile Include="Enums\NotificationType.cs" />
+    <Compile Include="Enums\QualityType.cs" />
     <Compile Include="Enums\RequestType.cs" />
     <Compile Include="Enums\ValidationStatus.cs" />
     <Compile Include="Enums\VisibilityType.cs" />

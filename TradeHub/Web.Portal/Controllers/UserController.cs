@@ -17,6 +17,8 @@ namespace Web.Portal.Controllers
     public class UserController : BaseController
     {
         private UserService UserService = new UserService();
+        private CommunityService CommunityService = new CommunityService();
+        private ToolService ToolService = new ToolService();
 
         //both Get when going first time and POST when submitting filters
         public ActionResult Index(UserFilters filters)
@@ -44,6 +46,131 @@ namespace Web.Portal.Controllers
             return this.View( UsersMapper.Default.Map<UserViewModel>( response.Data ) );
         }
 
+        [HttpGet]
+        [Route( template: "User/Communities", Name = "UserCommunities" )]
+        public ActionResult Cummunities()
+        {
+            var response = this.CommunityService.GetUserCommunities( this.CurrentUser.Id );
+
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                return this.Redirect( this.Url.Action() );
+            }
+
+            return this.View( CommunitiesMapper.Default.Map<CommunityIndexViewModel>( response.Data ) );
+            //return this.View();
+        }
+
+
+
+        [Route( template: "User/Tool", Name = "UserTools" )]
+        [HttpGet]
+        public ActionResult Tool( ToolFilters filters )
+        {
+            var response = this.ToolService.GetUserTools( filters, this.CurrentUser.Id );
+            return this.View( ToolsMapper.Default.Map<ToolIndexViewModel>( response.Data ) );
+        }
+
+        [HttpGet]
+        [Route( template: "User/Tool/{toolId}", Name = "UserTool" )]
+        //wszystkie parametry w Url powinny byc nullowalne bo zawsze mozna wpisac urla bez nich
+        public ActionResult ViewTool( long? toolId )
+        {
+            if ( toolId == null )
+            {
+                this.RedirectToAction( "Index" );
+            }
+
+            var response = this.ToolService.GetById( toolId.Value );
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                //narazie tylko powrot do przegladania, trzeba by dodac jakiegos modala z info ze cos poszlo nie tak
+                return this.Redirect( this.Url.Action() );
+            }
+
+            return this.View( ToolsMapper.Default.Map<ToolViewModel>( response.Data ) );
+        }
+
+        [HttpGet]
+        [Route( template: "User/Tool/Add", Name = "AddUserTool" )]
+        public ActionResult CreateTool()
+        {
+            return this.View();
+        }
+
+
+        [HttpPost]
+        [Route( template: "User/Tool/Add", Name = "DoAddUserTool" )]
+        public ActionResult CreateTool( ToolViewModel toolModel, string returnUrl )
+        {
+            if ( !this.ModelState.IsValid )
+            {
+                return this.View( toolModel );
+            }
+
+            toolModel.UserId = this.CurrentUser.Id;
+
+            var response = this.ToolService.
+                AddUserTool( ToolsMapper.Default.Map<ToolModel>( toolModel ), this.CurrentUser.Id );
+
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                foreach ( var err in response.Errors )
+                    this.ModelState.AddModelError( "", err );
+
+                return this.View( toolModel );
+            }
+            return this.RedirectToAction( "Tool" );
+        }
+
+        [HttpPost]
+        [Route( template: "User/Tool/{toolId}/Delete", Name = "DeleteUserTool" )]
+        public ActionResult DeleteTool( long toolId )
+        {
+            var response = this.ToolService.Delete( toolId );
+            return this.RedirectToAction( "Index" );
+        }
+
+        [HttpGet]
+        [Route( template: "User/Tool/{toolId}/Edit", Name = "EditUserTool" )]
+        public ActionResult EditTool( long? toolId )
+        {
+            if ( toolId == null )
+            {
+                this.RedirectToAction( "Index" );
+            }
+
+            var response = this.ToolService.GetById( toolId.Value );
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                //narazie tylko powrot do przegladania, trzeba by dodac jakiegos modala z info ze cos poszlo nie tak
+                return this.Redirect( this.Url.Action() );
+            }
+
+            return this.View( ToolsMapper.Default.Map<ToolViewModel>( response.Data ) );
+        }
+
+        [HttpPost]
+        [Route( template: "User/Tool/{toolId}/Edit", Name = "DoEditUserTool" )]
+        public ActionResult EditTool( ToolViewModel toolModel, string returnUrl )
+        {
+            if ( !this.ModelState.IsValid )
+            {
+                return this.View( toolModel );
+            }
+
+            toolModel.UserId = this.CurrentUser.Id;
+            var response = this.ToolService.Update( ToolsMapper.Default.Map<ToolModel>( toolModel ) );
+
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                foreach ( var err in response.Errors )
+                    this.ModelState.AddModelError( "", err );
+
+                return this.View( toolModel );
+            }
+            return this.RedirectToAction( "ViewTool", new { toolId = toolModel.Id } );
+        }
 
     }
 }
