@@ -17,15 +17,7 @@ namespace Buisness.Core.Services
     {
         private static readonly string UserNotExistsMessage = "User with given Id does not exist";
 
-        //CRUDowe operacje: 
-        //Add <- Przez AccountService
-        //GetPaged               (Read)
-        //GetById
-        //Update <- tylko dla wlasnego konta, bez pol do authentyfikacji
-        //Delete <- brak mozliwosci usuniecia konta
-
         //TODO dodac walidacje otzrymywanego modelu przed wykonaniem serwisu
-
 
         //wejscie na strone Index wyswietli wszystkich uzytkownikow i pozwoli  ich sortowac filtrowac i kilknac w guzik zobacz...
         public WResult<UserIndexModel> GetPaged( UserFilters filters )
@@ -84,12 +76,22 @@ namespace Buisness.Core.Services
             }
         }
 
+        public WResult<UserIndexModel> GetCommunityUsers( UserFilters filters, long communityId )
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var users = uow.Communities.GetCommunityUsers( filters, communityId );
 
-        //public WResult<Dictionary<long, string>> GetDictionary()
-        //{
+                var userPage = new UserIndexModel()
+                {
+                    Users = UsersMapper.Default.Map<List<UserInfoModel>>( users ),
+                    Filters = filters
+                };
 
-        //}
-
+                uow.Complete();
+                return new WResult<UserIndexModel>( ValidationStatus.Succeded, errors: null, userPage );
+            }
+        }
 
     }
 }

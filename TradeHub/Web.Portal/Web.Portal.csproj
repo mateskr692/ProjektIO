@@ -242,6 +242,8 @@
     <Content Include="Views\UserTool\View.cshtml" />
     <Content Include="Views\UserTool\Edit.cshtml" />
     <Content Include="Views\Community\Tools.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Community\Users.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

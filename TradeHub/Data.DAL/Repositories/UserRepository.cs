@@ -60,10 +60,7 @@ namespace Data.DAL
                 //Filtering
                 if ( !string.IsNullOrEmpty( filters.Login ) )
                 {
-                    //fajna skladnia ale nie dziala dla EF
-                    //users = users.Where( it => it.Login.Like( filters.Login ) );
                     users = users.Where( it => it.Login.ToUpper().Contains( filters.Login.ToUpper() ) );
-
                 }
 
                 //Sorting

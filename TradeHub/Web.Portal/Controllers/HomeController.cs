@@ -23,5 +23,10 @@ namespace Web.Portal.Controllers
         {
             return this.View();
         }
+
+        public ActionResult Error()
+        {
+            return this.View();
+        }
     }
 }

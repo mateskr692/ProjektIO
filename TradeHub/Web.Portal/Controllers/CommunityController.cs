@@ -16,8 +16,10 @@ namespace Web.Portal.Controllers
     {
         private CommunityService CommunityService = new CommunityService();
         private ToolService ToolService = new ToolService();
+        private UserService UserService = new UserService();
 
         // GET: Communities
+        [Route( template: "Community" )]
         public ActionResult Index(CommunityFilters filters)
         {
             var response = this.CommunityService.GetPaged(filters);
@@ -26,6 +28,7 @@ namespace Web.Portal.Controllers
 
 
         [HttpGet]
+        [Route( template: "Community/Create" )]
         public ActionResult Create()
         {
             return this.View("Create");
@@ -33,6 +36,7 @@ namespace Web.Portal.Controllers
 
 
         [HttpPost]
+        [Route( template: "Community/Create" )]
         public ActionResult Create(CommunityViewModel communityModel, string returnUrl)
         {
             if (!this.ModelState.IsValid)
@@ -94,7 +98,40 @@ namespace Web.Portal.Controllers
 
             //get all non-hidden tools of every user in the community
             var response = this.ToolService.GetCommunityTools( filters, communityId.Value );
+            if( response.Status == ValidationStatus.Failed )
+            {
+                return this.RedirectToAction( "Error", "Home" );
+            }
+
             return this.View( ToolsMapper.Default.Map<ToolIndexViewModel>( response.Data ) );
+        }
+
+        [HttpGet]
+        [Route( template: "Community/{communityId}/User", Name = "CommunityUsers" )]
+        public ActionResult Users( long? communityId, UserFilters filters )
+        {
+            //TODO: Check if user is in community, if not do not allow him to view the community tools
+            if ( communityId == null )
+            {
+                //todo: add some error message
+            }
+
+            var communityResponse = this.CommunityService.GetById( communityId.Value );
+            if ( communityResponse.Status == Common.Enums.ValidationStatus.Failed )
+            {
+                //todo: community doesnt exist
+            }
+            //set name of community to display on the page
+            this.ViewData[ "CommunityName" ] = communityResponse.Data.Name;
+            this.ViewData[ "Id" ] = communityId;
+
+            //get all non-hidden tools of every user in the community
+            var response = this.UserService.GetCommunityUsers( filters, communityId.Value );
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                return this.RedirectToAction( "Error", "Home" );
+            }
+            return this.View( UsersMapper.Default.Map<UserIndexViewModel>( response.Data ) );
         }
 
     }

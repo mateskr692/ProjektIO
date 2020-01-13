@@ -1,0 +1,38 @@
+﻿@model UserIndexViewModel
+
+<h1>Users belonging to:</h1>
+<h2>@ViewData[ "CommunityName" ]</h2>
+
+@using ( Html.BeginRouteForm( routeName: "CommunityUsers",
+                              routeValues: new { communityId = ViewData[ "Id" ] },
+                              method: FormMethod.Get ) )
+{
+    <div>
+        <div>
+            @Html.LabelFor( m => m.Filters.Login )
+            @Html.TextBoxFor( m => m.Filters.Login )
+        </div>
+
+        <button type="submit">Filtruj</button>
+    </div>
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Login</th>
+            <th width="100px"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ( var user in Model.Users )
+        {
+            <tr>
+                <td>@user.Login</td>
+                <td>
+                    <a href="@Url.Action("View", new { Id = user.Id } )">Pokaz profil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

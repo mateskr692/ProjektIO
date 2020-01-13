@@ -2,49 +2,56 @@
 
 <div>
     <div>
-        @Html.NameFor(m => m.Name)
+        @Html.NameFor( m => m.Name )
         @Model.Name
     </div>
 
     <div>
-        @Html.NameFor(m => m.Location)
+        @Html.NameFor( m => m.Location )
         @Model.Location
     </div>
 
     <div>
-        @Html.NameFor(m => m.Description)
-        @if (!string.IsNullOrEmpty(Model.Description))
+        @Html.NameFor( m => m.Description )
+        @if ( !string.IsNullOrEmpty( Model.Description ) )
         {
             @Model.Description
         }
     </div>
 
-    @using (Html.BeginForm("Join", "UserCommunities", FormMethod.Post))
+    @using ( Html.BeginForm( "Join", "UserCommunities", FormMethod.Post ) )
     {
         <input type="hidden" name="CommunityId" value="@Model.Id">
         <button type="submit">Join</button>
     }
 
-    @using (Html.BeginForm("Leave", "UserCommunities", FormMethod.Post))
+    @using ( Html.BeginForm( "Leave", "UserCommunities", FormMethod.Post ) )
     {
         <input type="hidden" name="CommunityId" value="@Model.Id">
         <button type="submit">Leave</button>
     }
 
-    
-    @using ( Html.BeginRouteForm( routeName: "CommunityTools", 
-                                  routeValues: new { communityId = Model.Id }, 
+
+    @using ( Html.BeginRouteForm( routeName: "CommunityTools",
+                                  routeValues: new { communityId = Model.Id },
                                   method: FormMethod.Get ) )
     {
         <button type="submit">Browse Community Tools</button>
     }
-  
+
+    @using ( Html.BeginRouteForm( routeName: "CommunityUsers",
+                              routeValues: new { communityId = Model.Id },
+                              method: FormMethod.Get ) )
+    {
+        <button type="submit">Users in this Community</button>
+    }
+
     <!-- Mostly gonna be using BeginRouteForm, leaving just in case -->
     @*<div>
-            @Html.RouteLink( linkText: "Browse Community Tools",
-                routeName: "CommunityTools",
-                routeValues: new { communityId = Model.Id } )
-    </div>*@
+                @Html.RouteLink( linkText: "Browse Community Tools",
+                    routeName: "CommunityTools",
+                    routeValues: new { communityId = Model.Id } )
+        </div>*@
 
 </div>
 

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Common.Extensions;
 using Common.Filters;
-using Buisness.Contracts;
-using Common.Enums;
 
 namespace Data.DAL
 {
@@ -163,6 +157,35 @@ namespace Data.DAL
                 }
             }
             return tools.Skip( filters.PageSize * ( filters.PageNumber - 1 ) )
+                        .Take( filters.PageSize )
+                        .AsEnumerable();
+        }
+
+        public IEnumerable<User> GetCommunityUsers( UserFilters filters, long communityId )
+        {
+            var community = this.dbSet.Where( it => it.Id == communityId ).SingleOrDefault();
+            if ( community == null )
+                return null;
+
+            var users = community.CommunityUsers.AsQueryable();
+            if ( filters != null )
+            {
+                //Filtering
+                if ( !string.IsNullOrEmpty( filters.Login ) )
+                {
+                    users = users.Where( it => it.Login.ToUpper().Contains( filters.Login.ToUpper() ) );
+                }
+
+                //Sorting
+                switch ( filters.SortingColumn )
+                {
+                    case UserSorting.Login:
+                        users = filters.Order == SortingOrder.Ascending ? users.OrderBy( it => it.Login ) : users.OrderByDescending( it => it.Login );
+                        break;
+                }
+            }
+
+            return users.Skip( filters.PageSize * ( filters.PageNumber - 1 ) )
                         .Take( filters.PageSize )
                         .AsEnumerable();
         }
