@@ -13,19 +13,29 @@
     </ul>
 </section>
 <!-- Right Nav Section -->
-<section class="right">
-    @if (CurrentUser.Identity.IsAuthenticated)
-    {
-        <a href="@Url.Action("Index","User")" class="user-button button bg-dark radius">@CurrentUser.Name</a>
-    }
-    else
-    {
+
+@if (CurrentUser.Identity.IsAuthenticated)
+{
+    <section class="right">
+        @Html.ActionLink("Log out", "Logout", "Account", new { returnUrl = Request.Url.AbsolutePath }, new { @class = "user-button button bg-dark radius" }) 
+    </section>
+    <section class="middle">
+        <div class="row logo">
+            <img src="../images/icon.png" width="30px" height="30px"  />
+            <h3 style="margin-right: 50px;">TradeHub</h3>
+            <h4>Hello, @CurrentUser.Name</h4>
+        </div>
+    </section>
+}
+else
+{
+    <section class="right">
         <a href="@Url.Action("Login","Account")" class="user-button button bg-dark radius">Log in / Register</a>
-    }
-</section>
-<section class="middle">
-    <div class="row logo">
-        <img src="../images/icon.png" width="30px" height="30px" />
-        <h3>TradeHub</h3>
-    </div>
-</section>
+    </section>
+    <section class="middle">
+        <div class="row logo">
+            <img src="../images/icon.png" width="30px" height="30px" />
+            <h3>TradeHub</h3>
+        </div>
+    </section>
+}
