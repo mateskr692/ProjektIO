@@ -1,35 +1,35 @@
-﻿
-@* Wyswietlane z boku razem z przyciskami nawigacyjnymi *@
-
-<div>
-    <h2>Menu</h2>
-
+﻿<ul class="list-unstyled ml-0">
     @if( CurrentUser.Identity.IsAuthenticated )
     {
-        <div>
-            @Html.RouteLink( linkText: "Your Tools",
-                   routeName: "UserTools" )
-        </div>
-        <div>
-            @Html.RouteLink( linkText: "Your Communities",
-                   routeName: "UserCommunities" )
-        </div>
-        <br /><br />
+        <li>
+            <a href="@Url.RouteUrl( "UserTools" )" class="menu-button button bg-dark radius">
+                <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                    Your Communities
+                </label>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.RouteUrl( "UserCommunities" )" class="menu-button button bg-dark radius">
+                <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                    Your Tools
+                </label>
+            </a>
+        </li>
     }
-    <div>
-        @Html.ActionLink("Rejestracja", "Register", "Account")
-    </div>
+    <br />
+    <li>
+        <a href="@Url.Action(" Index", "User" )" class="menu-button button bg-dark radius">
+            <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                Forbidden user
+            </label>
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action(" Index", "Community" )" class="menu-button button bg-dark radius">
+            <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                Forbidden community
+            </label>
+        </a>
+    </li>
 
-    <div>
-        @Html.ActionLink("Logowanie", "Login", "Account")
-    </div>
-
-    <div>
-        @Html.ActionLink("Users", "Index", "User")
-    </div>
-
-    <div>
-        @Html.ActionLink("Communities", "Index", "Community")
-    </div>
-</div>
-
+</ul>

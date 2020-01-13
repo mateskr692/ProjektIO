@@ -156,6 +156,8 @@
     <Content Include="fonts\foundation-icons.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\banner.jpg" />
+    <Content Include="images\icon.png" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -243,6 +245,7 @@
     <Content Include="Views\User\CreateTool.cshtml" />
     <Content Include="Views\User\ViewTool.cshtml" />
     <Content Include="Views\User\EditTool.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

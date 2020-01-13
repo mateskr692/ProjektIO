@@ -1,23 +1,41 @@
-﻿
-@{
-    ViewBag.Title = "UserPanel";
+﻿        <!-- Left Nav Section -->
+<section class="left">
+    <ul class="top-menu border border-dark border-right-0 border-bottom-0 border-top-0 pt-5 list-unstyled">
+        <li>
+            <a href="@Url.Action("Index", "Home")" class="text-black-50">Home</a>
+        </li>
+        <li>
+            <a href="@Url.Action("About", "Home")" class="text-black-50">About</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Contact", "Home")" class="text-black-50">Contact</a>
+        </li>
+    </ul>
+</section>
+<!-- Right Nav Section -->
+
+@if (CurrentUser.Identity.IsAuthenticated)
+{
+    <section class="right">
+        @Html.ActionLink("Log out", "Logout", "Account", new { returnUrl = Request.Url.AbsolutePath }, new { @class = "user-button button bg-dark radius" }) 
+    </section>
+    <section class="middle">
+        <div class="row logo">
+            <img src="../images/icon.png" width="30px" height="30px"  />
+            <h3 style="margin-right: 50px;">TradeHub</h3>
+            <h4>Hello, @CurrentUser.Name</h4>
+        </div>
+    </section>
 }
-
-@* wyswietlane na gorze z nazwa urzytkownika, likiem do jego profilu itp *@
-<div>
-    <h2>UserPanel</h2>
-    @if ( CurrentUser.Identity.IsAuthenticated )
-    {
-        <div>
-            Witaj @CurrentUser.Name, twoje ID = @CurrentUser.Id
+else
+{
+    <section class="right">
+        <a href="@Url.Action("Login","Account")" class="user-button button bg-dark radius">Log in / Register</a>
+    </section>
+    <section class="middle">
+        <div class="row logo">
+            <img src="../images/icon.png" width="30px" height="30px" />
+            <h3>TradeHub</h3>
         </div>
-        <div>
-            @Html.ActionLink( "Wyloguj", "Logout", "Account", new { returnUrl = Request.Url.AbsolutePath }, new { } )
-        </div>
-    }
-    else
-    {
-        @: Zaloguj sie jak chcysz powitanie
-    }
-
-</div>
+    </section>
+}
