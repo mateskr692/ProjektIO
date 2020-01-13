@@ -21,15 +21,17 @@
 
     <br />
 
-    @using ( Html.BeginForm( "Join", "UserCommunities", FormMethod.Post ) )
+    @using ( Html.BeginRouteForm( routeName: "JoinCommunity",
+                                   routeValues: new { communityId = Model.Id },
+                                   method: FormMethod.Post ) )
     {
-        <input type="hidden" name="CommunityId" value="@Model.Id">
         <button type="submit">Join</button>
     }
 
-    @using ( Html.BeginForm( "Leave", "UserCommunities", FormMethod.Post ) )
+    @using ( Html.BeginRouteForm( routeName: "LeaveCommunity",
+                                      routeValues: new { communityId = Model.Id },
+                                      method: FormMethod.Post ) )
     {
-        <input type="hidden" name="CommunityId" value="@Model.Id">
         <button type="submit">Leave</button>
     }
 

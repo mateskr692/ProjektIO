@@ -22,6 +22,8 @@ namespace Web.Portal.Code
             cfg.CreateMap<UserLoginViewModel, UserLoginModel>();
 
             cfg.CreateMap<UserModel, UserViewModel>();
+            cfg.CreateMap<UserViewModel, UserModel>();
+
             cfg.CreateMap<UserInfoModel, UserInfoViewModel>();
             cfg.CreateMap<UserIndexModel, UserIndexViewModel>();
 

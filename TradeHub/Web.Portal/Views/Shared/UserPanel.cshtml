@@ -14,14 +14,17 @@
 </section>
 <!-- Right Nav Section -->
 
-@if (CurrentUser.Identity.IsAuthenticated)
+@if ( CurrentUser.Identity.IsAuthenticated )
 {
     <section class="right">
-        @Html.ActionLink("Log out", "Logout", "Account", new { returnUrl = Request.Url.AbsolutePath }, new { @class = "user-button button bg-dark radius" }) 
+        @Html.ActionLink( "Log out", "Logout", "Account", new { returnUrl = Request.Url.AbsolutePath }, new { @class = "user-button button bg-dark radius" } )
+    </section>
+    <section class="right">
+        @Html.RouteLink( "Your Profile", "User", new { returnUrl = Request.Url.AbsolutePath, userId = CurrentUser.Id }, new { @class = "user-button button bg-dark radius" } )
     </section>
     <section class="middle">
         <div class="row logo">
-            <img src="../images/icon.png" width="30px" height="30px"  />
+            <img src="../images/icon.png" width="30px" height="30px" />
             <h3 style="margin-right: 50px;">TradeHub</h3>
             <h4>Hello, @CurrentUser.Name</h4>
         </div>

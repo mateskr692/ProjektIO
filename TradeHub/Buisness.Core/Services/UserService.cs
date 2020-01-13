@@ -76,6 +76,31 @@ namespace Buisness.Core.Services
             }
         }
 
+        public WResult UpdateUserInfo( UserModel userModel )
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var user = uow.Users.GetById( userModel.Id );
+                if ( user == null )
+                {
+                    return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
+                }
+
+                user.FirstName = userModel.FirstName;
+                user.LastName = userModel.LastName;
+                user.NameVisibility = (int)userModel.NameVisibility;
+
+                user.Contact = userModel.Contact;
+                user.ContactVisibility = (int)userModel.ContactVisibility;
+
+                user.Address = userModel.Address;
+                user.AdressVisibility = (int)userModel.AdressVisibility;
+
+                uow.Complete();
+                return new WResult( ValidationStatus.Succeded );
+            }
+        }
+
         public WResult<UserIndexModel> GetCommunityUsers( UserFilters filters, long communityId )
         {
             using ( var uow = new UnitOfWork() )

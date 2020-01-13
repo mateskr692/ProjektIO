@@ -11,7 +11,7 @@
 <br />
 
 @using ( Html.BeginRouteForm( routeName: "UserTools",
-                             method: FormMethod.Post ) )
+                              method: FormMethod.Get) )
 {
     <div>
         <div>
@@ -21,6 +21,7 @@
 
         <button type="submit">Search</button>
     </div>
+}
 
     <br />
 
@@ -47,7 +48,7 @@
             }
         </tbody>
     </table>
-}
+
 
 
 

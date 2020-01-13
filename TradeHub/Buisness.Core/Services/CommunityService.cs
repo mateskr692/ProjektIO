@@ -69,8 +69,9 @@ namespace Buisness.Core.Services
         }
 
         //GetUserCommunities
-        public WResult<CommunityIndexModel> GetUserCommunities(long UserId)
+        public WResult<CommunityIndexModel> GetUserCommunities( UserFilters filters, long UserId)
         {
+            //TODO: FILTERING
             using (var uow = new UnitOfWork())
             {
                 var user = uow.Users.GetById(UserId);

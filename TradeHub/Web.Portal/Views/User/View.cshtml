@@ -8,7 +8,7 @@
 
     <div>
         @Html.NameFor( m => m.FirstName )
-        @if ( Model.NameVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty(Model.FirstName) )
+        @if ( Model.NameVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty( Model.FirstName ) )
         {
             @: Private
         }
@@ -53,6 +53,17 @@
             @Model.Address
         }
     </div>
+
+    @if ( Model.Id == CurrentUser.Id )
+    {
+        <br />
+
+        using ( Html.BeginRouteForm( routeName: "EditUser",
+                                      method: FormMethod.Get ) )
+        {
+            <button type="submit">Edit your profile</button>
+        }
+    }
 
 
 </div>

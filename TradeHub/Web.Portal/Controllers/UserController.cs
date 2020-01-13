@@ -20,6 +20,9 @@ namespace Web.Portal.Controllers
         private CommunityService CommunityService = new CommunityService();
         private ToolService ToolService = new ToolService();
 
+
+
+
         //both Get when going first time and POST when submitting filters
         public ActionResult Index(UserFilters filters)
         {
@@ -47,10 +50,47 @@ namespace Web.Portal.Controllers
         }
 
         [HttpGet]
-        [Route( template: "User/Communities", Name = "UserCommunities" )]
-        public ActionResult Cummunities()
+        [Route( template: "User/Edit", Name = "EditUser" )]
+        public ActionResult Edit()
         {
-            var response = this.CommunityService.GetUserCommunities( this.CurrentUser.Id );
+            var response = this.UserService.GetById( this.CurrentUser.Id );
+            if( response.Status == ValidationStatus.Failed)
+            {
+                //todo
+                return this.RedirectToAction( "Home", "Error" );
+            }
+
+            return this.View( UsersMapper.Default.Map<UserViewModel>( response.Data ) );
+        }
+
+        [HttpPost]
+        [Route( template: "User/Edit", Name = "DoEditUser" )]
+        public ActionResult Edit( UserViewModel userModel )
+        {
+            if ( !this.ModelState.IsValid )
+            {
+                return this.View( userModel );
+            }
+
+            userModel.Id = this.CurrentUser.Id;
+            var response = this.UserService.UpdateUserInfo( UsersMapper.Default.Map<UserModel>( userModel ) );
+
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                foreach ( var err in response.Errors )
+                    this.ModelState.AddModelError( "", err );
+
+                return this.View( userModel );
+            }
+            return this.RedirectToAction( "View", new { userId = this.CurrentUser.Id } );
+        }
+
+
+        [HttpGet]
+        [Route( template: "User/Communities", Name = "UserCommunities" )]
+        public ActionResult Cummunities( UserFilters filters )
+        {
+            var response = this.CommunityService.GetUserCommunities( filters, this.CurrentUser.Id );
 
             if ( response.Status == ValidationStatus.Failed )
             {

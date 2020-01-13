@@ -136,9 +136,9 @@ namespace Web.Portal.Controllers
 
         [HttpPost]
         [Route( template: "Community/{communityId}/Join", Name = "JoinCommunity" )]
-        public ActionResult Join( long CommunityId )
+        public ActionResult Join( long communityId )
         {
-            var response = this.CommunityService.AddUserToCommunity( CommunityId, this.CurrentUser.Id );
+            var response = this.CommunityService.AddUserToCommunity( communityId, this.CurrentUser.Id );
 
             if ( response.Status == ValidationStatus.Failed )
             {
@@ -154,9 +154,9 @@ namespace Web.Portal.Controllers
 
         [HttpPost]
         [Route( template: "Community/{communityId}/Leave", Name = "LeaveCommunity" )]
-        public ActionResult Leave( long CommunityId )
+        public ActionResult Leave( long communityId )
         {
-            var response = this.CommunityService.RemoveUserFromCommunity( CommunityId, this.CurrentUser.Id );
+            var response = this.CommunityService.RemoveUserFromCommunity( communityId, this.CurrentUser.Id );
 
             if ( response.Status == ValidationStatus.Failed )
             {
