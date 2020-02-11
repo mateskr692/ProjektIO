@@ -31,7 +31,7 @@
                                           routeValues: new { communityId = Model.Id },
                                           method: FormMethod.Post))
             {
-                <button type="submit">Request to join this Community</button>
+                <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Request to join this Community</button>
             }
         }
         else
@@ -45,7 +45,7 @@
                                   routeValues: new { communityId = Model.Id },
                                   method: FormMethod.Get))
         {
-            <button type="submit">Users in this Community</button>
+            <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Users in this Community</button>
         }
 
         @if ((bool)ViewData["IsMember"] == true)
@@ -54,20 +54,19 @@
                                           routeValues: new { communityId = Model.Id },
                                           method: FormMethod.Get))
             {
-                <button type="submit">Browse Community Tools</button>
+                <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Browse Community Tools</button>
             }
         }
 
 
         @if ((bool)ViewData["IsMember"] == true)
         {
-            <br />
 
             using (Html.BeginRouteForm(routeName: "LeaveCommunity",
                                         routeValues: new { communityId = Model.Id },
                                         method: FormMethod.Post))
             {
-                <button type="submit">Leave this community</button>
+                <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Leave this community</button>
             }
         }
 

@@ -1,4 +1,7 @@
 ﻿@model ToolViewModel
+@{
+    int counter = 0;
+}
 
 <div class="site-content subpage">
     @using (Html.BeginRouteForm(routeName: "DoEditUserTool",
@@ -20,41 +23,67 @@
             @Html.LabelFor(m => m.Visibility)
             @Html.EnumDropDownListFor(m => m.Visibility)
 
-    </div>
-    <h3>Optional</h3>
-    <br />
-    <div>
-        @Html.LabelFor( m => m.Description )
-        @Html.TextBoxFor( m => m.Description )
-    </div>
-
-    <div>
-        <button type="submit">Save</button>
-    </div>
-}
-
-<h3>Pictures</h3>
-<div>
-    @foreach ( var image in Model.ToolPictures )
-    {
-        var base64 = Convert.ToBase64String( image.PictureData );
-        var imgSrc = String.Format( "data:image/gif;base64,{0}", base64 );
-
-        using ( Html.BeginRouteForm( routeName: "GetUserToolImage",
-                                      routeValues: new { toolId = Model.Id, toolImageId = image.Id },
-                                      method: FormMethod.Get ) )
-        {
-
-            <input type="image" src="@imgSrc" alt="Submit" width="256" , height="256" />
-        }
-
-        using ( Html.BeginRouteForm( routeName: "DoDeleteUserToolImage",
-                                      routeValues: new { toolId = Model.Id, toolImageId = image.Id },
-                                      method: FormMethod.Post ) )
-        {
-            <button type="submit">Delete</button>
-        }
-
+        </div>
+        <h3>Optional</h3>
+        <br />
+        <div>
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description)
+        </div>
+        <div>
+            <button type="submit" class="menu-button button bg-dark radius submit" style="width: 256px;">Save</button>
+        </div>
     }
+    <h3>Pictures</h3>
+    <div>
+        <h5>Images:</h5>
+        @* Tool Pictures *@
+        <div class="row">
+            @foreach (var image in Model.ToolPictures)
+            {
+                if (counter != 0 && counter % 3 == 0)
+                {
+                @:</div>
+                @:<div class="row">
+                }
+                @:<div class="col-md-4">
+                    var base64 = Convert.ToBase64String(image.PictureData);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                    using (Html.BeginRouteForm(routeName: "GetUserToolImage",
+                                                  routeValues: new { toolId = Model.Id, toolImageId = image.Id },
+                                                  method: FormMethod.Get))
+                    {
+
+                        <input type="image" src="@imgSrc" alt="Submit" width="256" , height="256" />
+
+                    }
+                    using (Html.BeginRouteForm(routeName: "DoDeleteUserToolImage",
+                                      routeValues: new { toolId = Model.Id, toolImageId = image.Id },
+                                      method: FormMethod.Post))
+                    {
+                        <button class="menu-button button bg-dark radius" style="width:256px;" type="submit">Delete</button>
+                    }
+                @:</div>
+                counter++;
+            }
+        </div>
+        <hr />
+        <div>
+            @using (Html.BeginRouteForm(routeName: "DoAddUserToolImage",
+                                  routeValues: new { toolId = Model.Id },
+                                  method: FormMethod.Post,
+                                  htmlAttributes: new { enctype = "multipart/form-data" }))
+            {
+                <h5 for="file">Upload Image:</h5>
+                <div><input type="file" name="file" id="file" style="width: 30%;" /></div>
+                <div><input type="submit" value="Upload" class="menu-button button bg-dark radius submit" style="width: 256px;" /></div>
+
+            }
+        </div>
+    </div>
+    <hr />
+    <br />
+
 
 </div>

@@ -143,7 +143,7 @@ namespace Web.Portal.Controllers
 
             if( file == null)
             {
-                return this.RedirectToRoute( "UserTool", routeValues: new { tooldId = toolId.Value } );
+                return this.RedirectToRoute("EditUserTool", routeValues: new { tooldId = toolId.Value } );
             }
 
             string pic = System.IO.Path.GetFileName( file.FileName );
@@ -162,7 +162,7 @@ namespace Web.Portal.Controllers
                 var response = this.ToolService.AddToolImage( toolId.Value, array );
             }
 
-            return this.RedirectToRoute( "UserTool", routeValues: new { tooldId = toolId.Value } );
+            return this.RedirectToRoute("EditUserTool", routeValues: new { tooldId = toolId.Value } );
         }
 
         [HttpGet]
