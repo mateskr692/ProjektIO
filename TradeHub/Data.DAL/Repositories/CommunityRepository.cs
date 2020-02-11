@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Common.Enums;
 using Common.Filters;
 
 namespace Data.DAL
@@ -114,7 +115,8 @@ namespace Data.DAL
 
             var tools = community?.CommunityUsers
                                   .SelectMany( it => it.Tools )
-                                  .Where( it => !it.BannedCommunities.Contains( community ) );
+                                  .Where( it => !it.BannedCommunities.Contains( community ) )
+                                  .Where( it => it.Visibility == (int)VisibilityType.Public );
 
             if ( filters != null )
             {

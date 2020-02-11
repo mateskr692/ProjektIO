@@ -114,9 +114,9 @@ namespace Buisness.Core.Services
                     return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
                 }
 
-                if ( uow.Communities.IsUserInCommunity( communityId, userId ) )
+                if ( !uow.Communities.IsUserInCommunity( communityId, userId ) )
                 {
-                    return new WResult( ValidationStatus.Failed, alreadyMemberMessage );
+                    return new WResult( ValidationStatus.Failed, "USer cannot leave a community he is not a member of" );
                 }
 
                 community.CommunityUsers.Remove( user );

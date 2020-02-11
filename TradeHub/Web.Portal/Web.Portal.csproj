@@ -189,6 +189,7 @@
     <Compile Include="Code\AppUser.cs" />
     <Compile Include="Code\AppViewPage.cs" />
     <Compile Include="Code\CommunitiesMapper.cs" />
+    <Compile Include="Code\RequestsMapper.cs" />
     <Compile Include="Code\ToolsMapper.cs" />
     <Compile Include="Code\UsersMapper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -202,6 +203,8 @@
     <Compile Include="Models\Communities\CommunityIndexViewModel.cs" />
     <Compile Include="Models\Communities\CommunityInfoViewModel.cs" />
     <Compile Include="Models\Communities\CommunityViewModel.cs" />
+    <Compile Include="Models\Requests\RequestIndexViewModel.cs" />
+    <Compile Include="Models\Requests\RequestInfoViewModel.cs" />
     <Compile Include="Models\Tools\ToolPictureViewModel.cs" />
     <Compile Include="Models\Tools\ToolIndexViewModel.cs" />
     <Compile Include="Models\Tools\ToolInfoViewModel.cs" />
@@ -250,6 +253,8 @@
     <Content Include="Views\User\InvitationSent.cshtml" />
     <Content Include="Views\User\ToolImage.cshtml" />
     <Content Include="Views\Community\ViewTool.cshtml" />
+    <Content Include="Views\User\Invitations.cshtml" />
+    <Content Include="Views\Community\Requests.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

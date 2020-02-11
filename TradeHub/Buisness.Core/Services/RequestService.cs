@@ -23,6 +23,11 @@ namespace Buisness.Core.Services
         {
             using ( var uow = new UnitOfWork() )
             {
+                if ( uow.Requests.RequestExsits( requesterId, communityId ) != null )
+                {
+                    return new WResult( ValidationStatus.Failed, "Request already Exists" );
+                }
+
                 var community = uow.Communities.GetById( communityId );
                 var requesterUser = uow.Users.GetById( requesterId );
 
@@ -59,6 +64,11 @@ namespace Buisness.Core.Services
         {
             using ( var uow = new UnitOfWork() )
             {
+                if(uow.Requests.InvitationExists(requesterId, communityId) != null)
+                {
+                    return new WResult( ValidationStatus.Failed, "Invitation already Exists" );
+                }
+
                 var community = uow.Communities.GetById( communityId );
                 var inviterUser = uow.Users.GetById( inviterId );
                 var requesterUser = uow.Users.GetById( requesterId );
@@ -117,6 +127,10 @@ namespace Buisness.Core.Services
                 request.Community.CommunityUsers.Add( request.User );
                 uow.Requests.Remove( request );
 
+                var invitation = uow.Requests.InvitationExists( request.UserId, request.CommunityId );
+                if ( invitation != null )
+                    uow.Requests.Remove( invitation );
+
                 uow.Complete();
             }
 
@@ -127,10 +141,10 @@ namespace Buisness.Core.Services
         {
             using ( var uow = new UnitOfWork() )
             {
-                var request = uow.Requests.GetById( requestId );
+                var invitation = uow.Requests.GetById( requestId );
                 var user = uow.Users.GetById( userId );
 
-                if ( request == null )
+                if ( invitation == null )
                 {
                     return new WResult( ValidationStatus.Failed, "Request does not exist" );
                 }
@@ -140,13 +154,17 @@ namespace Buisness.Core.Services
                     return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
                 }
 
-                if ( request.User != user )
+                if ( invitation.User != user )
                 {
                     return new WResult( ValidationStatus.Failed, "User can't accept invitations of other users" );
                 }
 
-                request.Community.CommunityUsers.Add( request.User );
-                uow.Requests.Remove( request );
+                invitation.Community.CommunityUsers.Add( invitation.User );
+                uow.Requests.Remove( invitation );
+
+                var request = uow.Requests.InvitationExists( invitation.UserId, invitation.CommunityId );
+                if ( request != null )
+                    uow.Requests.Remove( request );
 
                 uow.Complete();
             }
@@ -154,14 +172,104 @@ namespace Buisness.Core.Services
             return new WResult( ValidationStatus.Succeded );
         }
 
-        public WResult GetUserInvitations(long userId)
+        public WResult DeclineRequestToJoin( long requestId, long communityUserId )
         {
-            return null;
+            using ( var uow = new UnitOfWork() )
+            {
+                var request = uow.Requests.GetById( requestId );
+                var communityUser = uow.Users.GetById( communityUserId );
+
+                if ( request == null )
+                {
+                    return new WResult( ValidationStatus.Failed, "Request does not exist" );
+                }
+
+                if ( communityUser == null )
+                {
+                    return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
+                }
+
+                if ( !request.Community.CommunityUsers.Contains( communityUser ) )
+                {
+                    return new WResult( ValidationStatus.Failed, "User is not in community and can't accept invitations from other users" );
+                }
+
+                uow.Requests.Remove( request );
+
+                var invitation = uow.Requests.InvitationExists( request.UserId, request.CommunityId );
+                if ( invitation != null )
+                    uow.Requests.Remove( invitation );
+
+                uow.Complete();
+            }
+
+            return new WResult( ValidationStatus.Succeded );
         }
 
-        public WResult GetCommunityRequests(long communityId)
+        public WResult DeclineInvitationToCommunity( long requestId, long userId )
         {
-            return null;
+            using ( var uow = new UnitOfWork() )
+            {
+                var invitation = uow.Requests.GetById( requestId );
+                var user = uow.Users.GetById( userId );
+
+                if ( invitation == null )
+                {
+                    return new WResult( ValidationStatus.Failed, "Request does not exist" );
+                }
+
+                if ( user == null )
+                {
+                    return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
+                }
+
+                if ( invitation.User != user )
+                {
+                    return new WResult( ValidationStatus.Failed, "User can't accept invitations of other users" );
+                }
+
+                uow.Requests.Remove( invitation );
+
+                var request = uow.Requests.InvitationExists( invitation.UserId, invitation.CommunityId );
+                if ( request != null )
+                    uow.Requests.Remove( request );
+
+                uow.Complete();
+            }
+
+            return new WResult( ValidationStatus.Succeded );
         }
+
+        public WResult<RequestIndexModel> GetUserInvitations(long userId)
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var invitations = uow.Requests.GetUserInvitations( userId );
+                uow.Complete();
+
+                return new WResult<RequestIndexModel>( ValidationStatus.Succeded, errors: null, data: new RequestIndexModel
+                {
+                    Filters = null,
+                    Requests = RequestMapper.Default.Map<List<RequestInfoModel>>( invitations )
+                } );
+            }
+        }
+
+        public WResult<RequestIndexModel> GetCommunityRequests(long communityId)
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var requests = uow.Requests.GetCommunityJoinRequests( communityId );
+                uow.Complete();
+
+                return new WResult<RequestIndexModel>( ValidationStatus.Succeded, errors: null, data: new RequestIndexModel
+                {
+                    Filters = null,
+                    Requests = RequestMapper.Default.Map<List<RequestInfoModel>>( requests )
+                } );
+            }
+        }
+
+
     }
 }

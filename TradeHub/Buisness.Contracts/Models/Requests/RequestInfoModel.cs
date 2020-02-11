@@ -7,12 +7,11 @@ using Common.Enums;
 
 namespace Buisness.Contracts.Models
 {
-    public class RequestModel
+    public class RequestInfoModel
     {
         public long Id { get; set; }
 
-        public RequestType Type { get; set; }
-        public long UserId { get; set; }
-        public long CommunityId { get; set; }
+        public string UserName { get; set; }
+        public string CommunityName { get; set; }
     }
 }

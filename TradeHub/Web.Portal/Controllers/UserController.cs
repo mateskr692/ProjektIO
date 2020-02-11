@@ -318,7 +318,41 @@ namespace Web.Portal.Controllers
         [Route( template: "User/Invitations", Name = "UserInvitations")]
         public ActionResult Invitations()
         {
-            return null;
+            var response = this.RequestService.GetUserInvitations( this.CurrentUser.Id );
+            if( response.Status == ValidationStatus.Failed )
+            {
+                return this.RedirectToAction( "Home", "Error" );
+            }
+
+            return this.View( RequestsMapper.Default.Map<RequestIndexViewModel>( response.Data ) );
+        }
+
+
+        [HttpPost]
+        [Route( template: "User/Invitations/{requestId}/Accept", Name = "AcceptInvitation" )]
+        public ActionResult AcceptInvitation(long requestId)
+        {
+            var response = this.RequestService.AcceptInvitationToCommunity( requestId, this.CurrentUser.Id );
+            if( response.Status == ValidationStatus.Failed )
+            {
+                return this.RedirectToAction( "Home", "Error" );
+            }
+
+            return this.RedirectToRoute( "UserInvitations" );
+        }
+
+
+        [HttpPost]
+        [Route( template: "User/Invitations/{requestId}/Decline", Name = "DeclineInvitation" )]
+        public ActionResult DeclineInvitation(long requestId)
+        {
+            var response = this.RequestService.DeclineInvitationToCommunity( requestId, this.CurrentUser.Id );
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                return this.RedirectToAction( "Home", "Error" );
+            }
+
+            return this.RedirectToRoute( "UserInvitations" );
         }
 
     }

@@ -199,5 +199,51 @@ namespace Web.Portal.Controllers
             return this.View();
         }
 
+        [HttpGet]
+        [Route( template: "Community/{communityId}/Requests", Name = "CommunityRequests" )]
+        public ActionResult Requests( long? communityId )
+        {
+            if( communityId == null)
+            {
+                return this.RedirectToRoute( "Communities" );
+            }
+
+            var response = this.RequestService.GetCommunityRequests( communityId.Value );
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                return this.RedirectToAction( "Home", "Error" );
+            }
+
+            return this.View( RequestsMapper.Default.Map<RequestIndexViewModel>( response.Data ) );
+        }
+
+
+        [HttpPost]
+        [Route( template: "Community/{communityId}/Requests/{requestId}/Accept", Name = "AcceptRequest" )]
+        public ActionResult AcceptRequest( long communityId, long requestId )
+        {
+            var response = this.RequestService.AcceptRequestToJoin( requestId, this.CurrentUser.Id );
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                return this.RedirectToAction( "Home", "Error" );
+            }
+
+            return this.RedirectToRoute( "CommunityRequests" );
+        }
+
+
+        [HttpPost]
+        [Route( template: "Community/{communityId}/Requests/{requestId}/Decline", Name = "DeclineRequest" )]
+        public ActionResult Decline( long requestId )
+        {
+            var response = this.RequestService.DeclineRequestToJoin( requestId, this.CurrentUser.Id );
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                return this.RedirectToAction( "Home", "Error" );
+            }
+
+            return this.RedirectToRoute( "CommunityRequests" );
+        }
+
     }
 }

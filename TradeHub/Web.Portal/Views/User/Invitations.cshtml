@@ -1,0 +1,56 @@
+﻿@model RequestIndexViewModel
+
+<div class="page-title">
+    <h2 style="color: white;">
+        Invitations to join Communities
+    </h2>
+</div>
+
+<div class="site-content subpage">
+
+    @if ( Model.Requests.Count == 0 )
+    {
+        <h1>You have no new Invitations</h1>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th><h4>Community Name</h4>
+                    <th width="50%"></th>
+                    <th width="50%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ( var invitation in Model.Requests )
+                {
+                    <tr>
+                        <td>@invitation.CommunityName</td>
+                        <td>
+                            @using ( Html.BeginRouteForm( routeName: "AcceptInvitation",
+                                                          routeValues: new { },
+                                                          method: FormMethod.Post ) )
+                            {
+                                <button type="submit">Accept</button>
+                            }
+                        </td>
+                        <td>
+                            @using ( Html.BeginRouteForm( routeName: "DeclineInvitation",
+                                                         routeValues: new { },
+                                                         method: FormMethod.Post ) )
+                            {
+                                <button type="submit">Accept</button>
+                            }
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+
+</div>

@@ -1,0 +1,56 @@
+﻿@model RequestIndexViewModel
+
+<div class="page-title">
+    <h2 style="color: white;">
+        Requests from users to join Community
+    </h2>
+</div>
+
+<div class="site-content subpage">
+
+    @if ( Model.Requests.Count == 0 )
+    {
+        <h1>There is no new requests to join Community</h1>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th><h4>User Login</h4>
+                    <th width="50%"></th>
+                    <th width="50%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ( var request in Model.Requests )
+                {
+                    <tr>
+                        <td>@request.UserName</td>
+                        <td>
+                            @using ( Html.BeginRouteForm( routeName: "AcceptRequest",
+                                                          routeValues: new { requestId = request.Id },
+                                                          method: FormMethod.Post ) )
+                            {
+                                <button type="submit">Accept</button>
+                            }
+                        </td>
+                        <td>
+                            @using ( Html.BeginRouteForm( routeName: "DeclineRequest",
+                                                         routeValues: new { requestId = request.Id },
+                                                         method: FormMethod.Post ) )
+                            {
+                                <button type="submit">Decline</button>
+                            }
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+
+</div>
