@@ -1,43 +1,45 @@
 ﻿@model UserViewModel
 
-@using ( Html.BeginRouteForm( routeName: "DoEditUser",
-                              method: FormMethod.Post ) )
-{
-    <h4>Name</h4>
-    <div>
-        @Html.LabelFor( m => m.FirstName )
-        @Html.TextBoxFor( m => m.FirstName )
-    </div>
-    <div>
-        @Html.LabelFor( m => m.LastName )
-        @Html.TextBoxFor( m => m.LastName )
-    </div>
-    <div>
-        @Html.LabelFor( m => m.NameVisibility )
-        @Html.EnumDropDownListFor( m => m.NameVisibility )
-    </div>
+<div class="site-content subpage">
+    @using (Html.BeginRouteForm(routeName: "DoEditUser",
+                                  method: FormMethod.Post))
+    {
+        <h4>Name</h4>
+        <div>
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.NameVisibility)
+            @Html.EnumDropDownListFor(m => m.NameVisibility)
+        </div>
 
-    <h4>Adress</h4>
-    <div>
-        @Html.LabelFor( m => m.Address )
-        @Html.TextBoxFor( m => m.Address )
-    </div>
-    <div>
-        @Html.LabelFor( m => m.AdressVisibility )
-        @Html.EnumDropDownListFor( m => m.AdressVisibility )
-    </div>
+        <h4>Adress</h4>
+        <div>
+            @Html.LabelFor(m => m.Address)
+            @Html.TextBoxFor(m => m.Address)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.AdressVisibility)
+            @Html.EnumDropDownListFor(m => m.AdressVisibility)
+        </div>
 
-    <h4>Contact</h4>
-    <div>
-        @Html.LabelFor( m => m.Contact )
-        @Html.TextBoxFor( m => m.Contact )
-    </div>
-    <div>
-        @Html.LabelFor( m => m.ContactVisibility )
-        @Html.EnumDropDownListFor( m => m.ContactVisibility )
-    </div>
+        <h4>Contact</h4>
+        <div>
+            @Html.LabelFor(m => m.Contact)
+            @Html.TextBoxFor(m => m.Contact)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ContactVisibility)
+            @Html.EnumDropDownListFor(m => m.ContactVisibility)
+        </div>
 
-    <div>
-        <button type="submit">Save</button>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    }
     </div>
-}

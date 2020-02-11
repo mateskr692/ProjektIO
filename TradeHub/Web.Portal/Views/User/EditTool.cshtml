@@ -1,24 +1,24 @@
 ﻿@model ToolViewModel
 
+<div class="site-content subpage">
+    @using (Html.BeginRouteForm(routeName: "DoEditUserTool",
+                                 method: FormMethod.Post))
+    {
+        <input type="hidden" name="id" value="@Model.Id">
 
-@using ( Html.BeginRouteForm( routeName: "DoEditUserTool",
-                             method: FormMethod.Post ) )
-{
-    <input type="hidden" name="id" value="@Model.Id">
+        <h3>Required</h3>
+        <div>
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Quality)
+            @Html.EnumDropDownListFor(m => m.Quality)
+        </div>
 
-    <h3>Required</h3>
-    <div>
-        @Html.LabelFor( m => m.Name )
-        @Html.TextBoxFor( m => m.Name )
-    </div>
-    <div>
-        @Html.LabelFor( m => m.Quality )
-        @Html.EnumDropDownListFor( m => m.Quality )
-    </div>
-
-    <div>
-        @Html.LabelFor( m => m.Visibility )
-        @Html.EnumDropDownListFor( m => m.Visibility )
+        <div>
+            @Html.LabelFor(m => m.Visibility)
+            @Html.EnumDropDownListFor(m => m.Visibility)
 
     </div>
     <h3>Optional</h3>

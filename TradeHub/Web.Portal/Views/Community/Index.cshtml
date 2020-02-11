@@ -1,58 +1,63 @@
 ﻿@model CommunityIndexViewModel
 
-<h2>Communities</h2>
+<div class="page-title">
+    <h2 style="color: white;">
+        Communities:
+    </h2>
+</div>
 
-<br />
+<div class="site-content subpage">
 
-@using (Html.BeginForm("Create", "Community", FormMethod.Get, new { }))
-{
-    <div>
-        <button type="submit">Create</button>
-    </div>
-}
-
-<br />
-
-@using ( Html.BeginForm( "Index", "Community", FormMethod.Get, new { } ) )
-{
-    <div>
+    @using (Html.BeginForm("Create", "Community", FormMethod.Get, new { }))
+    {
         <div>
-            @Html.LabelFor( m => m.Filters.Name )
-            @Html.TextBoxFor( m => m.Filters.Name )
+            <button type="submit">Create</button>
+        </div>
+    }
+
+    <br />
+
+    @using (Html.BeginForm("Index", "Community", FormMethod.Get, new { }))
+    {
+        <div>
+            <div>
+                @Html.LabelFor(m => m.Filters.Name)
+                @Html.TextBoxFor(m => m.Filters.Name)
+            </div>
+
+            <div>
+                @Html.LabelFor(m => m.Filters.Location)
+                @Html.TextBoxFor(m => m.Filters.Location)
+            </div>
+
+            <button type="submit">Filter</button>
         </div>
 
-        <div>
-            @Html.LabelFor( m => m.Filters.Location )
-            @Html.TextBoxFor( m => m.Filters.Location )
-        </div>
+    }
 
-        <button type="submit">Filter</button>
-    </div>
+    <br />
 
-}
-
-<br />
-
-<table>
-    <thead>
-        <tr>
-            <th width="100px">Name</th>
-            <th width="100px">Location</th>
-            <th width="100px"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var community in Model.Communities)
-        {
+    <table>
+        <thead>
             <tr>
-                <td>@community.Name</td>
-                <td>@community.Location</td>
-                <td>
-                    @Html.RouteLink( linkText: "View",
-                                        routeName: "Community",
-                                        routeValues: new { communityId = community.Id } )
-                </td>
+                <th width="100px">Name</th>
+                <th width="100px">Location</th>
+                <th width="100px"></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var community in Model.Communities)
+            {
+                <tr>
+                    <td>@community.Name</td>
+                    <td>@community.Location</td>
+                    <td>
+                        @Html.RouteLink( linkText: "View",
+                                            routeName: "Community",
+                                            routeValues: new { communityId = community.Id } )
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>

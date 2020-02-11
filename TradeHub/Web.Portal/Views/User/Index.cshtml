@@ -1,44 +1,47 @@
 ﻿@model UserIndexViewModel
 
-<h2>Users</h2>
+<div class="page-title">
+    <h2 style="color: white;">
+        Users:
+    </h2>
+</div>
 
-<br />
-
-@using ( Html.BeginForm( "Index", "User", FormMethod.Get, new { } ) )
-{
-    <div>
+<div class="site-content subpage">
+    @using (Html.BeginForm("Index", "User", FormMethod.Get, new { }))
+    {
         <div>
-            @Html.LabelFor( m => m.Filters.Login )
-            @Html.TextBoxFor( m => m.Filters.Login )
+            <div>
+                @Html.LabelFor(m => m.Filters.Login)
+                @Html.TextBoxFor(m => m.Filters.Login)
+            </div>
+
+            <button type="submit">Filter</button>
         </div>
+    }
 
-        <button type="submit">Filter</button>
-    </div>
-}
+    <br />
 
-<br />
-
-<table>
-    <thead>
-        <tr>
-            <th>Login</th>
-            <th width="200px"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ( var user in Model.Users )
-        {
+    <table>
+        <thead>
             <tr>
-                <td>@user.Login</td>
-                <td>
-                    @Html.RouteLink( linkText: "View User Profile",
-                                                   routeName: "User",
-                                                   routeValues: new { userId = user.Id } )
-                </td>
+                <th>Login</th>
+                <th width="200px"></th>
             </tr>
-        }
-    </tbody>
-</table>
-
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Login</td>
+                    <td>
+                        @Html.RouteLink( linkText: "View User Profile",
+                                                       routeName: "User",
+                                                       routeValues: new { userId = user.Id } )
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 

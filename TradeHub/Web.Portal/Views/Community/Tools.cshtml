@@ -1,45 +1,51 @@
 ﻿@model ToolIndexViewModel
+<div class="page-title">
+    <h2 style="color: white;">
+        Tools belonging to:
+    </h2>
+    <h3 style="color:white;">
+        @ViewData["CommunityName"]
+    </h3>
+</div>
 
-<h1>Tools belonging to:</h1>
-<h2>@ViewData[ "CommunityName" ]</h2>
+<div class="site-content subpage">
 
-<br />
-
-@using ( Html.BeginRouteForm( routeName: "CommunityTools",
-                                 routeValues: new { communityId = ViewData[ "Id" ] },
-                                 method: FormMethod.Get ) )
-{
-    <div>
+    @using (Html.BeginRouteForm(routeName: "CommunityTools",
+                                     routeValues: new { communityId = ViewData["Id"] },
+                                     method: FormMethod.Get))
+    {
         <div>
-            @Html.LabelFor( m => m.Filters.Name )
-            @Html.TextBoxFor( m => m.Filters.Name )
+            <div>
+                @Html.LabelFor(m => m.Filters.Name)
+                @Html.TextBoxFor(m => m.Filters.Name)
+            </div>
+
+            <button type="submit">Search</button>
         </div>
+    }
 
-        <button type="submit">Search</button>
-    </div>
-}
+    <br />
 
-<br />
-
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th width="100px"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ( var tool in Model.Tools )
-
-        {
+    <table>
+        <thead>
             <tr>
-                <td>@tool.Name</td>
-                <td>
-
-                    <!--Todo:  viewing tool and reservation-->
-                </td>
-
+                <th>Name</th>
+                <th width="100px"></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var tool in Model.Tools)
+
+            {
+                <tr>
+                    <td>@tool.Name</td>
+                    <td>
+
+                        <!--Todo:  viewing tool and reservation-->
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>

@@ -1,60 +1,72 @@
 ﻿@model UserViewModel
 
-<div>
-    <div>
-        @Html.NameFor( m => m.Login )
-        @Model.Login
-    </div>
+<div class="site-content subpage">
 
-    <div>
-        @Html.NameFor( m => m.FirstName )
-        @if ( Model.NameVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty( Model.FirstName ) )
+    <div style="width: 50%;">
+        <div>
+            <h5>@Html.NameFor(m => m.Login)</h5>
+            <h7>@Model.Login</h7>
+        </div>
+        <hr />
+        <div>
+            <h5>@Html.NameFor(m => m.FirstName)</h5>
+            <h7>
+                @if (Model.NameVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty(Model.FirstName))
+                {
+                    @: Private
+                }
+                else
+                {
+                    @Model.FirstName
+                }
+            </h7>
+        </div>
+        <hr />
+        <div>
+            <h5>@Html.NameFor(m => m.LastName)</h5>
+            <h7>
+                @if (Model.NameVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty(Model.LastName))
+                {
+                    @: Private
+                }
+                else
+                {
+                    @Model.LastName
+                }
+            </h7>
+        </div>
+        <hr />
+        <div>
+            <h5>@Html.NameFor(m => m.Contact)</h5>
+            <h7>
+                @if (Model.ContactVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty(Model.Contact))
+                {
+                    @: Private
+                }
+                else
+                {
+                    @Model.Contact
+                }
+            </h7>
+        </div>
+        <hr />
+        <div>
+            <h5>@Html.NameFor(m => m.Address)</h5>
+            <h7>
+                @if (Model.AdressVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty(Model.Address))
+                {
+                    @: Private
+                }
+                else
+                {
+                    @Model.Address
+                }
+            </h7>
+        </div>
+        <hr />
+        @if (Model.Id == CurrentUser.Id)
         {
-            @: Private
-        }
-        else
-        {
-            @Model.FirstName
-        }
-    </div>
-
-    <div>
-        @Html.NameFor( m => m.LastName )
-        @if ( Model.NameVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty( Model.LastName ) )
-        {
-            @: Private
-        }
-        else
-        {
-            @Model.LastName
-        }
-    </div>
-
-    <div>
-        @Html.NameFor( m => m.Contact )
-        @if ( Model.ContactVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty( Model.Contact ) )
-        {
-            @: Private
-        }
-        else
-        {
-            @Model.Contact
-        }
-    </div>
-
-    <div>
-        @Html.NameFor( m => m.Address )
-        @if ( Model.AdressVisibility == Common.Enums.VisibilityType.Private || string.IsNullOrEmpty( Model.Address ) )
-        {
-            @: Private
-        }
-        else
-        {
-            @Model.Address
-        }
-    </div>
-
-    <br />
+            <br />
 
     @if ( Model.Id == CurrentUser.Id )
     {
@@ -75,5 +87,29 @@
     }
 
 
+    </div>
 </div>
-
+<div class="button-bar flex-column d-flex" style="margin-left:87%; margin-top:6%;">
+    <ul class="list-unstyled ml-0">
+        <li>
+            <a href="@Url.RouteUrl( "UserTools" )" class="menu-button button bg-dark radius">
+                <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                    Your Tools
+                </label>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.RouteUrl( "UserCommunities" )" class="menu-button button bg-dark radius">
+                <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                    Your Communities
+                </label>
+            </a>
+        </li>
+        <li>
+            <h6>Powiadomienie pierwsze</h6>
+        </li>
+        <li>
+            <h6>Powiadomienie drugie</h6>
+        </li>
+    </ul>
+</div>

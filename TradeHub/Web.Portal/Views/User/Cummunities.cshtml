@@ -1,8 +1,11 @@
 ﻿@model CommunityIndexViewModel
+<div class="page-title">
+    <h2 style="color: white;">
+        Your communities:
+    </h2>
+</div>
 
-<h2>Your communities</h2>
-
-<br />
+<div class="site-content subpage">
 
 @using ( Html.BeginRouteForm( routeName: "UserCommunities",
                               method: FormMethod.Get ) )
@@ -50,3 +53,4 @@
         }
     </tbody>
 </table>
+</div>
