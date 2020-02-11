@@ -20,7 +20,7 @@ namespace Web.Portal.Controllers
         private RequestService RequestService = new RequestService();
 
         // GET: Communities
-        [Route( template: "Community" )]
+        [Route( template: "Community", Name = "Communities" )]
         public ActionResult Index(CommunityFilters filters)
         {
             var response = this.CommunityService.GetPaged(filters);

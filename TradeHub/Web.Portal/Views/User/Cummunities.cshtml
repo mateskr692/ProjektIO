@@ -7,6 +7,12 @@
 
 <div class="site-content subpage">
 
+@using ( Html.BeginRouteForm( routeName: "Communities",
+                              method: FormMethod.Get ) )
+{
+    <button type="submit">Browse Communities</button>
+}
+
 @using ( Html.BeginRouteForm( routeName: "UserCommunities",
                               method: FormMethod.Get ) )
 {
