@@ -294,8 +294,7 @@ namespace Web.Portal.Controllers
             var response = this.CommunityService.GetUserCommunities( filters: null, this.CurrentUser.Id );
             if(response.Status == ValidationStatus.Failed)
             {
-                //
-
+                return this.RedirectToRoute( "User", new { userId } );
             }
             this.ViewData[ "userId" ] = userId.Value;
             return this.View( CommunitiesMapper.Default.Map<CommunityIndexViewModel>( response.Data ) );
