@@ -7,36 +7,6 @@
 </div>
 
 <div class="site-content subpage">
-
-    @using (Html.BeginForm("Create", "Community", FormMethod.Get, new { }))
-    {
-        <div>
-            <button type="submit">Create</button>
-        </div>
-    }
-
-    <br />
-
-    @using (Html.BeginForm("Index", "Community", FormMethod.Get, new { }))
-    {
-        <div>
-            <div>
-                @Html.LabelFor(m => m.Filters.Name)
-                @Html.TextBoxFor(m => m.Filters.Name)
-            </div>
-
-            <div>
-                @Html.LabelFor(m => m.Filters.Location)
-                @Html.TextBoxFor(m => m.Filters.Location)
-            </div>
-
-            <button type="submit">Filter</button>
-        </div>
-
-    }
-
-    <br />
-
     <table>
         <thead>
             <tr>
@@ -60,4 +30,35 @@
             }
         </tbody>
     </table>
+
+
+
+    <hr />
+
+    @using (Html.BeginForm("Index", "Community", FormMethod.Get, new { }))
+    {
+        <div>
+            <div>
+                @Html.LabelFor(m => m.Filters.Name)
+                @Html.TextBoxFor(m => m.Filters.Name)
+            </div>
+
+            <div>
+                @Html.LabelFor(m => m.Filters.Location)
+                @Html.TextBoxFor(m => m.Filters.Location)
+            </div>
+
+            <button class="menu-button button bg-dark radius" style="width: 20%;" type="submit">Filter</button>
+        </div>
+
+    }
+
+    <hr />
+    @using (Html.BeginForm("Create", "Community", FormMethod.Get, new { }))
+    {
+        <div>
+            <button class="menu-button button bg-dark radius" style="width: 20%;" type="submit">Create</button>
+        </div>
+    }
+
 </div>

@@ -2,7 +2,7 @@
 
 <div class="site-content subpage">
 
-    <div style="width: 50%;">
+    <div>
         <div>
             <h5>@Html.NameFor(m => m.Login)</h5>
             <h7>@Model.Login</h7>
@@ -74,7 +74,7 @@
             using (Html.BeginRouteForm(routeName: "EditUser",
                                           method: FormMethod.Get))
             {
-                <button type="submit">Edit profile</button>
+                <button type="submit" class="menu-button button bg-dark radius" style="width: 30%;">Edit your profile</button>
             }
         }
         else
@@ -83,7 +83,7 @@
                                         method: FormMethod.Get,
                                         routeValues: new { userId = Model.Id }))
             {
-                <button type="submit">Invite user to Community</button>
+                <button type="submit" class="menu-button button bg-dark radius" style="width: 30%;">Invite user to Community</button>
             }
         }
 
