@@ -54,14 +54,23 @@
         }
     </div>
 
+    <br />
+
     @if ( Model.Id == CurrentUser.Id )
     {
-        <br />
-
         using ( Html.BeginRouteForm( routeName: "EditUser",
                                       method: FormMethod.Get ) )
         {
             <button type="submit">Edit your profile</button>
+        }
+    }
+    else
+    {
+        using ( Html.BeginRouteForm( routeName: "InviteUser",
+                                      method: FormMethod.Get,
+                                      routeValues: new { userId = Model.Id } ) )
+        {
+            <button type="submit">Invite user to Community</button>
         }
     }
 

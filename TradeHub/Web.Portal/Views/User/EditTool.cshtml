@@ -27,7 +27,34 @@
         @Html.LabelFor( m => m.Description )
         @Html.TextBoxFor( m => m.Description )
     </div>
+
     <div>
         <button type="submit">Save</button>
     </div>
 }
+
+<h3>Pictures</h3>
+<div>
+    @foreach ( var image in Model.ToolPictures )
+    {
+        var base64 = Convert.ToBase64String( image.PictureData );
+        var imgSrc = String.Format( "data:image/gif;base64,{0}", base64 );
+
+        using ( Html.BeginRouteForm( routeName: "GetUserToolImage",
+                                      routeValues: new { toolId = Model.Id, toolImageId = image.Id },
+                                      method: FormMethod.Get ) )
+        {
+
+            <input type="image" src="@imgSrc" alt="Submit" width="256" , height="256" />
+        }
+
+        using ( Html.BeginRouteForm( routeName: "DoDeleteUserToolImage",
+                                      routeValues: new { toolId = Model.Id, toolImageId = image.Id },
+                                      method: FormMethod.Post ) )
+        {
+            <button type="submit">Delete</button>
+        }
+
+    }
+
+</div>

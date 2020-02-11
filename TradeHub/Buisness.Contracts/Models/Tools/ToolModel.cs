@@ -17,5 +17,7 @@ namespace Buisness.Contracts.Models
         public VisibilityType Visibility { get; set; } = VisibilityType.Public;
         public long UserId { get; set; }
 
+        public List<ToolPictureModel> ToolPictures { get; set; }
+
     }
 }

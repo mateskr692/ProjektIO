@@ -121,5 +121,71 @@ namespace Buisness.Core.Services
                 return new WResult<ToolIndexModel>( ValidationStatus.Succeded, errors: null, toolPage );
             }
         }
+
+        public WResult AddToolImage( long toolId, byte[] image )
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var tool = uow.Tools.GetById( toolId );
+                if( tool == null )
+                {
+                    return new WResult( ValidationStatus.Failed, "Tool does not exist" );
+                }
+
+                tool.ToolPictures.Add( new ToolPicture
+                {
+                    PictureData = image,
+                    Tool = tool
+                } );
+                uow.Complete();
+            }
+
+            return new WResult( ValidationStatus.Succeded );
+        }
+
+        public WResult DeleteToolImage( long toolId, long toolImageId )
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var tool = uow.Tools.GetById( toolId );
+                if ( tool == null )
+                {
+                    return new WResult( ValidationStatus.Failed, "Tool does not exist" );
+                }
+
+                var toolPicture = tool.ToolPictures.Where( it => it.Id == toolImageId ).SingleOrDefault();
+                if ( toolPicture == null )
+                {
+                    return new WResult( ValidationStatus.Failed, "Tool does not have the specified picture" );
+                }
+
+                uow.ToolPictures.Remove( toolPicture );
+                tool.ToolPictures.Remove( toolPicture );
+
+                uow.Complete();
+            }
+
+            return new WResult( ValidationStatus.Succeded );
+        }
+
+        public WResult<ToolPictureModel> GetToolImage(long toolId, long toolImageId)
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var tool = uow.Tools.GetById( toolId );
+                if ( tool == null )
+                {
+                    return new WResult<ToolPictureModel>( ValidationStatus.Failed, "Tool does not exist" );
+                }
+
+                var toolPicture = tool.ToolPictures.Where( it => it.Id == toolImageId ).SingleOrDefault();
+                if ( toolPicture == null )
+                {
+                    return new WResult<ToolPictureModel>( ValidationStatus.Failed, "Tool does not have the specified picture" );
+                }
+                uow.Complete();
+                return new WResult<ToolPictureModel>( ValidationStatus.Succeded, errors: null, data: ToolsMapper.Default.Map<ToolPictureModel>( toolPicture ) );
+            }
+        }
     }
 }

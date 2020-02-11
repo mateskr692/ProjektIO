@@ -1,0 +1,9 @@
+﻿@model ToolPictureViewModel
+
+@{
+    var base64 = Convert.ToBase64String( Model.PictureData );
+    var imgSrc = String.Format( "data:image/gif;base64,{0}", base64 );
+
+    <img src="@imgSrc"/>
+}
+

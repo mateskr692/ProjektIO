@@ -33,7 +33,7 @@ namespace Data.DAL
         public override IDictionary<long, string> GetFilteredDictionary( ToolFilters filters )
         {
             IQueryable<Tool> tools = this.dbSet;
-            var messagesDictionary = new Dictionary<long, string>();
+            var toolsDictionary = new Dictionary<long, string>();
 
             if ( filters != null )
             {
@@ -58,10 +58,10 @@ namespace Data.DAL
             
             foreach ( var tool in tools )
             {
-                messagesDictionary.Add( tool.Id, tool.Name );
+                toolsDictionary.Add( tool.Id, tool.Name );
             }
 
-            return messagesDictionary;
+            return toolsDictionary;
         }
 
 

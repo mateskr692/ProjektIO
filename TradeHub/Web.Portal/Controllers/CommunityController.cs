@@ -17,6 +17,7 @@ namespace Web.Portal.Controllers
         private CommunityService CommunityService = new CommunityService();
         private ToolService ToolService = new ToolService();
         private UserService UserService = new UserService();
+        private RequestService RequestService = new RequestService();
 
         // GET: Communities
         [Route( template: "Community" )]
@@ -140,7 +141,7 @@ namespace Web.Portal.Controllers
         [Route( template: "Community/{communityId}/Join", Name = "JoinCommunity" )]
         public ActionResult Join( long communityId )
         {
-            var response = this.CommunityService.RequestToJoin( communityId, this.CurrentUser.Id );
+            var response = this.RequestService.RequestToJoin( communityId, this.CurrentUser.Id );
 
             if ( response.Status == ValidationStatus.Failed )
             {

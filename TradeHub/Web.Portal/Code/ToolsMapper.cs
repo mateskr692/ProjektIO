@@ -15,6 +15,8 @@ namespace Web.Portal.Code
             cfg.CreateMap<ToolInfoModel, ToolInfoViewModel>();
             cfg.CreateMap<ToolIndexModel, ToolIndexViewModel>();
 
+            cfg.CreateMap<ToolPictureModel, ToolPictureViewModel>();
+
         } ).CreateMapper();
     }
 }

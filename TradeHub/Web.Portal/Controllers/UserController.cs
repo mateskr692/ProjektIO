@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,7 +20,7 @@ namespace Web.Portal.Controllers
         private UserService UserService = new UserService();
         private CommunityService CommunityService = new CommunityService();
         private ToolService ToolService = new ToolService();
-
+        private RequestService RequestService = new RequestService();
 
 
 
@@ -131,6 +132,80 @@ namespace Web.Portal.Controllers
             return this.View( ToolsMapper.Default.Map<ToolViewModel>( response.Data ) );
         }
 
+        [HttpPost]
+        [Route( template: "User/Tool/{toolId}/AddImage", Name = "DoAddUserToolImage" )]
+        public ActionResult AddToolImage(long? toolId, HttpPostedFileBase file)
+        {
+            if( toolId == null)
+            {
+                return this.RedirectToRoute( "UserTools" );
+            }
+
+            if( file == null)
+            {
+                return this.RedirectToRoute( "UserTool", routeValues: new { tooldId = toolId.Value } );
+            }
+
+            string pic = System.IO.Path.GetFileName( file.FileName );
+            string path = System.IO.Path.Combine( this.Server.MapPath( "~/images/profile" ), pic );
+            // file is uploaded
+            //file.SaveAs( path );
+
+            // save the image path path to the database or you can send image 
+            // directly to database
+            // in-case if you want to store byte[] ie. for DB
+            using ( MemoryStream ms = new MemoryStream() )
+            {
+                file.InputStream.CopyTo( ms );
+                byte[] array = ms.GetBuffer();
+
+                var response = this.ToolService.AddToolImage( toolId.Value, array );
+            }
+
+            return this.RedirectToRoute( "UserTool", routeValues: new { tooldId = toolId.Value } );
+        }
+
+        [HttpGet]
+        [Route( template: "User/Tool/{toolId}/Image/{toolImageId}", Name = "GetUserToolImage" )]
+        public ActionResult GetToolImage( long? toolId, long? toolImageId )
+        {
+            if ( toolId == null )
+            {
+                return this.RedirectToRoute( "UserTools" );
+            }
+            if ( toolImageId == null )
+            {
+                return this.RedirectToRoute( "UserTool", routeValues: new { tooldId = toolId.Value } );
+            }
+
+            var response = this.ToolService.GetToolImage( toolId.Value, toolImageId.Value );
+            if(response.Status == ValidationStatus.Failed)
+            {
+                return this.RedirectToRoute( "UserTool", routeValues: new { tooldId = toolId.Value } );
+            }
+
+            return this.PartialView( "ToolImage", ToolsMapper.Default.Map<ToolPictureViewModel>( response.Data ) );
+        }
+
+        [HttpPost]
+        [Route( template: "User/Tool/{toolId}/Image/{toolImageId}/Delete", Name = "DoDeleteUserToolImage" )]
+        public ActionResult DeleteToolImage( long? toolId, long? toolImageId )
+        {
+            if ( toolId == null )
+            {
+                return this.RedirectToRoute( "UserTools" );
+            }
+            if ( toolImageId == null )
+            {
+                return this.RedirectToRoute( "UserTool", routeValues: new { tooldId = toolId.Value } );
+            }
+
+            var response = this.ToolService.DeleteToolImage( toolId.Value, toolImageId.Value );
+
+            return this.RedirectToRoute( "EditUserTool", routeValues: new { tooldId = toolId.Value } );
+        }
+
+
         [HttpGet]
         [Route( template: "User/Tool/Add", Name = "AddUserTool" )]
         public ActionResult CreateTool()
@@ -210,6 +285,41 @@ namespace Web.Portal.Controllers
                 return this.View( toolModel );
             }
             return this.RedirectToAction( "ViewTool", new { toolId = toolModel.Id } );
+        }
+
+        [HttpGet]
+        [Route( template: "User/{userId}/Invite", Name = "InviteUser" )]
+        public ActionResult InviteToCommunity( long? userId )
+        {
+            var response = this.CommunityService.GetUserCommunities( filters: null, this.CurrentUser.Id );
+            if(response.Status == ValidationStatus.Failed)
+            {
+                //
+
+            }
+            this.ViewData[ "userId" ] = userId.Value;
+            return this.View( CommunitiesMapper.Default.Map<CommunityIndexViewModel>( response.Data ) );
+        }
+
+        [HttpPost]
+        [Route( template: "User/{userId}/Invite", Name = "DoInviteUser" )]
+        public ActionResult InviteToCommunity( long userId, long communityId )
+        {
+            var response = this.RequestService.InviteToJoin( communityId, this.CurrentUser.Id, userId );
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                //
+
+            }
+
+            return this.View( "InvitationSent" );
+        }
+
+        [HttpGet]
+        [Route( template: "User/Invitations", Name = "UserInvitations")]
+        public ActionResult Invitations()
+        {
+            return null;
         }
 
     }

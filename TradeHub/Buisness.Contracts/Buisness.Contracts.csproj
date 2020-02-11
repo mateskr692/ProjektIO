@@ -47,9 +47,11 @@
     <Compile Include="Models\Messages\MessageIndexModel.cs" />
     <Compile Include="Models\Messages\MessageInfoModel.cs" />
     <Compile Include="Models\Messages\MessageModel.cs" />
+    <Compile Include="Models\Requests\RequestModel.cs" />
     <Compile Include="Models\Tools\ToolModel.cs" />
     <Compile Include="Models\Tools\ToolIndexModel.cs" />
     <Compile Include="Models\Tools\ToolInfoModel.cs" />
+    <Compile Include="Models\Tools\ToolPictureModel.cs" />
     <Compile Include="Models\Users\UserIndexModel.cs" />
     <Compile Include="Models\Users\UserInfoModel.cs" />
     <Compile Include="Models\Users\UserLoginModel.cs" />

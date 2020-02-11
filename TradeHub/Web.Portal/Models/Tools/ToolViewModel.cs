@@ -15,5 +15,7 @@ namespace Web.Portal.Models
         public AvailabilityType Avaibility { get; set; } = AvailabilityType.Available;
         public VisibilityType Visibility { get; set; } = VisibilityType.Public;
         public long UserId { get; set; }
+
+        public List<ToolPictureViewModel> ToolPictures { get; set; }
     }
 }

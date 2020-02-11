@@ -195,8 +195,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommunityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UserCommunitiesController.cs" />
-    <Compile Include="Controllers\UserToolControler.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -204,6 +202,7 @@
     <Compile Include="Models\Communities\CommunityIndexViewModel.cs" />
     <Compile Include="Models\Communities\CommunityInfoViewModel.cs" />
     <Compile Include="Models\Communities\CommunityViewModel.cs" />
+    <Compile Include="Models\Tools\ToolPictureViewModel.cs" />
     <Compile Include="Models\Tools\ToolIndexViewModel.cs" />
     <Compile Include="Models\Tools\ToolInfoViewModel.cs" />
     <Compile Include="Models\Users\UserIndexViewModel.cs" />
@@ -247,6 +246,9 @@
     <Content Include="Views\User\EditTool.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\InviteToCommunity.cshtml" />
+    <Content Include="Views\User\InvitationSent.cshtml" />
+    <Content Include="Views\User\ToolImage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
