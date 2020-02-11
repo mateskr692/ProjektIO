@@ -1,34 +1,35 @@
 ﻿@model CommunityIndexViewModel
+<div class="site-content subpage">
+    <div>
+        <h3>Select a community you want to which you want to invite the user</h3>
 
-<div>
-    <h3>Select a community you want to which you want to invite the user</h3>
-
-    <table>
-        <thead>
-            <tr>
-                <th width="100px">Name</th>
-                <th width="100px">Location</th>
-                <th width="100px"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ( var community in Model.Communities )
-            {
+        <table>
+            <thead>
                 <tr>
-                    <td>@community.Name</td>
-                    <td>
-                        
-                        @using ( Html.BeginRouteForm( routeName: "DoInviteUser",
-                                      method: FormMethod.Post,
-                                      routeValues: new { userId = (long)ViewData["userId"], communityId = community.Id } ) )
-                        {
-                            <button type="submit">Invite</button>
-                        }
-                    </td>
+                    <th width="100px">Name</th>
+                    <th width="100px">Location</th>
+                    <th width="100px"></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var community in Model.Communities)
+                {
+                    <tr>
+                        <td>@community.Name</td>
+                        <td>
+
+                            @using (Html.BeginRouteForm(routeName: "DoInviteUser",
+                                          method: FormMethod.Post,
+                                          routeValues: new { userId = (long)ViewData["userId"], communityId = community.Id }))
+                            {
+                                <button type="submit">Invite</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
 
-</div>
+    </div>
+    </div>

@@ -1,36 +1,11 @@
 ﻿@model ToolIndexViewModel
 
 <div class="site-content subpage">
-    @using (Html.BeginRouteForm(routeName: "AddUserTool",
-                                 method: FormMethod.Get))
-    {
-        <div>
-            <button type="submit">Add Tool</button>
-        </div>
-    }
-
-    <br />
-
-    @using (Html.BeginRouteForm(routeName: "UserTools",
-                                  method: FormMethod.Get))
-    {
-        <div>
-            <div style="max-width:50%;">
-                @Html.LabelFor(m => m.Filters.Name)
-                @Html.TextBoxFor(m => m.Filters.Name)
-            </div>
-
-            <button type="submit">Search</button>
-        </div>
-    }
-
-    <br />
-
     <table>
         <thead>
             <tr>
-                <th>Name</th>
-                <th width="100px"></th>
+                <th><h4>Your tools:</h4>
+                <th width="50%"></th>
             </tr>
         </thead>
         <tbody>
@@ -49,6 +24,40 @@
             }
         </tbody>
     </table>
-</div>
+
+
+@using (Html.BeginRouteForm(routeName: "AddUserTool",
+                             method: FormMethod.Get))
+{
+    <div>
+        <button type="submit" class="menu-button button bg-dark radius" style="width:15%">
+            <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                New Tool
+            </label>
+        </button>
+    </div>
+}
+
+<hr />
+<br />
+
+@using (Html.BeginRouteForm(routeName: "UserTools",
+                              method: FormMethod.Get))
+{
+    <div>
+        <div style="max-width:50%;">
+            @Html.LabelFor(m => m.Filters.Name)
+            @Html.TextBoxFor(m => m.Filters.Name)
+        </div>
+
+        <button type="submit" class="menu-button button bg-dark radius" style="width:15%">
+            <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                Search
+            </label>
+        </button>
+    </div>
+}
+    </div>
+
 
 
