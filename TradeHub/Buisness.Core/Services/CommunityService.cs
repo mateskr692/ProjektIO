@@ -21,11 +21,18 @@ namespace Buisness.Core.Services
 
         //CRUDowe operacje: 
         //Add                    (Create)
-        public WResult AddCommunity(CommunityModel communityModel)
+        public WResult AddCommunity(CommunityModel communityModel, long founderUserId)
         {
             using (var uow = new UnitOfWork())
             {
+                var founder = uow.Users.GetById( founderUserId );
+                if( founder == null )
+                {
+                    return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
+                }
+
                 var newCommunity = CommunitiesMapper.Default.Map<Community>(communityModel);
+                newCommunity.CommunityUsers.Add( founder );
                 uow.Communities.Add(newCommunity);
 
                 uow.Complete();
@@ -33,7 +40,7 @@ namespace Buisness.Core.Services
             }
         }
 
-        //GetPaged               (Read)
+
         public WResult<CommunityIndexModel> GetPaged(CommunityFilters filters)
         {
             using (var uow = new UnitOfWork())
@@ -51,7 +58,7 @@ namespace Buisness.Core.Services
             }
         }
 
-        //GetById
+
         public WResult<CommunityModel> GetById(long id)
         {
             using (var uow = new UnitOfWork())
@@ -64,17 +71,16 @@ namespace Buisness.Core.Services
 
                 var communityModel = CommunitiesMapper.Default.Map<CommunityModel>(community);
                 uow.Complete();
+
                 return new WResult<CommunityModel>(ValidationStatus.Succeded, errors: null, communityModel);
             }
         }
 
-        //GetUserCommunities
-        public WResult<CommunityIndexModel> GetUserCommunities( UserFilters filters, long UserId)
+        public WResult<CommunityIndexModel> GetUserCommunities( UserFilters filters, long userId)
         {
-            //TODO: FILTERING
             using (var uow = new UnitOfWork())
             {
-                var user = uow.Users.GetById(UserId);
+                var user = uow.Users.GetById(userId);
                 if (user == null)
                 {
                     return new WResult<CommunityIndexModel>(ValidationStatus.Failed, UserNotExistsMessage);
@@ -84,76 +90,195 @@ namespace Buisness.Core.Services
                 var communityIndexModel = new CommunityIndexModel();
 
                 communityIndexModel.Communities = CommunitiesMapper.Default.Map<List<CommunityInfoModel>>(userCommunities);
-
                 uow.Complete();
-                return new WResult<CommunityIndexModel>(ValidationStatus.Succeded, errors: null, communityIndexModel);
+
+                return new WResult<CommunityIndexModel>( ValidationStatus.Succeded, errors: null, communityIndexModel );
             }
+
+            
         }
 
-        //GetDictionary
-        //GetFilteredDictionary
 
-        //Update                 (Update)
-
-        //Delete                 (Delete)
-
-        public WResult AddUserToCommunity(long CommunityId, long UserId)
+        public WResult RequestToJoin(long communityId, long requesterId)
         {
-            using (var uow = new UnitOfWork())
+            using ( var uow = new UnitOfWork() )
             {
-                var community = uow.Communities.GetById(CommunityId);
-                var user = uow.Users.GetById(UserId);
+                var community = uow.Communities.GetById( communityId );
+                var requesterUser = uow.Users.GetById( requesterId );
 
-                if (community == null)
+                if ( community == null )
                 {
-                    return new WResult<CommunityModel>(ValidationStatus.Failed, CommunityNotExistsMessage);
+                    return new WResult( ValidationStatus.Failed, CommunityNotExistsMessage );
                 }
 
-                if (user == null)
+                if ( requesterUser == null )
                 {
-                    return new WResult<CommunityModel>(ValidationStatus.Failed, UserNotExistsMessage);
-                }
-                
-                if (uow.Communities.IsUserInCommunity(CommunityId, UserId))
-                {
-                    return new WResult<CommunityModel>(ValidationStatus.Failed, alreadyMemberMessage);
+                    return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
                 }
 
-                community.CommunityUsers.Add(user);
+                if ( community.CommunityUsers.Contains(requesterUser) )
+                {
+                    return new WResult( ValidationStatus.Failed, "User is already in this ocmmunity" );
+                }
 
+                var joinRequest = new Request
+                {
+                    Type = (int)RequestType.Request,
+                    User = requesterUser,
+                    Community = community
+                };
+
+                uow.Requests.Add( joinRequest );
                 uow.Complete();
-                return new WResult(ValidationStatus.Succeded);
             }
+
+            return new WResult( ValidationStatus.Succeded );
         }
 
-        public WResult RemoveUserFromCommunity(long CommunityId, long UserId)
+        public WResult InviteToJoin(long communityId, long inviterId, long requesterId)
         {
-            using (var uow = new UnitOfWork())
+            using ( var uow = new UnitOfWork() )
             {
-                var community = uow.Communities.GetById(CommunityId);
-                var user = uow.Users.GetById(UserId);
+                var community = uow.Communities.GetById( communityId );
+                var inviterUser = uow.Users.GetById( inviterId );
+                var requesterUser = uow.Users.GetById( requesterId );
 
-                if (community == null)
+                if ( community == null )
                 {
-                    return new WResult<CommunityModel>(ValidationStatus.Failed, CommunityNotExistsMessage);
+                    return new WResult( ValidationStatus.Failed, CommunityNotExistsMessage );
                 }
 
-                if (user == null)
+                if ( inviterUser == null || requesterUser == null)
                 {
-                    return new WResult<CommunityModel>(ValidationStatus.Failed, UserNotExistsMessage);
+                    return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
                 }
 
-                if (!uow.Communities.IsUserInCommunity(CommunityId, UserId))
+                if ( !community.CommunityUsers.Contains( inviterUser ) )
                 {
-                    return new WResult<CommunityModel>(ValidationStatus.Failed, notYetMemberMessage);
+                    return new WResult( ValidationStatus.Failed, "User is not in community and can't invite others to join" );
                 }
 
-                community.CommunityUsers.Remove(user);
+                var joinRequest = new Request
+                {
+                    Type = (int)RequestType.Invitation,
+                    User = requesterUser,
+                    Community = community
+                };
+
+                uow.Requests.Add( joinRequest );
+                uow.Complete();
+            }
+
+            return new WResult( ValidationStatus.Succeded );
+        }
+
+        public WResult AcceptRequestToJoin(long requestId, long communityUserId)
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var request = uow.Requests.GetById( requestId );
+                var communityUser = uow.Users.GetById( communityUserId );
+
+                if ( request == null)
+                {
+                    return new WResult( ValidationStatus.Failed, "Request does not exist" );
+                }
+
+                if ( communityUser == null )
+                {
+                    return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
+                }
+
+                if( !request.Community.CommunityUsers.Contains(communityUser) )
+                {
+                    return new WResult( ValidationStatus.Failed, "User is not in community and can't accept invitations from other users" );
+                }
+
+                request.Community.CommunityUsers.Add( request.User );
+                uow.Requests.Remove( request );
 
                 uow.Complete();
-                return new WResult(ValidationStatus.Succeded);
+            }
+
+            return new WResult( ValidationStatus.Succeded );
+        }
+
+        public WResult AcceptInvitationToCommunity(long requestId, long userId)
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var request = uow.Requests.GetById( requestId );
+                var user = uow.Users.GetById( userId );
+
+                if ( request == null )
+                {
+                    return new WResult( ValidationStatus.Failed, "Request does not exist" );
+                }
+
+                if ( user == null )
+                {
+                    return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
+                }
+
+                if ( request.User != user )
+                {
+                    return new WResult( ValidationStatus.Failed, "User can't accept invitations of other users" );
+                }
+
+                request.Community.CommunityUsers.Add( request.User );
+                uow.Requests.Remove( request );
+
+                uow.Complete();
+            }
+
+            return new WResult( ValidationStatus.Succeded );
+        }
+
+        public WResult RemoveUser(long communityId, long userId)
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var community = uow.Communities.GetById( communityId );
+                var user = uow.Users.GetById( userId );
+
+                if ( community == null )
+                {
+                    return new WResult( ValidationStatus.Failed, CommunityNotExistsMessage );
+                }
+
+                if ( user == null )
+                {
+                    return new WResult( ValidationStatus.Failed, UserNotExistsMessage );
+                }
+
+                if ( uow.Communities.IsUserInCommunity( communityId, userId ) )
+                {
+                    return new WResult( ValidationStatus.Failed, alreadyMemberMessage );
+                }
+
+                community.CommunityUsers.Remove( user );
+                if(community.CommunityUsers.Count == 0)
+                {
+                    uow.Communities.Remove( community );
+                }
+
+                uow.Complete();
+            }
+
+            return new WResult( ValidationStatus.Succeded );
+        }
+
+        public bool IsUserInCommunity(long userId, long communityId)
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                return uow.Communities.IsUserInCommunity( communityId, userId );
             }
         }
 
+        //public WResult BanUser(long communityId, long userId)
+        //{
+
+        //}
     }
 }

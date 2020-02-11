@@ -47,12 +47,14 @@
     <Compile Include="Filters\Interfaces\IFiltrable.cs" />
     <Compile Include="Filters\Interfaces\IPageable.cs" />
     <Compile Include="Filters\Interfaces\ISortable.cs" />
+    <Compile Include="Filters\RequestFilters.cs" />
     <Compile Include="Filters\ToolFilters.cs" />
     <Compile Include="Filters\MessageFilters.cs" />
     <Compile Include="Filters\UserFilters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sorting Enums\CommunitySorting.cs" />
     <Compile Include="Sorting Enums\MessageSorting.cs" />
+    <Compile Include="Sorting Enums\RequestSorting.cs" />
     <Compile Include="Sorting Enums\SortingOrder.cs" />
     <Compile Include="Sorting Enums\ToolSorting.cs" />
     <Compile Include="Sorting Enums\UserSorting.cs" />

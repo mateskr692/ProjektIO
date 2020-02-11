@@ -21,28 +21,21 @@
 
     <br />
 
-    @using ( Html.BeginRouteForm( routeName: "JoinCommunity",
-                                   routeValues: new { communityId = Model.Id },
-                                   method: FormMethod.Post ) )
+    @if ( (bool)ViewData[ "IsMember" ] == false )
     {
-        <button type="submit">Join</button>
-    }
-
-    @using ( Html.BeginRouteForm( routeName: "LeaveCommunity",
+        using ( Html.BeginRouteForm( routeName: "JoinCommunity",
                                       routeValues: new { communityId = Model.Id },
                                       method: FormMethod.Post ) )
+        {
+            <button type="submit">Request to join this Community</button>
+        }
+    }
+    else
     {
-        <button type="submit">Leave</button>
+        //Invite
     }
 
     <br />
-
-    @using ( Html.BeginRouteForm( routeName: "CommunityTools",
-                                  routeValues: new { communityId = Model.Id },
-                                  method: FormMethod.Get ) )
-    {
-        <button type="submit">Browse Community Tools</button>
-    }
 
     @using ( Html.BeginRouteForm( routeName: "CommunityUsers",
                               routeValues: new { communityId = Model.Id },
@@ -51,12 +44,34 @@
         <button type="submit">Users in this Community</button>
     }
 
-    <!-- Mostly gonna be using BeginRouteForm, leaving just in case -->
-    @*<div>
-                @Html.RouteLink( linkText: "Browse Community Tools",
-                    routeName: "CommunityTools",
-                    routeValues: new { communityId = Model.Id } )
-        </div>*@
+    @if ( (bool)ViewData[ "IsMember" ] == true )
+    {
+        using ( Html.BeginRouteForm( routeName: "CommunityTools",
+                                      routeValues: new { communityId = Model.Id },
+                                      method: FormMethod.Get ) )
+        {
+            <button type="submit">Browse Community Tools</button>
+        }
+    }
+
+
+    @if ( (bool)ViewData[ "IsMember" ] == true )
+    {
+        <br />
+
+        using ( Html.BeginRouteForm( routeName: "LeaveCommunity",
+                                    routeValues: new { communityId = Model.Id },
+                                    method: FormMethod.Post ) )
+        {
+            <button type="submit">Leave this community</button>
+        }
+    }
 
 </div>
 
+<!-- Mostly gonna be using BeginRouteForm, leaving just in case -->
+@*<div>
+            @Html.RouteLink( linkText: "Browse Community Tools",
+                routeName: "CommunityTools",
+                routeValues: new { communityId = Model.Id } )
+    </div>*@

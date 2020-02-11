@@ -46,7 +46,7 @@ namespace Web.Portal.Controllers
 
             //TODO: automatically add user to the community he creates
             var response = this.CommunityService.
-                AddCommunity(CommunitiesMapper.Default.Map<CommunityModel>(communityModel));
+                AddCommunity(CommunitiesMapper.Default.Map<CommunityModel>(communityModel), this.CurrentUser.Id);
 
             if (response.Status == ValidationStatus.Failed)
             {
@@ -73,6 +73,8 @@ namespace Web.Portal.Controllers
             {
                 return this.Redirect(this.Url.Action());
             }
+
+            this.ViewData[ "IsMember" ] = this.CommunityService.IsUserInCommunity( this.CurrentUser.Id, communityId.Value );
 
             return this.View(CommunitiesMapper.Default.Map<CommunityViewModel>(response.Data));
         }
@@ -138,7 +140,7 @@ namespace Web.Portal.Controllers
         [Route( template: "Community/{communityId}/Join", Name = "JoinCommunity" )]
         public ActionResult Join( long communityId )
         {
-            var response = this.CommunityService.AddUserToCommunity( communityId, this.CurrentUser.Id );
+            var response = this.CommunityService.RequestToJoin( communityId, this.CurrentUser.Id );
 
             if ( response.Status == ValidationStatus.Failed )
             {
@@ -156,7 +158,7 @@ namespace Web.Portal.Controllers
         [Route( template: "Community/{communityId}/Leave", Name = "LeaveCommunity" )]
         public ActionResult Leave( long communityId )
         {
-            var response = this.CommunityService.RemoveUserFromCommunity( communityId, this.CurrentUser.Id );
+            var response = this.CommunityService.RemoveUser( communityId, this.CurrentUser.Id );
 
             if ( response.Status == ValidationStatus.Failed )
             {

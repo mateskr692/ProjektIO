@@ -30,10 +30,11 @@
     </div>
 
     <div>
-        @using ( Html.BeginForm( "Delete", "UserTool", FormMethod.Post ) )
+        @using ( Html.BeginRouteForm( routeName: "DeleteUserTool",
+                                      routeValues: new { toolId = Model.Id },
+                                      method: FormMethod.Post ) )
         {
-            <input type="hidden" name="id" value="@Model.Id">
-            <button type="submit">Delete</button>
+            <button type="submit">Delete Tool</button>
         }
     </div>
 

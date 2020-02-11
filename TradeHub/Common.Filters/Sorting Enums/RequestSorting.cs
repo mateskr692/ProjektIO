@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Enums
+namespace Common.Filters
 {
-    public enum RequestType
+    public enum RequestSorting
     {
-        Invitation,
-        Request
+        Type
     }
 }

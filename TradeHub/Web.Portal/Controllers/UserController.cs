@@ -168,7 +168,7 @@ namespace Web.Portal.Controllers
         public ActionResult DeleteTool( long toolId )
         {
             var response = this.ToolService.Delete( toolId );
-            return this.RedirectToAction( "Index" );
+            return this.RedirectToAction( "Tool" );
         }
 
         [HttpGet]

@@ -12,7 +12,7 @@ namespace Data.DAL
         public CommunityRepository Communities { get; }
         public UserRepository Users { get; }
         public ToolRepository Tools { get; }
-
+        public RequestRepository Requests { get; }
 
         public UnitOfWork()
         {
@@ -22,6 +22,7 @@ namespace Data.DAL
             this.Communities = new CommunityRepository( this.Context );
             this.Users = new UserRepository( this.Context );
             this.Tools = new ToolRepository( this.Context );
+            this.Requests = new RequestRepository( this.Context );
         }
 
         public int Complete()
