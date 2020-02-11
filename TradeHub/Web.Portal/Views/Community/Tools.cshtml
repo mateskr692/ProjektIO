@@ -30,18 +30,22 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th width="100px"></th>
+                <th width="200px"></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var tool in Model.Tools)
-
             {
                 <tr>
                     <td>@tool.Name</td>
                     <td>
 
-                        <!--Todo:  viewing tool and reservation-->
+                        @using ( Html.BeginRouteForm( routeName: "CommunityTool",
+                                                     routeValues: new { communityId = ViewData["Id"], toolId = tool.Id },
+                                                     method: FormMethod.Get ) )
+                        {
+                            <button type="submit">View Tool</button>
+                        }
                     </td>
 
                 </tr>

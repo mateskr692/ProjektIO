@@ -249,6 +249,7 @@
     <Content Include="Views\User\InviteToCommunity.cshtml" />
     <Content Include="Views\User\InvitationSent.cshtml" />
     <Content Include="Views\User\ToolImage.cshtml" />
+    <Content Include="Views\Community\ViewTool.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

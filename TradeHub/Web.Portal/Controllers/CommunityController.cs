@@ -87,7 +87,7 @@ namespace Web.Portal.Controllers
             //TODO: Check if user is in community, if not do not allow him to view the community tools
             if ( communityId == null )
             {
-                //todo: add some error message
+                return this.RedirectToRoute( "Communities" );
             }
 
             var communityResponse = this.CommunityService.GetById( communityId.Value );
@@ -107,6 +107,32 @@ namespace Web.Portal.Controllers
             }
 
             return this.View( ToolsMapper.Default.Map<ToolIndexViewModel>( response.Data ) );
+        }
+
+        [HttpGet]
+        [Route( template: "Community/{communityId}/Tool/{toolId}", Name = "CommunityTool" )]
+        public ActionResult ViewTool( long? communityId, long? toolId )
+        {
+            if ( communityId == null )
+            {
+                return this.RedirectToRoute( "Communities" );
+            }
+            if( toolId == null )
+            {
+                return this.RedirectToRoute( "CommunityTools", new { communityId = communityId } );
+            }
+
+            var response = this.ToolService.GetById( toolId.Value );
+            if( response.Status == ValidationStatus.Failed )
+            {
+                return this.RedirectToRoute( "CommunityTools", new { communityId = communityId } );
+            }
+
+            var userResponse = this.UserService.GetById( response.Data.UserId );
+            this.ViewData[ "userLogin" ] = userResponse.Data.Login;
+
+            return this.View( ToolsMapper.Default.Map<ToolViewModel>( response.Data ) );
+
         }
 
         [HttpGet]
