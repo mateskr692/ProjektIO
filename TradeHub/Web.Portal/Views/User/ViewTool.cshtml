@@ -1,50 +1,51 @@
 ﻿@model ToolViewModel
 
-<div>
+<div class="site-content subpage">
     <div>
-        @Html.NameFor( m => m.Name )
-        @Model.Name
-    </div>
+        <div>
+            @Html.NameFor(m => m.Name)
+            @Model.Name
+        </div>
 
-    <div>
-        @Html.NameFor( m => m.Description )
-        @if ( !string.IsNullOrEmpty( Model.Description ) )
-        {
-            @Model.Description
-        }
-    </div>
+        <div>
+            @Html.NameFor(m => m.Description)
+            @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                @Model.Description
+            }
+        </div>
 
-    <div>
-        @Html.NameFor( m => m.Quality )
-        @Model.Quality
-    </div>
+        <div>
+            @Html.NameFor(m => m.Quality)
+            @Model.Quality
+        </div>
 
-    <div>
-        @Html.NameFor( m => m.Avaibility )
-        @Model.Avaibility
-    </div>
+        <div>
+            @Html.NameFor(m => m.Avaibility)
+            @Model.Avaibility
+        </div>
 
-    <div>
-        @Html.NameFor( m => m.Visibility )
-        @Model.Visibility
-    </div>
+        <div>
+            @Html.NameFor(m => m.Visibility)
+            @Model.Visibility
+        </div>
 
-    <div>
-        @using ( Html.BeginRouteForm( routeName: "DeleteUserTool",
-                                      routeValues: new { toolId = Model.Id },
-                                      method: FormMethod.Post ) )
-        {
-            <button type="submit">Delete Tool</button>
-        }
-    </div>
+        <div>
+            @using (Html.BeginRouteForm(routeName: "DeleteUserTool",
+                                          routeValues: new { toolId = Model.Id },
+                                          method: FormMethod.Post))
+            {
+                <button type="submit">Delete Tool</button>
+            }
+        </div>
 
-    <div_>
-        @Html.RouteLink( linkText: "Edit Tool",
-                         routeName: "EditUserTool",
-                         routeValues: new { toolId = Model.Id } )
-    </div_>
+        <div_>
+            @Html.RouteLink( linkText: "Edit Tool",
+                             routeName: "EditUserTool",
+                             routeValues: new { toolId = Model.Id } )
+        </div_>
+
+    </div>
 
 </div>
-
-
 

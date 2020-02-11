@@ -4,43 +4,46 @@
                              method: FormMethod.Post ) )
 
 {
+<div class="site-content subpage">
     <h3>Required</h3>
     <div>
-        @Html.LabelFor( m => m.Name )
-        @Html.TextBoxFor( m => m.Name )
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
         <!--@@Html.ValidationMessageFor(m => m.Name) -->
     </div>
     <div>
-        @Html.LabelFor( m => m.Quality )
-        @Html.EnumDropDownListFor( m => m.Quality )
+        @Html.LabelFor(m => m.Quality)
+        @Html.EnumDropDownListFor(m => m.Quality)
         <!--@@Html.ValidationMessageFor(m => m.Name) -->
     </div>
     <div>
-        @Html.LabelFor( m => m.Avaibility )
-        @Html.EnumDropDownListFor( m => m.Avaibility )
+        @Html.LabelFor(m => m.Avaibility)
+        @Html.EnumDropDownListFor(m => m.Avaibility)
         <!--@@Html.ValidationMessageFor(m => m.Name) -->
     </div>
     <div>
-        @Html.LabelFor( m => m.Visibility )
-        @Html.EnumDropDownListFor( m => m.Visibility )
+        @Html.LabelFor(m => m.Visibility)
+        @Html.EnumDropDownListFor(m => m.Visibility)
         <!--@@Html.ValidationMessageFor(m => m.Name) -->
     </div>
     //<div>
-    //    @Html.LabelFor(m => m.Location)
-    //    @Html.TextBoxFor(m => m.Location)
-    //    <!--@@Html.ValidationMessageFor(m => m.Location)-->
-    //</div>
+        //    @Html.LabelFor(m => m.Location)
+        //    @Html.TextBoxFor(m => m.Location)
+        //    <!--@@Html.ValidationMessageFor(m => m.Location)-->
+        //
+    </div>
 
     <h3>Optional</h3>
     <br />
     <div>
-        @Html.LabelFor( m => m.Description )
-        @Html.TextBoxFor( m => m.Description )
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description)
     </div>
 
     <div>
         <button type="submit">Add tool</button>
     </div>
+</div>
 }
 
 

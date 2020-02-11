@@ -28,8 +28,8 @@
 }
 
 .content-area {
-    position: relative;
-    margin-top: -4%;
+    position: absolute;
+    margin-top: -5%;
     margin-left: 14%;
     min-height: 80%;
     width: 80%;
@@ -64,25 +64,25 @@
 }
 
 .small-banner {
+    position: absolute;
+    margin-top: -5%;
+    margin-left: 14%;
+    width: 80%;
     background: black url('../images/banner-thin.jpg');
     background-size: cover;
     background-position: center;
     height: 30%;
-    width: 100%;
-    position: absolute;
-    display: flex;
-    align-items: flex-end;
 }
 
 .site-content.subpage {
     background-color: beige;
     width: 100%;
     position: absolute;
-    display: flex;
+    /*display: flex;*/
     top: 30%;
     padding: 10%;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .site-content.homepage {
@@ -94,4 +94,10 @@
     height: 25%;
     align-items: center;
     justify-content: center
+}
+
+.page-title{
+    position: relative;
+    margin-top: 10%;
+    margin-left: 5%;
 }

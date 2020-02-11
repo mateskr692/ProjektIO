@@ -1,44 +1,52 @@
 ﻿@model UserIndexViewModel
 
-<h1>Users belonging to:</h1>
-<h2>@ViewData[ "CommunityName" ]</h2>
 
-<br />
+<div class="page-title">
+    <h2 style="color: white;">
+        Users belonging to:
+    </h2>
+    <h3 style="color:white;">
+        @ViewData["CommunityName"]
+    </h3>
+</div>
 
-@using ( Html.BeginRouteForm( routeName: "CommunityUsers",
-                              routeValues: new { communityId = ViewData[ "Id" ] },
-                              method: FormMethod.Get ) )
-{
-    <div>
+<div class="site-content subpage">
+
+    @using (Html.BeginRouteForm(routeName: "CommunityUsers",
+                                  routeValues: new { communityId = ViewData["Id"] },
+                                  method: FormMethod.Get))
+    {
         <div>
-            @Html.LabelFor( m => m.Filters.Login )
-            @Html.TextBoxFor( m => m.Filters.Login )
+            <div>
+                @Html.LabelFor(m => m.Filters.Login)
+                @Html.TextBoxFor(m => m.Filters.Login)
+            </div>
+
+            <button type="submit">Filtruj</button>
         </div>
+    }
 
-        <button type="submit">Filtruj</button>
-    </div>
-}
+    <br />
 
-<br />
-
-<table>
-    <thead>
-        <tr>
-            <th>Login</th>
-            <th width="200px"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ( var user in Model.Users )
-        {
+    <table>
+        <thead>
             <tr>
-                <td>@user.Login</td>
-                <td>
-                    @Html.RouteLink( linkText: "Show User Profile",
-                                         routeName: "User",
-                                         routeValues: new { userId = user.Id } )
-                </td>
+                <th>Login</th>
+                <th width="200px"></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Login</td>
+                    <td>
+                        @Html.RouteLink( linkText: "Show User Profile",
+                                             routeName: "User",
+                                             routeValues: new { userId = user.Id } )
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
