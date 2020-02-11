@@ -16,7 +16,7 @@
 @using ( Html.BeginRouteForm( routeName: "UserCommunities",
                               method: FormMethod.Get ) )
 {
-    <div>
+    <div style="max-width:50%;">
         <div>
             @Html.LabelFor( m => m.Filters.Name )
             @Html.TextBoxFor( m => m.Filters.Name )
@@ -59,4 +59,14 @@
         }
     </tbody>
 </table>
+</div>
+<div class="button-bar flex-column d-flex" style="margin-left:87%; margin-top:6%;">
+    <ul class="list-unstyled ml-0">
+        <li>
+            <h6>Powiadomienie pierwsze</h6>
+        </li>
+        <li>
+            <h6>Powiadomienie drugie</h6>
+        </li>
+    </ul>
 </div>

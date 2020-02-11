@@ -4,23 +4,25 @@
 <div class="site-content subpage">
     <div>
         <div>
-            @Html.NameFor(m => m.Name)
-            @Model.Name
+            <h5>@Html.NameFor(m => m.Name)</h5>
+            <h7>@Model.Name</h7>
         </div>
-
+        <hr />
         <div>
-            @Html.NameFor(m => m.Location)
-            @Model.Location
+            <h5>@Html.NameFor(m => m.Location)</h5>
+            <h7>@Model.Location</h7>
         </div>
-
+        <hr />
         <div>
-            @Html.NameFor(m => m.Description)
-            @if (!string.IsNullOrEmpty(Model.Description))
-            {
-                @Model.Description
-            }
+            <h5>@Html.NameFor(m => m.Description)</h5>
+            <h7>
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    @Model.Description
+                }
+            </h7>
         </div>
-
+        <hr />
         <br />
 
         @if ((bool)ViewData["IsMember"] == false)
@@ -70,10 +72,28 @@
         }
 
     </div>
-    </div>
-    <!-- Mostly gonna be using BeginRouteForm, leaving just in case -->
-    @*<div>
-                @Html.RouteLink( linkText: "Browse Community Tools",
-                    routeName: "CommunityTools",
-                    routeValues: new { communityId = Model.Id } )
-        </div>*@
+</div>
+<div class="button-bar flex-column d-flex" style="margin-left:87%; margin-top:6%;">
+    <ul class="list-unstyled ml-0">
+        <li>
+            <a href="@Url.RouteUrl( "UserCommunities" )" class="menu-button button bg-dark radius">
+                <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                    New Button 2
+                </label>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.RouteUrl( "UserCommunities" )" class="menu-button button bg-dark radius">
+                <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                    New Button 2
+                </label>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- Mostly gonna be using BeginRouteForm, leaving just in case -->
+@*<div>
+            @Html.RouteLink( linkText: "Browse Community Tools",
+                routeName: "CommunityTools",
+                routeValues: new { communityId = Model.Id } )
+    </div>*@

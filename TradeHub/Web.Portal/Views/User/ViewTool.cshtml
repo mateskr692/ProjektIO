@@ -1,82 +1,105 @@
 ﻿@model ToolViewModel
-
+@{
+    int counter = 0;
+}
 <div class="site-content subpage">
     <div>
         <div>
-            @Html.NameFor(m => m.Name)
-            @Model.Name
+            <h5>@Html.NameFor(m => m.Name)</h5>
+            <h7>@Model.Name</h7>
+        </div>
+        <hr />
+        <div>
+            <h5>@Html.NameFor(m => m.Description)</h5>
+            <h7>
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    @Model.Description
+                }
+            </h7>
+        </div>
+        <hr />
+        <div>
+            <h5>@Html.NameFor(m => m.Quality)</h5>
+            <h7>@Model.Quality</h7>
+        </div>
+        <hr />
+        <div>
+            <h5>@Html.NameFor(m => m.Avaibility)</h5>
+            <h7>@Model.Avaibility</h7>
+        </div>
+        <hr />
+        <div>
+            <h5>@Html.NameFor(m => m.Visibility)</h5>
+            <h7>@Model.Visibility</h7>
+        </div>
+        <hr />
+        <div>
+            <h5>Images:</h5>
+            @* Tool Pictures *@
+            <div class="row">
+                @foreach (var image in Model.ToolPictures)
+                {
+                    if (counter != 0 && counter % 3 == 0)
+                    {
+                    @:</div>
+                    @:<div class="row">
+                    }
+
+                    var base64 = Convert.ToBase64String(image.PictureData);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                    using (Html.BeginRouteForm(routeName: "GetUserToolImage",
+                                                  routeValues: new { toolId = Model.Id, toolImageId = image.Id },
+                                                  method: FormMethod.Get))
+                    {
+                        <div class="col-md-4">
+                            <input type="image" src="@imgSrc" alt="Submit" width="256" , height="256" />
+                        </div>
+                    }
+                    counter++;
+                }
+            </div>
         </div>
 
         <div>
-            @Html.NameFor(m => m.Description)
-            @if (!string.IsNullOrEmpty(Model.Description))
+            @using (Html.BeginRouteForm(routeName: "DoAddUserToolImage",
+                                  routeValues: new { toolId = Model.Id },
+                                  method: FormMethod.Post,
+                                  htmlAttributes: new { enctype = "multipart/form-data" }))
             {
-                @Model.Description
+                <label for="file">Upload Image:</label>
+                <input type="file" name="file" id="file" style="width: 100%;" />
+                <input type="submit" value="Upload" class="submit" />
             }
         </div>
 
-        <div>
-            @Html.NameFor(m => m.Quality)
-            @Model.Quality
-        </div>
+    </div>
 
-        <div>
-            @Html.NameFor(m => m.Avaibility)
-            @Model.Avaibility
-        </div>
-
-        <div>
-            @Html.NameFor(m => m.Visibility)
-            @Model.Visibility
-        </div>
-
-    <div>
-        @* Tool Pictures *@
-        @foreach ( var image in Model.ToolPictures )
-        {
-            var base64 = Convert.ToBase64String( image.PictureData );
-            var imgSrc = String.Format( "data:image/gif;base64,{0}", base64 );
-
-            using ( Html.BeginRouteForm( routeName: "GetUserToolImage",
-                                          routeValues: new { toolId = Model.Id, toolImageId = image.Id },
-                                          method: FormMethod.Get ) )
+</div>
+<div class="button-bar flex-column d-flex" style="margin-left:87%; margin-top:6%;">
+    <ul class="list-unstyled ml-0">
+        <li>
+            @using (Html.BeginRouteForm(routeName: "DeleteUserTool",
+                                          routeValues: new { toolId = Model.Id },
+                                          method: FormMethod.Post))
             {
-
-                <input type="image" src="@imgSrc" alt="Submit" width="256" , height="256"/>
+                <button class="menu-button button bg-dark radius" type="submit">
+                    <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                        Delete Tool
+                    </label>
+                </button>
             }
-
-         }
-    </div>
-    
-
-    <div>
-        @using ( Html.BeginRouteForm( routeName: "DeleteUserTool",
-                                      routeValues: new { toolId = Model.Id },
-                                      method: FormMethod.Post ) )
-        {
-            <button type="submit">Delete Tool</button>
-        }
-    </div>
-
-    <div>
-        @Html.RouteLink( linkText: "Edit Tool",
-                         routeName: "EditUserTool",
-                         routeValues: new { toolId = Model.Id } )
-    </div>
-
-    <div>
-        @using ( Html.BeginRouteForm( routeName: "DoAddUserToolImage",
-                              routeValues: new { toolId = Model.Id },
-                              method: FormMethod.Post,
-                              htmlAttributes: new { enctype = "multipart/form-data" } ) )
-        {
-            <label for="file">Upload Image:</label>
-            <input type="file" name="file" id="file" style="width: 100%;" />
-            <input type="submit" value="Upload" class="submit" />
-        }
-    </div>
-
-    </div>
-
+        </li>
+        <li>
+                <div class="menu-button button bg-dark radius" type="submit">
+                    <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                        @Html.RouteLink( linkText: "Edit Tool",
+                            routeName: "EditUserTool",
+                            routeValues: new { toolId = Model.Id } )
+                    </label>
+                </div>
+        </li>
+    </ul>
 </div>
 
