@@ -47,6 +47,7 @@
     <Compile Include="Models\Messages\MessageIndexModel.cs" />
     <Compile Include="Models\Messages\MessageInfoModel.cs" />
     <Compile Include="Models\Messages\MessageModel.cs" />
+    <Compile Include="Models\OffertModel.cs" />
     <Compile Include="Models\Requests\RequestIndexModel.cs" />
     <Compile Include="Models\Requests\RequestInfoModel.cs" />
     <Compile Include="Models\Requests\RequestModel.cs" />

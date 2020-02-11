@@ -162,7 +162,7 @@ namespace Buisness.Core.Services
                 invitation.Community.CommunityUsers.Add( invitation.User );
                 uow.Requests.Remove( invitation );
 
-                var request = uow.Requests.InvitationExists( invitation.UserId, invitation.CommunityId );
+                var request = uow.Requests.RequestExsits( invitation.UserId, invitation.CommunityId );
                 if ( request != null )
                     uow.Requests.Remove( request );
 
@@ -230,7 +230,7 @@ namespace Buisness.Core.Services
 
                 uow.Requests.Remove( invitation );
 
-                var request = uow.Requests.InvitationExists( invitation.UserId, invitation.CommunityId );
+                var request = uow.Requests.RequestExsits( invitation.UserId, invitation.CommunityId );
                 if ( request != null )
                     uow.Requests.Remove( request );
 

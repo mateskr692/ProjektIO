@@ -29,7 +29,7 @@
                         <td>@invitation.CommunityName</td>
                         <td>
                             @using ( Html.BeginRouteForm( routeName: "AcceptInvitation",
-                                                          routeValues: new { },
+                                                          routeValues: new { requestId = invitation.Id },
                                                           method: FormMethod.Post ) )
                             {
                                 <button type="submit">Accept</button>
@@ -37,7 +37,7 @@
                         </td>
                         <td>
                             @using ( Html.BeginRouteForm( routeName: "DeclineInvitation",
-                                                         routeValues: new { },
+                                                         routeValues: new { requestId = invitation.Id },
                                                          method: FormMethod.Post ) )
                             {
                                 <button type="submit">Accept</button>

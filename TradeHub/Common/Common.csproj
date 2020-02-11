@@ -47,6 +47,7 @@
     <Compile Include="Enums\NotificationType.cs" />
     <Compile Include="Enums\QualityType.cs" />
     <Compile Include="Enums\RequestType.cs" />
+    <Compile Include="Enums\ToolState.cs" />
     <Compile Include="Enums\ValidationStatus.cs" />
     <Compile Include="Enums\VisibilityType.cs" />
     <Compile Include="Extensions\StringExtension.cs" />

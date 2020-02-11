@@ -11,68 +11,71 @@
 
 <div class="site-content subpage">
 
-    @using ( Html.BeginRouteForm( routeName: "",
-                                routeValues: new { },
-                                method: FormMethod.Get ) )
+    @if ( Model.UserId != CurrentUser.Id )
     {
-        <button type="submit">View User Profile</button>
+        using ( Html.BeginRouteForm( routeName: "",
+                                 routeValues: new { },
+                                 method: FormMethod.Get ) )
+        {
+            <button type="submit">View User Profile</button>
+        }
+
+
+        if ( Model.Avaibility == Common.Enums.AvailabilityType.Available )
+        {
+            @* TODO *@
+            <button>Offer to trade</button>
+        }
+        else
+        {
+            <p>The tool is currently unavailable for trade</p>
+        }
     }
 
+    <div>
+        @Html.NameFor( m => m.Name )
+        @Model.Name
+    </div>
 
-    @if ( Model.Avaibility == Common.Enums.AvailabilityType.Available )
-    {
-        @* TODO *@
-        <button>Offer to trade</button>
-    }
-    else
-    {
-        <p>The tool is currently unavailable for trade</p>
-    }
+    <div>
+        @Html.NameFor( m => m.Description )
+        @if ( !string.IsNullOrEmpty( Model.Description ) )
+        {
+            @Model.Description
+        }
+    </div>
 
-        <div>
-            @Html.NameFor( m => m.Name )
-            @Model.Name
-        </div>
+    <div>
+        @Html.NameFor( m => m.Quality )
+        @Model.Quality
+    </div>
 
-        <div>
-            @Html.NameFor( m => m.Description )
-            @if ( !string.IsNullOrEmpty( Model.Description ) )
+    <div>
+        @Html.NameFor( m => m.Avaibility )
+        @Model.Avaibility
+    </div>
+
+    <div>
+        @Html.NameFor( m => m.Visibility )
+        @Model.Visibility
+    </div>
+
+    <div>
+        @* Tool Pictures *@
+        @foreach ( var image in Model.ToolPictures )
+        {
+            var base64 = Convert.ToBase64String( image.PictureData );
+            var imgSrc = String.Format( "data:image/gif;base64,{0}", base64 );
+
+            using ( Html.BeginRouteForm( routeName: "GetUserToolImage",
+                                            routeValues: new { toolId = Model.Id, toolImageId = image.Id },
+                                            method: FormMethod.Get ) )
             {
-                @Model.Description
+
+                <input type="image" src="@imgSrc" alt="Submit" width="256" , height="256" />
             }
-        </div>
 
-        <div>
-            @Html.NameFor( m => m.Quality )
-            @Model.Quality
-        </div>
-
-        <div>
-            @Html.NameFor( m => m.Avaibility )
-            @Model.Avaibility
-        </div>
-
-        <div>
-            @Html.NameFor( m => m.Visibility )
-            @Model.Visibility
-        </div>
-
-        <div>
-            @* Tool Pictures *@
-            @foreach ( var image in Model.ToolPictures )
-            {
-                var base64 = Convert.ToBase64String( image.PictureData );
-                var imgSrc = String.Format( "data:image/gif;base64,{0}", base64 );
-
-                using ( Html.BeginRouteForm( routeName: "GetUserToolImage",
-                                                routeValues: new { toolId = Model.Id, toolImageId = image.Id },
-                                                method: FormMethod.Get ) )
-                {
-
-                    <input type="image" src="@imgSrc" alt="Submit" width="256" , height="256" />
-                }
-
-            }
+        }
 
     </div>
 </div>
