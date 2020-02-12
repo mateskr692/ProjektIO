@@ -17,9 +17,9 @@
         <table>
             <thead>
                 <tr>
-                    <th><h4>User Login</h4>
-                    <th width="50%"></th>
-                    <th width="50%"></th>
+                    <th><h4>User Login</h4></th>
+                    <th width="20%"></th>
+                    <th width="20%"></th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +32,7 @@
                                                           routeValues: new { requestId = request.Id },
                                                           method: FormMethod.Post ) )
                             {
-                                <button type="submit">Accept</button>
+                                <button class="menu-button button bg-dark radius" type="submit">Accept</button>
                             }
                         </td>
                         <td>
@@ -40,7 +40,7 @@
                                                          routeValues: new { requestId = request.Id },
                                                          method: FormMethod.Post ) )
                             {
-                                <button type="submit">Decline</button>
+                                <button class="menu-button button bg-dark radius" type="submit">Decline</button>
                             }
 
                         </td>

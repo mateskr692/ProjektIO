@@ -20,11 +20,10 @@
                 @Html.TextBoxFor(m => m.Filters.Name)
             </div>
 
-            <button type="submit">Search</button>
+            <button class="menu-button button bg-dark radius" style="width: 20%;" type="submit">Search</button>
         </div>
     }
-
-    <br />
+    <hr />
 
     <table>
         <thead>
@@ -44,7 +43,7 @@
                                                      routeValues: new { communityId = ViewData["Id"], toolId = tool.Id },
                                                      method: FormMethod.Get ) )
                         {
-                            <button type="submit">View Tool</button>
+                            <button  class="menu-button button bg-dark radius" style="width: 100%;" type="submit">View Tool</button>
                         }
                     </td>
 

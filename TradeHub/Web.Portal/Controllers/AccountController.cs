@@ -91,7 +91,8 @@ namespace Web.Portal.Controllers
             if( this.CurrentUser.Identity.IsAuthenticated )
                 this.DeAuthorize();
 
-            return this.Redirect( returnUrl ?? "/" );
+            //return this.Redirect( returnUrl ?? "/" );
+            return this.RedirectToAction("Index", "Home");
         }
         #endregion
 

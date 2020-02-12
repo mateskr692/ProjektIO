@@ -127,9 +127,9 @@ namespace Buisness.Core.Services
                 request.Community.CommunityUsers.Add( request.User );
                 uow.Requests.Remove( request );
 
-                var invitation = uow.Requests.InvitationExists( request.UserId, request.CommunityId );
-                if ( invitation != null )
-                    uow.Requests.Remove( invitation );
+                //var invitation = uow.Requests.InvitationExists( request.UserId, request.CommunityId );
+                //if ( invitation != null )
+                //    uow.Requests.Remove( invitation );
 
                 uow.Complete();
             }
@@ -162,9 +162,9 @@ namespace Buisness.Core.Services
                 invitation.Community.CommunityUsers.Add( invitation.User );
                 uow.Requests.Remove( invitation );
 
-                var request = uow.Requests.RequestExsits( invitation.UserId, invitation.CommunityId );
-                if ( request != null )
-                    uow.Requests.Remove( request );
+                //var request = uow.Requests.RequestExsits( invitation.UserId, invitation.CommunityId );
+                //if ( request != null )
+                //    uow.Requests.Remove( request );
 
                 uow.Complete();
             }
@@ -196,9 +196,9 @@ namespace Buisness.Core.Services
 
                 uow.Requests.Remove( request );
 
-                var invitation = uow.Requests.InvitationExists( request.UserId, request.CommunityId );
-                if ( invitation != null )
-                    uow.Requests.Remove( invitation );
+                //var invitation = uow.Requests.InvitationExists( request.UserId, request.CommunityId );
+                //if ( invitation != null )
+                //    uow.Requests.Remove( invitation );
 
                 uow.Complete();
             }

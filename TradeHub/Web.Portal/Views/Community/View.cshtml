@@ -22,72 +22,74 @@
                 }
             </h7>
         </div>
-        <hr />
-        <br />
-
-        @if ((bool)ViewData["IsMember"] == false)
-        {
-            using (Html.BeginRouteForm(routeName: "JoinCommunity",
-                                          routeValues: new { communityId = Model.Id },
-                                          method: FormMethod.Post))
-            {
-                <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Request to join this Community</button>
-            }
-        }
-        else
-        {
-            //Invite
-        }
-
-        <br />
-
-        @using (Html.BeginRouteForm(routeName: "CommunityUsers",
-                                  routeValues: new { communityId = Model.Id },
-                                  method: FormMethod.Get))
-        {
-            <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Users in this Community</button>
-        }
-
-        @if ((bool)ViewData["IsMember"] == true)
-        {
-            using (Html.BeginRouteForm(routeName: "CommunityTools",
-                                          routeValues: new { communityId = Model.Id },
-                                          method: FormMethod.Get))
-            {
-                <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Browse Community Tools</button>
-            }
-        }
-
-
-        @if ((bool)ViewData["IsMember"] == true)
-        {
-
-            using (Html.BeginRouteForm(routeName: "LeaveCommunity",
-                                        routeValues: new { communityId = Model.Id },
-                                        method: FormMethod.Post))
-            {
-                <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Leave this community</button>
-            }
-        }
-
     </div>
+    <hr />
+    <br />
+
+    @if ((bool)ViewData["IsMember"] == false)
+    {
+        using (Html.BeginRouteForm(routeName: "JoinCommunity",
+                                      routeValues: new { communityId = Model.Id },
+                                      method: FormMethod.Post))
+        {
+            <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Request to join this Community</button>
+        }
+    }
+    else
+    {
+        //Invite
+    }
+
+    <br />
+
+    @using (Html.BeginRouteForm(routeName: "CommunityUsers",
+                              routeValues: new { communityId = Model.Id },
+                              method: FormMethod.Get))
+    {
+        <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Users in this Community</button>
+    }
+
+    @if ((bool)ViewData["IsMember"] == true)
+    {
+        using (Html.BeginRouteForm(routeName: "CommunityTools",
+                                      routeValues: new { communityId = Model.Id },
+                                      method: FormMethod.Get))
+        {
+            <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Browse Community Tools</button>
+        }
+    }
+
+
+    @if ((bool)ViewData["IsMember"] == true)
+    {
+
+        using (Html.BeginRouteForm(routeName: "LeaveCommunity",
+                                    routeValues: new { communityId = Model.Id },
+                                    method: FormMethod.Post))
+        {
+            <button class="menu-button button bg-dark radius" style="width: 25%;" type="submit">Leave this community</button>
+        }
+    }
 </div>
 <div class="button-bar flex-column d-flex" style="margin-left:87%; margin-top:6%;">
     <ul class="list-unstyled ml-0">
-        <li>
-            <a href="@Url.RouteUrl( "CommunityRequests" )" class="menu-button button bg-dark radius">
-                <label class="text-white h-100 align-items-center d-flex justify-content-center">
-                    User Requests
-                </label>
-            </a>
-        </li>
+        @if ((bool)ViewData["IsMember"] == true)
+        {
+            <li>
+                <a href="@Url.RouteUrl("CommunityRequests")" class="menu-button button bg-dark radius">
+                    <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                        User Requests
+                    </label>
+                </a>
+            </li>
+        }
         @*<li>
-            <a href="@Url.RouteUrl( "UserCommunities" )" class="menu-button button bg-dark radius">
-                <label class="text-white h-100 align-items-center d-flex justify-content-center">
-                    New Button 2
-                </label>
-            </a>
-        </li>*@
+                <a href="@Url.RouteUrl( "UserCommunities" )" class="menu-button button bg-dark radius">
+                    <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                        New Button 2
+                    </label>
+                </a>
+            </li>*@
     </ul>
 </div>
 <!-- Mostly gonna be using BeginRouteForm, leaving just in case -->
