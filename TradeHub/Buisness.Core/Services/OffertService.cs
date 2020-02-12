@@ -41,6 +41,16 @@ namespace Buisness.Core.Services
                 uow.Transactions.Add( newTransaction );
                 uow.Offerts.Remove( offert );
 
+                var lenderTool = uow.Tools.GetById( transaction.LenderToolId.Value );
+                lenderTool.Availability = false;
+
+                if( transaction.BorowerToolId  != null)
+                {
+                    var borrowerTool = uow.Tools.GetById( transaction.BorowerToolId.Value );
+                    borrowerTool.Availability = false;
+                }
+                
+
                 uow.Complete();
             }
 

@@ -1,7 +1,59 @@
-﻿
-@{
-    ViewBag.Title = "Borrowing";
-}
+﻿@model TransactionIndexViewModel
 
-<h2>Borrowing</h2>
+<div class="page-title" style="margin-top:7%;">
+    <h2 style="color: white;">
+        Transactions in which you are borrowing the tool
+    </h2>
+</div>
 
+<div class="site-content subpage">
+
+    @if ( Model.Transactions.Count == 0 )
+    {
+        <h1>You are currently not borrowing any tools</h1>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Borrowed From</th>
+                    <th>Borrowed Tool</th>
+                    <th>Offered Tool</th>
+
+                    <th width="200"></th>
+                    <th width="200"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ( var transaction in Model.Transactions )
+                {
+                    <tr>
+                        <td>@transaction.LenderName</td>
+                        <td>@transaction.LenderToolName</td>
+                        <td>@transaction.BorowerToolName</td>
+
+                        <td>
+                            @using ( Html.BeginRouteForm( routeName: "Transaction",
+                                                          routeValues: new { transactionId = transaction.Id },
+                                                          method: FormMethod.Get ) )
+                            {
+                                <button type="submit">Details</button>
+                            }
+                        </td>
+
+                        <td>
+                            @using ( Html.BeginRouteForm( routeName: "RateUser",
+                                                          routeValues: new { transactionId = transaction.Id },
+                                                          method: FormMethod.Get ) )
+                            {
+                                <button type="submit">Rate User</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

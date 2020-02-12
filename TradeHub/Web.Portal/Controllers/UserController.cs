@@ -40,15 +40,15 @@ namespace Web.Portal.Controllers
                 return this.RedirectToAction( "Index" );
             }
 
-            var response = this.UserService.GetById( userId .Value );
+            var response = this.UserService.GetById( userId.Value );
             if (response.Status == ValidationStatus.Failed)
             {
                 //narazie tylko powrot do przegladania, trzeba by dodac jakiegos modala z info ze cos poszlo nie tak
                 return this.Redirect( this.Url.Action() );
             }
 
-            this.ViewData[ "totalOpinion" ] = this.TransactionService.GetUserTotalOpinion(this.CurrentUser.Id);
-            this.ViewData[ "averageOpinion" ] = this.TransactionService.GetUserAverageOpinion( this.CurrentUser.Id );
+            this.ViewData[ "totalOpinion" ] = this.TransactionService.GetUserTotalOpinion( userId.Value );
+            this.ViewData[ "averageOpinion" ] = this.TransactionService.GetUserAverageOpinion( userId.Value );
 
             return this.View( UsersMapper.Default.Map<UserViewModel>( response.Data ) );
         }

@@ -63,7 +63,7 @@ namespace Data.DAL
             var lendingScore = lendingTransactions != null && lendingTransactions.Count() > 0 ?
                 lendingTransactions.Average( s => s.BorrowerOpinion ) : 0.0;
 
-            return ( borrowingScore + lendingScore ) / 2;
+            return (borrowingScore + lendingScore)/2;
         }
 
     }

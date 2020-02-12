@@ -63,6 +63,8 @@ namespace Web.Portal.Controllers
             return this.View( TransactionMapper.Default.Map<TransactionIndexViewModel>( response.Data ) );
         }
 
+
+
         [HttpGet]
         [Route( template: "Transactions/{transactionId}/Finish", Name = "FinishTransaction" )]
         public ActionResult Finish( long? transactionId )
@@ -72,26 +74,56 @@ namespace Web.Portal.Controllers
                 return this.RedirectToAction( "Error", "Home" );
             }
 
-            return null;
+            var viewmodel = new TransactionRateViewModel
+            {
+                TransactionId = transactionId.Value
+            };
+
+            return this.View( viewmodel );
         }
 
         [HttpPost]
-        [Route( template: "Transactions/{transactionId}/Finish", Name = "DoFinishTransaction" )]
-        public ActionResult Finish( TransactionViewModel transactionModel )
+        [Route( template: "Transactions/Finish", Name = "DoFinishTransaction" )]
+        public ActionResult Finish( TransactionRateViewModel viewModel )
         {
-            return null;
+            var response = this.TransactionService.FinishTransaction( viewModel.TransactionId, viewModel.Score );
+            if(response.Status == ValidationStatus.Failed)
+            {
+                return this.RedirectToAction( "Error", "Home" );
+            }
+
+            return this.RedirectToAction( "Lending" );
         }
+
 
         [HttpGet]
+        [Route( template: "Transactions/{transactionId}/Rate", Name = "RateUser" )]
         public ActionResult Rate( long? transactionId)
         {
-            return null;
+            if ( transactionId == null )
+            {
+                return this.RedirectToAction( "Error", "Home" );
+            }
+
+            var viewmodel = new TransactionRateViewModel
+            {
+                TransactionId = transactionId.Value
+            };
+
+            return this.View( viewmodel );
         }
 
         [HttpPost]
-        public ActionResult Rate( TransactionViewModel viewModel )
+        [Route( template: "Transactions/Rate", Name = "DoRateUser" )]
+        public ActionResult Rate( TransactionRateViewModel viewModel )
         {
-            return null;
+            var response = this.TransactionService.RateLender( viewModel.TransactionId, viewModel.Score );
+            if ( response.Status == ValidationStatus.Failed )
+            {
+                return this.RedirectToAction( "Error", "Home" );
+            }
+
+            return this.RedirectToAction( "Borrowing" );
         }
     }
 }

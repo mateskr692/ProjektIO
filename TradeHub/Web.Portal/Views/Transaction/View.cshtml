@@ -1,7 +1,38 @@
-﻿
-@{
-    ViewBag.Title = "View";
-}
+﻿@model TransactionViewModel
 
-<h2>View</h2>
+<div class="site-content subpage">
 
+    <div>
+        <h5>@Html.LabelFor( m => m.BorrowerComment )</h5>
+        <h7>@Html.DisplayFor( m => m.BorrowerComment )</h7>
+    </div>
+
+    <hr />
+
+    <div>
+        <h5>@Html.LabelFor( m => m.LenderComment )</h5>
+        <h7>@Html.DisplayFor( m => m.LenderComment )</h7>
+    </div>
+
+    <hr />
+
+    <div>
+        <h5>@Html.LabelFor( m => m.StartDate )</h5>
+        <h7>@Html.DisplayFor( m => m.StartDate )</h7>
+    </div>
+
+    <hr />
+
+    <div>
+        <h5>@Html.LabelFor( m => m.FinishDate )</h5>
+        <h7>@Html.DisplayFor( m => m.FinishDate )</h7>
+    </div>
+
+    <hr />
+
+    <div>
+        <h5>@Html.LabelFor( m => m.StartLocation )</h5>
+        <h7>@Html.DisplayFor( m => m.StartLocation )</h7>
+    </div>
+
+</div>

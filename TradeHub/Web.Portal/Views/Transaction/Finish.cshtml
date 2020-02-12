@@ -1,0 +1,24 @@
+﻿@model TransactionRateViewModel
+
+<div class="site-content subpage">
+
+    @using ( Html.BeginRouteForm( routeName: "DoFinishTransaction",
+                                 method: FormMethod.Post ) )
+    {
+        <h3>Please rate user on Scale from -5 to 5</h3>
+
+        <div>
+            <h5>@Html.LabelFor( m => m.Score )</h5>
+            <h7>@Html.TextBoxFor( m => m.Score )</h7>
+        </div>
+
+        @Html.HiddenFor( m => m.TransactionId )
+
+        <button type="submit">Rate and finish</button>
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render( "~/bundles/jqueryval" )
+}

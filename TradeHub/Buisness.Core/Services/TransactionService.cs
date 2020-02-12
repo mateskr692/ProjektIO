@@ -64,24 +64,29 @@ namespace Buisness.Core.Services
             }
         }
 
-        public WResult FinishTransaction(TransactionModel transactionModel)
+        public WResult FinishTransaction(long transactionId, int score)
         {
             using ( var uow = new UnitOfWork() )
             {
-                if(transactionModel == null)
-                {
-                    return new WResult( ValidationStatus.Failed, "Invalid transaction" );
-                }
-
-                var transaction = uow.Transactions.GetById( transactionModel.Id );
+                var transaction = uow.Transactions.GetById( transactionId );
                 if(transaction == null)
                 {
                     return new WResult( ValidationStatus.Failed, "Trnasaction does not exist and cant be finished" );
                 }
 
-                TransactionMapper.Default.Map( transactionModel, transaction );
                 transaction.IsFinished = true;
                 transaction.FinishDate = DateTime.Now;
+                transaction.LenderOpinion = score;
+
+                var lenderTool = uow.Tools.GetById( transaction.LenderToolId.Value );
+                lenderTool.Availability = true;
+
+                if ( transaction.BorowerToolId != null )
+                {
+                    var borrowerTool = uow.Tools.GetById( transaction.BorowerToolId.Value );
+                    borrowerTool.Availability = true;
+                }
+
                 uow.Complete();
             }
 
@@ -112,5 +117,22 @@ namespace Buisness.Core.Services
             }
         }
 
+
+        public WResult RateLender(long transactionId, int score )
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var transaction = uow.Transactions.GetById( transactionId );
+                if ( transaction == null )
+                {
+                    return new WResult( ValidationStatus.Failed, "Trnasaction does not exist" );
+                }
+
+                transaction.BorrowerOpinion = score;
+                uow.Complete();
+            }
+
+            return new WResult( ValidationStatus.Succeded );
+        }
     }
 }

@@ -219,6 +219,7 @@
     <Compile Include="Models\Tools\ToolInfoViewModel.cs" />
     <Compile Include="Models\Transactions\TransactionIndexViewModel.cs" />
     <Compile Include="Models\Transactions\TransactionInfoViewModel.cs" />
+    <Compile Include="Models\Transactions\TransactionRateViewModel.cs" />
     <Compile Include="Models\Transactions\TransactionViewModel.cs" />
     <Compile Include="Models\Users\UserIndexViewModel.cs" />
     <Compile Include="Models\Users\UserInfoViewModel.cs" />
@@ -275,6 +276,8 @@
     <Content Include="Views\Offert\Accept.cshtml" />
     <Content Include="Views\Transaction\Lending.cshtml" />
     <Content Include="Views\Transaction\Borrowing.cshtml" />
+    <Content Include="Views\Transaction\Finish.cshtml" />
+    <Content Include="Views\Transaction\Rate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
