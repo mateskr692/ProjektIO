@@ -33,7 +33,7 @@ namespace Data.DAL
         public override IDictionary<long, string> GetFilteredDictionary( ToolFilters filters )
         {
             IQueryable<Tool> tools = this.dbSet;
-            var toolsDictionary = new Dictionary<long, string>();
+            var messagesDictionary = new Dictionary<long, string>();
 
             if ( filters != null )
             {
@@ -58,10 +58,10 @@ namespace Data.DAL
             
             foreach ( var tool in tools )
             {
-                toolsDictionary.Add( tool.Id, tool.Name );
+                messagesDictionary.Add( tool.Id, tool.Name );
             }
 
-            return toolsDictionary;
+            return messagesDictionary;
         }
 
 
@@ -159,12 +159,14 @@ namespace Data.DAL
                         tools = filters.Order == SortingOrder.Ascending ? tools.OrderBy(it => it.Availability) : tools.OrderByDescending(it => it.Availability);
                         break;
                 }
+
+                //Paginations
+                return tools.Skip( filters.PageSize * ( filters.PageNumber - 1 ) )
+                               .Take( filters.PageSize )
+                               .AsEnumerable();
             }
 
-            //Paginations
-            return tools.Skip(filters.PageSize * (filters.PageNumber - 1))
-                           .Take(filters.PageSize)
-                           .AsEnumerable();
+            return tools;
         }
     }
 }

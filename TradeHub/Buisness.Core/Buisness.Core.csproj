@@ -54,14 +54,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappers\CommunitiesMapper.cs" />
+    <Compile Include="Mappers\OffertMapper.cs" />
     <Compile Include="Mappers\RequestMapper.cs" />
     <Compile Include="Mappers\ToolsMapper.cs" />
+    <Compile Include="Mappers\TransactionMapper.cs" />
     <Compile Include="Mappers\UsersMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\CommunityService.cs" />
+    <Compile Include="Services\OffertService.cs" />
     <Compile Include="Services\RequestService.cs" />
     <Compile Include="Services\ToolService.cs" />
+    <Compile Include="Services\TransactionService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

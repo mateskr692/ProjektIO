@@ -1,0 +1,59 @@
+﻿@model OffertIndexViewModel
+
+<div class="page-title" style="margin-top:7%;">
+    <h2 style="color: white;">
+        Offerts you have Recieved
+    </h2>
+</div>
+
+<div class="site-content subpage">
+
+    @if ( Model.Offerts.Count == 0 )
+    {
+        <h1>You have no new Trade Offerts</h1>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Recieved From</th>
+                    <th>Requested Tool</th>
+                    <th>Offered Tool</th>
+
+                    <th width="200"></th>
+                    <th width="200"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ( var offet in Model.Offerts )
+                {
+                    <tr>
+                        <td>@offet.SenderName</td>
+                        <td>@offet.ReceiverToolName</td>
+                        <td>@offet.SenderToolName</td>
+
+                        <td>
+                            @using ( Html.BeginRouteForm( routeName: "AcceptOffert",
+                                                          routeValues: new { offertId = offet.Id },
+                                                          method: FormMethod.Get ) )
+                            {
+                                <button type="submit">Accept</button>
+                            }
+                        </td>
+
+                        <td>
+                            @using ( Html.BeginRouteForm( routeName: "DeclineOffert",
+                                                          routeValues: new { offertId = offet.Id },
+                                                          method: FormMethod.Post ) )
+                            {
+                                <button type="submit">Decline</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

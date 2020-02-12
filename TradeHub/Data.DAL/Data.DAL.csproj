@@ -94,10 +94,12 @@
     <Compile Include="Relationships\User.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\CommunityRepository.cs" />
+    <Compile Include="Repositories\OffertRepository.cs" />
     <Compile Include="Repositories\RequestRepository.cs" />
     <Compile Include="Repositories\ToolPictureRepository.cs" />
     <Compile Include="Repositories\ToolRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
+    <Compile Include="Repositories\TransactionRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Request.cs">
       <DependentUpon>DbModel.tt</DependentUpon>

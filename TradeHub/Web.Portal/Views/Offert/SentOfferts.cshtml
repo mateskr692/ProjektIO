@@ -1,0 +1,39 @@
+﻿@model OffertIndexViewModel
+
+<div class="page-title" style="margin-top:7%;">
+    <h2 style="color: white;">
+        Offerts you have Sent
+    </h2>
+</div>
+
+<div class="site-content subpage">
+
+    @if ( Model.Offerts.Count == 0 )
+    {
+        <h1>You have no outcoming Offerts</h1>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Send To</th>
+                    <th>Tool Name</th>
+                    <th>Offered tool</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ( var offet in Model.Offerts )
+                {
+                    <tr>
+                        <td>@offet.RecieverName</td>
+                        <td>@offet.ReceiverToolName</td>
+                        <td>@offet.SenderToolName</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

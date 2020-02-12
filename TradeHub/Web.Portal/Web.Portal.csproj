@@ -188,14 +188,18 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Code\AppUser.cs" />
     <Compile Include="Code\AppViewPage.cs" />
-    <Compile Include="Code\CommunitiesMapper.cs" />
-    <Compile Include="Code\RequestsMapper.cs" />
-    <Compile Include="Code\ToolsMapper.cs" />
-    <Compile Include="Code\UsersMapper.cs" />
+    <Compile Include="Code\Mappers\CommunitiesMapper.cs" />
+    <Compile Include="Code\Mappers\OffertMapper.cs" />
+    <Compile Include="Code\Mappers\RequestsMapper.cs" />
+    <Compile Include="Code\Mappers\ToolsMapper.cs" />
+    <Compile Include="Code\Mappers\TransactionMapper.cs" />
+    <Compile Include="Code\Mappers\UsersMapper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommunityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OffertController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -203,11 +207,19 @@
     <Compile Include="Models\Communities\CommunityIndexViewModel.cs" />
     <Compile Include="Models\Communities\CommunityInfoViewModel.cs" />
     <Compile Include="Models\Communities\CommunityViewModel.cs" />
+    <Compile Include="Models\Offerts\OffertAcceptViewModel.cs" />
+    <Compile Include="Models\Offerts\OffertCreateViewModel.cs" />
+    <Compile Include="Models\Offerts\OffertIndexViewModel.cs" />
+    <Compile Include="Models\Offerts\OffertInfoViewModel.cs" />
+    <Compile Include="Models\Offerts\OffertViewModel.cs" />
     <Compile Include="Models\Requests\RequestIndexViewModel.cs" />
     <Compile Include="Models\Requests\RequestInfoViewModel.cs" />
     <Compile Include="Models\Tools\ToolPictureViewModel.cs" />
     <Compile Include="Models\Tools\ToolIndexViewModel.cs" />
     <Compile Include="Models\Tools\ToolInfoViewModel.cs" />
+    <Compile Include="Models\Transactions\TransactionIndexViewModel.cs" />
+    <Compile Include="Models\Transactions\TransactionInfoViewModel.cs" />
+    <Compile Include="Models\Transactions\TransactionViewModel.cs" />
     <Compile Include="Models\Users\UserIndexViewModel.cs" />
     <Compile Include="Models\Users\UserInfoViewModel.cs" />
     <Compile Include="Models\Users\UserLoginViewModel.cs" />
@@ -255,6 +267,14 @@
     <Content Include="Views\Community\ViewTool.cshtml" />
     <Content Include="Views\User\Invitations.cshtml" />
     <Content Include="Views\Community\Requests.cshtml" />
+    <Content Include="Views\Offert\Create.cshtml" />
+    <Content Include="Views\Offert\OffertSuccess.cshtml" />
+    <Content Include="Views\Offert\RecievedOfferts.cshtml" />
+    <Content Include="Views\Offert\SentOfferts.cshtml" />
+    <Content Include="Views\Transaction\View.cshtml" />
+    <Content Include="Views\Offert\Accept.cshtml" />
+    <Content Include="Views\Transaction\Lending.cshtml" />
+    <Content Include="Views\Transaction\Borrowing.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

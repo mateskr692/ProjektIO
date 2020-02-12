@@ -1,5 +1,5 @@
 ﻿<ul class="list-unstyled ml-0">
-    @if (CurrentUser.Identity.IsAuthenticated)
+    @if ( CurrentUser.Identity.IsAuthenticated )
     {
         <li>
             <a href="@Url.RouteUrl( "UserTools" )" class="menu-button button bg-dark radius">
@@ -24,13 +24,21 @@
             </a>
         </li>
 
-        @*<li>
-            <a href="@Url.RouteUrl( "UserCommunities" )" class="menu-button button bg-dark radius">
+        <li>
+            <a href="@Url.RouteUrl( "SentOfferts" )" class="menu-button button bg-dark radius">
                 <label class="text-white h-100 align-items-center d-flex justify-content-center">
-                    New Button 2
+                    Sent Offerts
                 </label>
             </a>
-        </li>*@
+        </li>
+
+        <li>
+            <a href="@Url.RouteUrl( "RecievedOfferts" )" class="menu-button button bg-dark radius">
+                <label class="text-white h-100 align-items-center d-flex justify-content-center">
+                    Recieved Offerts
+                </label>
+            </a>
+        </li>
     }
     <br />
     <hr />

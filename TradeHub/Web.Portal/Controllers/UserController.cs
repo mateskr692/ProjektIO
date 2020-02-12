@@ -21,7 +21,7 @@ namespace Web.Portal.Controllers
         private CommunityService CommunityService = new CommunityService();
         private ToolService ToolService = new ToolService();
         private RequestService RequestService = new RequestService();
-
+        private TransactionService TransactionService = new TransactionService();
 
 
         //both Get when going first time and POST when submitting filters
@@ -46,7 +46,10 @@ namespace Web.Portal.Controllers
                 //narazie tylko powrot do przegladania, trzeba by dodac jakiegos modala z info ze cos poszlo nie tak
                 return this.Redirect( this.Url.Action() );
             }
-            
+
+            this.ViewData[ "totalOpinion" ] = this.TransactionService.GetUserTotalOpinion(this.CurrentUser.Id);
+            this.ViewData[ "averageOpinion" ] = this.TransactionService.GetUserAverageOpinion( this.CurrentUser.Id );
+
             return this.View( UsersMapper.Default.Map<UserViewModel>( response.Data ) );
         }
 

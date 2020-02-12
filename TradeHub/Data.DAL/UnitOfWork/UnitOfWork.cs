@@ -14,6 +14,8 @@ namespace Data.DAL
         public ToolRepository Tools { get; }
         public RequestRepository Requests { get; }
         public ToolPictureRepository ToolPictures { get; }
+        public OffertRepository Offerts { get; }
+        public TransactionRepository Transactions { get; }
 
         public UnitOfWork()
         {
@@ -25,6 +27,8 @@ namespace Data.DAL
             this.Tools = new ToolRepository( this.Context );
             this.Requests = new RequestRepository( this.Context );
             this.ToolPictures = new ToolPictureRepository( this.Context );
+            this.Offerts = new OffertRepository( this.Context );
+            this.Transactions = new TransactionRepository( this.Context );
         }
 
         public int Complete()

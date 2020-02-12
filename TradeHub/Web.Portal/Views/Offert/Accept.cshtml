@@ -1,0 +1,56 @@
+﻿@model OffertAcceptViewModel
+
+<div class="site-content subpage">
+
+    <div>
+        @Html.LabelFor( m => m.Offert.Comment, "attached comment" )
+        @Html.DisplayTextFor( m => m.Offert.Comment)
+    </div>
+
+    <br />
+    <br />
+
+    @using ( Html.BeginRouteForm( routeName: "DoAcceptOffert",
+                                  method: FormMethod.Post ) )
+    {
+        <div>
+            @Html.LabelFor( m => m.Transaction.LenderComment, "Add Comment" )
+            @Html.TextAreaFor( m => m.Transaction.LenderComment )
+        </div>
+
+        <div>
+            @Html.LabelFor( m => m.Transaction.FinishDate, "Lend untill" )
+            @Html.TextBoxFor( m => m.Transaction.FinishDate, "{0:yyyy'-'MM'-'dd'T'HH':'mm}", new { @type = "datetime-local" } )
+        </div>
+
+        <div>
+            @Html.LabelFor( m => m.Transaction.StartLocation, "Meeting Place" )
+            @Html.TextAreaFor( m => m.Transaction.StartLocation )
+        </div>
+
+        <div>
+            @*acceptModel.Transaction.IsFinished = false;
+        acceptModel.Transaction.BorowerId = acceptModel.Offert.SenderId;
+        acceptModel.Transaction.LenderId = acceptModel.Offert.ReceiverId;
+        acceptModel.Transaction.BorowerToolId = acceptModel.Offert.SenderToolId;
+        acceptModel.Transaction.LenderToolId = acceptModel.Offert.ReceiverToolId;
+        acceptModel.Transaction.StartDate = DateTime.Now;
+        acceptModel.Transaction.BorrowerComment = acceptModel.Offert.Comment;
+        acceptModel.Transaction.FinishDate = acceptModel.Offert.ProposedReturn;*@
+
+
+            @Html.HiddenFor( m => m.Offert.Id )
+
+            @Html.HiddenFor( m => m.Transaction.IsFinished )
+            @Html.HiddenFor( m => m.Transaction.BorowerId )
+            @Html.HiddenFor( m => m.Transaction.LenderId )
+            @Html.HiddenFor( m => m.Transaction.BorowerToolId )
+            @Html.HiddenFor( m => m.Transaction.LenderToolId )
+            @Html.HiddenFor( m => m.Transaction.StartDate )
+            @Html.HiddenFor( m => m.Transaction.BorrowerComment )
+
+        </div>
+
+        <button type="submit">Accept Offert</button>
+    }
+</div>

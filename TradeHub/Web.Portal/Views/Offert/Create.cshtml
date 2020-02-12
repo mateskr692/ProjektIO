@@ -1,0 +1,36 @@
+﻿@model OffertCreateViewModel
+
+<div class="site-content subpage">
+
+    @using ( Html.BeginRouteForm( routeName: "DoCreateOffert",
+                                      method: FormMethod.Post ) )
+    {
+        <div>
+            @Html.LabelFor( m => m.OffertModel.ProposedReturn )
+            @Html.TextBoxFor( m => m.OffertModel.ProposedReturn, "{0:yyyy'-'MM'-'dd'T'HH':'mm}", new { @type = "datetime-local" } )
+        </div>
+
+        <div>
+            @Html.LabelFor( m => m.OffertModel.Comment )
+            @Html.TextAreaFor( m => m.OffertModel.Comment )
+        </div>
+
+        <div>
+            @Html.LabelFor( m => m.OFfertsSendersTool, "Do you want to offer one of your tools in exchange?" )
+            @Html.CheckBoxFor( m => m.OFfertsSendersTool )
+        </div>
+
+        <div>
+            @Html.LabelFor( m => m.OffertModel.SenderToolId, "Select one of your tools")
+            @Html.DropDownListFor( m => m.OffertModel.SenderToolId, Model.SelectListItems)
+        </div>
+
+        <div>
+            @Html.HiddenFor( m => m.OffertModel.ReceiverId )
+            @Html.HiddenFor( m => m.OffertModel.SenderId )
+            @Html.HiddenFor( m => m.OffertModel.ReceiverToolId )
+        </div>
+
+        <button type="submit">Create Offert</button>
+    }
+</div>

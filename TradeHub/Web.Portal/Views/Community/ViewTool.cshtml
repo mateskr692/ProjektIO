@@ -13,8 +13,8 @@
 
     @if ( Model.UserId != CurrentUser.Id )
     {
-        using ( Html.BeginRouteForm( routeName: "",
-                                 routeValues: new { },
+        using ( Html.BeginRouteForm( routeName: "User",
+                                 routeValues: new { userId = Model.UserId },
                                  method: FormMethod.Get ) )
         {
             <button type="submit">View User Profile</button>
@@ -23,8 +23,12 @@
 
         if ( Model.Avaibility == Common.Enums.AvailabilityType.Available )
         {
-            @* TODO *@
-            <button>Offer to trade</button>
+            using ( Html.BeginRouteForm( routeName: "CreateOffert",
+                                        routeValues: new { recievierUserId = Model.UserId, toolId = Model.Id },
+                                        method: FormMethod.Get ) )
+            {
+                <button type="submit">Create trade offert</button>
+            }
         }
         else
         {

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Filters.Sorting_Enums
+namespace Common.Filters
 {
     public enum OffertSorting
     {
-
+        ProposedReturn,
+        Comment
     }
 }

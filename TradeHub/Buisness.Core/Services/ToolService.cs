@@ -187,5 +187,22 @@ namespace Buisness.Core.Services
                 return new WResult<ToolPictureModel>( ValidationStatus.Succeded, errors: null, data: ToolsMapper.Default.Map<ToolPictureModel>( toolPicture ) );
             }
         }
+
+        public WResult<IDictionary<long, string>> GetUserToolsDictionary(long userId)
+        {
+            using ( var uow = new UnitOfWork() )
+            {
+                var tools = uow.Tools.GetUserPage(new ToolFilters(), userId);
+                var toolsDictionary = new Dictionary<long, string>();
+
+                foreach (var tool in tools)
+                {
+                    toolsDictionary.Add( tool.Id, tool.Name );
+                }
+                
+                uow.Complete();
+                return new WResult<IDictionary<long, string>>( ValidationStatus.Succeded, errors: null, data: toolsDictionary );
+            }
+        }
     }
 }
