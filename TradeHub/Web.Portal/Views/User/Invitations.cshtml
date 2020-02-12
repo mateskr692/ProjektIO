@@ -18,8 +18,8 @@
             <thead>
                 <tr>
                     <th><h4>Community Name</h4>
-                    <th width="50%"></th>
-                    <th width="50%"></th>
+                    <th width="20%"></th>
+                    <th width="20%"></th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +32,7 @@
                                                           routeValues: new { requestId = invitation.Id },
                                                           method: FormMethod.Post ) )
                             {
-                                <button type="submit">Accept</button>
+                                <button class="menu-button button bg-dark radius" type="submit">Accept</button>
                             }
                         </td>
                         <td>
@@ -40,7 +40,7 @@
                                                          routeValues: new { requestId = invitation.Id },
                                                          method: FormMethod.Post ) )
                             {
-                                <button type="submit">Accept</button>
+                                <button class="menu-button button bg-dark radius" type="submit">Decline</button>
                             }
 
                         </td>

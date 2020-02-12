@@ -69,7 +69,7 @@
             <br />
         }
 
-        @if (Model.Id == CurrentUser.Id)
+        @*@if (Model.Id == CurrentUser.Id)
         {
             using (Html.BeginRouteForm(routeName: "EditUser",
                                           method: FormMethod.Get))
@@ -85,7 +85,7 @@
             {
                 <button type="submit" class="menu-button button bg-dark radius" style="width: 30%;">Invite user to Community</button>
             }
-        }
+        }*@
 
 
     </div>
@@ -99,9 +99,7 @@
                                              method: FormMethod.Get ) )
                 {
                     <button type="submit" class="menu-button button bg-dark radius">
-                        <label class="text-white h-100 align-items-center d-flex justify-content-center">
                             Edit your profile
-                        </label>
                     </button>
                 }
             }
@@ -112,9 +110,7 @@
                                             routeValues: new { userId = Model.Id } ) )
                 {
                     <button type="submit" class="menu-button button bg-dark radius">
-                        <label class="text-white h-100 align-items-center d-flex justify-content-center">
                             Invite to Community
-                        </label>
                     </button>
                 }
             }
